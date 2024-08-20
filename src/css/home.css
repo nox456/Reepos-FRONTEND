@@ -1,0 +1,94 @@
+:root {
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1em;
+    height: 8vh;
+    box-shadow: var(--container-shadow);
+    #title {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 0.5em;
+        user-select: none;
+        font-size: .9em;
+        div {
+            border: 2px solid var(--border-primary-color);
+            padding: 0.5em;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    }
+}
+section#content {
+    background-image: url("../resources/images/home.jpg");
+    height: 92vh;
+    position: relative;
+    user-select: none;
+    z-index: -1;
+    div {
+        display: flex;
+        align-items: start;
+        justify-content: center;
+        flex-direction: column;
+        gap: 1em;
+        width: 70%;
+        height: 100%;
+        padding: 9em 6em;
+        background-image: linear-gradient(
+            to right,
+            var(--bg-color) 30%,
+            transparent 100%
+        );
+        p {
+            font-size: 2em;
+            max-width: 80%;
+        }
+        h2 {
+            font-size: 3em;
+        }
+    }
+}
+hr#divisor {
+    border-color: var(--link-bg-color);
+    background-color: var(--link-bg-color);
+    border-width: 2px;
+    height: .3em;
+}
+section#details {
+    display: flex;
+    padding: 4em;
+    flex-wrap: wrap;
+    justify-content: center;
+    user-select: none;
+    gap: 3em;
+    article {
+        width: 20%;
+        height: 40%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        gap: 2em;
+        div {
+            border: 2px solid var(--link-bg-color);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 1em;
+            svg {
+                width: 3em;
+                height: 3em;
+            }
+        }
+        p {
+            text-align: center;
+        }
+    }
+}
