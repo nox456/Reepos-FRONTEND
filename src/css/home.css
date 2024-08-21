@@ -8,6 +8,8 @@ header {
     padding: 1em;
     height: 8vh;
     box-shadow: var(--container-shadow);
+    position: relative;
+    z-index: 2;
     #title {
         display: flex;
         justify-content: center;
@@ -29,8 +31,7 @@ section#content {
     background-image: url("../resources/images/home.jpg");
     height: 92vh;
     position: relative;
-    user-select: none;
-    z-index: -1;
+    z-index: 1;
     div {
         display: flex;
         align-items: start;
