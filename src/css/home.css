@@ -55,6 +55,21 @@ section#content {
         }
     }
 }
+@media screen and (max-width: 640px) {
+    section#content {
+        background-position: -50em;
+        div {
+            width: 100%;
+            background: none;
+            padding: 9em 0;
+            align-items: center;
+            background-color: #0009;
+            h2 {
+                font-size: 2em;
+            }
+        }
+    }
+}
 hr#divisor {
     border-color: var(--link-bg-color);
     background-color: var(--link-bg-color);
@@ -90,6 +105,15 @@ section#details {
         }
         p {
             text-align: center;
+        }
+    }
+}
+@media screen and (max-width: 640px) {
+    section#details {
+        gap: 1em;
+        padding: 4em 0;
+        article {
+            width: 40%;
         }
     }
 }

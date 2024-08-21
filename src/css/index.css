@@ -30,6 +30,11 @@ body {
     font-family: "Ubuntu-Regular",sans-serif;
     font-style: normal;
 }
+@media screen and (max-width: 640px) {
+    body {
+        font-size: .80em;
+    }
+}
 svg {
     fill: currentColor;
     color: var(--text-primary-color);
@@ -75,6 +80,15 @@ footer {
             height: 2em;
             border-radius: 50%;
             object-fit: cover;
+        }
+    }
+}
+@media screen and (max-width: 640px) {
+    footer {
+        flex-direction: column;
+        padding: .5em 0;
+        p:nth-child(2) {
+            order: -1;
         }
     }
 }
