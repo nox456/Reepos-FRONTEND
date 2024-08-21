@@ -14,3 +14,6 @@ siguiendo la arquitectura **MPA** (**M**ultiple **P**age **A**pplication) y usan
 
 ### Escritorio
 ![Desktop](docs/home_desktop.png)
+
+### Móvil
+![Mobile](docs/home_mobile.png)
