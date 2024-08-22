@@ -1,8 +1,7 @@
 import fetchServer from "./lib/fetch.js";
 
 const $form = document.querySelector("form");
-const $username = $form.querySelector("#username");
-const $password = $form.querySelector("#password");
+const $username = $form.querySelector("#username"); const $password = $form.querySelector("#password");
 
 const pageName = location.pathname.slice(
     location.pathname.lastIndexOf("/") + 1,
