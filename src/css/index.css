@@ -14,18 +14,22 @@
 }
 
 :root {
-    --bg-color: #2e2f37;
+    --bg-primary-color: #2e2f37;
     --text-primary-color: #FFF;
     --border-primary-color: #AAA;
     --link-border-radius: .5em;
-    --link-bg-color: #08F;
+    --bg-secondary-color: #08F;
     --link-bg-hovered-color: #06F;
     --link-text-color: #999;
     --container-shadow: 2px 5px 1.3em #000;
+    --container-border-radius: .8em;
+    --input-border-radius: .4em;
+    --input-text-color: #AAA;
+    --error-color: #D20;
 }
 
 body {
-    background-color: var(--bg-color);
+    background-color: var(--bg-primary-color);
     color: var(--text-primary-color);
     font-family: "Ubuntu-Regular",sans-serif;
     font-style: normal;
@@ -49,11 +53,37 @@ a.link {
     border: 2px solid var(--border-primary-color);
     padding: .8em;
     border-radius: var(--link-border-radius);
-    background-color: var(--link-bg-color);
+    background-color: var(--bg-secondary-color);
     font-weight: bold;
     transition: background-color 100ms;
     &:hover {
         background-color: var(--link-bg-hovered-color);
+    }
+}
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1em;
+    height: 8vh;
+    box-shadow: var(--container-shadow);
+    position: relative;
+    z-index: 2;
+    #title {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 0.5em;
+        user-select: none;
+        font-size: .9em;
+        div {
+            border: 2px solid var(--border-primary-color);
+            padding: 0.5em;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
     }
 }
 footer {
@@ -64,7 +94,7 @@ footer {
     align-items: center;
     justify-content: space-between;
     p a {
-        color: var(--link-bg-color);
+        color: var(--bg-secondary-color);
     }
     p:nth-child(2) {
         display: flex;
@@ -81,6 +111,41 @@ footer {
             border-radius: 50%;
             object-fit: cover;
         }
+    }
+}
+input[type=text],
+input[type=password] {
+    background-color: transparent;
+    border: 2px solid var(--border-primary-color);
+    border-radius: var(--input-border-radius);
+    outline: none;
+    padding: .5em;
+    color: var(--input-text-color);
+    user-select: none;
+    transition: border-color 200ms;
+    &:focus {
+        border-color: var(--text-primary-color);
+    }
+}
+@media screen and (max-width: 640px) {
+    input[type=text],
+    input[type=password] {
+        padding: .8em;
+        font-size: 1.2em;
+    }
+}
+button[type=submit] {
+    padding: .8em;
+    background-color: var(--bg-secondary-color);
+    border-radius: var(--link-border-radius);
+    color: var(--text-primary-color);
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    outline: none;
+    transition: background-color 100ms;
+    &:hover {
+        background-color: var(--link-bg-hovered-color);
     }
 }
 @media screen and (max-width: 640px) {
