@@ -22,11 +22,13 @@ main {
             background-color: var(--bg-primary-color);
             padding: 1em 5em;
             height: 40%;
+            width: 30%;
             gap: 1em;
-            div#error-message {
+            #error-message {
                 color: var(--error-color);
                 font-weight: bold;
                 font-size: 1.1em;
+                height: 2.2em;
             }
             form {
                 display: flex;
@@ -34,8 +36,11 @@ main {
                 gap: 1em;
                 width: 110%;
             }
-            p a {
-                color: var(--bg-secondary-color);
+            p {
+                text-align: center;
+                a {
+                    color: var(--bg-secondary-color);
+                }
             }
         }
     }
@@ -48,6 +53,7 @@ main {
         section {
             height: 60%;
             padding: 1em 3em;
+            width: 80%;
             p {
                 font-size: 1.2em;
             }
