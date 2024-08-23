@@ -26,6 +26,7 @@
     --input-border-radius: .4em;
     --input-text-color: #AAA;
     --error-color: #D20;
+    --dialog-bg-color: #25262c;
 }
 
 body {
@@ -58,6 +59,9 @@ a.link {
     transition: background-color 100ms;
     &:hover {
         background-color: var(--link-bg-hovered-color);
+    }
+    &:focus {
+        outline: none;
     }
 }
 header {
@@ -155,5 +159,25 @@ button[type=submit] {
         p:nth-child(2) {
             order: -1;
         }
+    }
+}
+
+dialog {
+    margin: auto;
+    padding: 2em;
+    display: flex;
+    color: var(--text-primary-color);
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-width: 2px;
+    border-color: var(--border-primary-color);
+    border-radius: var(--container-border-radius);
+    background-color: var(--dialog-bg-color);
+    gap: .5em;
+    user-select: none;
+    p {
+        font-weight: bold;
+        font-size: 1.1em;
     }
 }

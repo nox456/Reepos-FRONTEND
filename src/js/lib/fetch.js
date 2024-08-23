@@ -24,9 +24,9 @@ export default async function fetchServer(endpoint, options) {
     const res = await fetch(`${SERVER_HOST}${endpoint}`, {
         method,
         headers:
-            method == "GET" ? null : { "Content-Type": "application/json" },
+            method == "GET" ? undefined : { "Content-Type": "application/json" },
         credentials: cookies ? "include" : "omit",
-        body: JSON.stringify(body)
+        body: method == "GET" ? undefined : JSON.stringify(body)
     });
     const result = await res.json()
     return {
