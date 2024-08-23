@@ -12,3 +12,6 @@ if (res.code != 200) {
         href: "../pages/signin.html",
     });
 }
+
+const user = res.result.data
+export default user

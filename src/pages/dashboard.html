@@ -10,6 +10,66 @@
     <title>Dashboard - Reepos</title>
 </head>
 <body>
+    <header>
+        <div id="title">
+            <div>
+                <svg viewBox="0 0 24 24">
+                    <path
+                        d="m21.706 5.291-2.999-2.998A.996.996 0 0 0 18 2H6a.996.996 0 0 0-.707.293L2.294 5.291A.994.994 0 0 0 2 5.999V19c0 1.103.897 2 2 2h16c1.103 0 2-.897 2-2V5.999a.994.994 0 0 0-.294-.708zM6.414 4h11.172l.999.999H5.415L6.414 4zM4 19V6.999h16L20.002 19H4z"
+                    ></path>
+                    <path d="M15 12H9v-2H7v4h10v-4h-2z"></path>
+                </svg>
+            </div>
+            <h1><a href="./dashboard.html">Dashboard</a></h1>
+        </div>
+        <form>
+            <input type="text" placeholder="Explora repositorios...">
+            <select>
+                <option value="repositories" selected>Repositorios</option>
+                <option value="users">Usuarios</option>
+            </select>
+        </form>
+        <div>
+            <a href="">
+                <img src="" alt="Imagen de ususario">
+            </a>
+        </div>
+    </header>
+    <main>
+        <form>
+            <input type="text" placeholder="Busca tus repositorios...">
+            <select id="date">
+                <option selected hidden>Fecha de Creación</option>
+                <option value="new">Más recientes</option>
+                <option value="old">Más antiguos</option>
+            </select>
+            <select id="likes">
+                <option selected hidden>Popularidad</option>
+                <option value="greater">Más me gusta</option>
+                <option value="less">Menos me gusta</option>
+            </select>
+            <select id="languages">
+                <option selected hidden>Lenguajes</option>
+            </select>
+            <a href="./create_repository.html" class="link">Nuevo Repositorio</a>
+        </form>
+        <section>
+        </section>
+    </main>
+    <footer>
+        <p>
+            Basado en 
+            <a href="https://github.com" target="_blank">Github</a>
+        </p>
+        <p>
+        Desarrollado por
+        <a href="https://github.com/nox456" target="_blank">
+            <img src="../resources/images/dev.jpg" alt="">
+            Nox
+        </a>
+        </p>
+    </footer>
     <script src="../js/is_authenticated.js" type="module"></script>
+    <script src="../js/dashboard.js" type="module"></script>
 </body>
 </html>

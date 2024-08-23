@@ -15,29 +15,29 @@
 
 :root {
     --bg-primary-color: #2e2f37;
-    --text-primary-color: #FFF;
-    --border-primary-color: #AAA;
-    --link-border-radius: .5em;
-    --bg-secondary-color: #08F;
-    --link-bg-hovered-color: #06F;
+    --text-primary-color: #fff;
+    --border-primary-color: #aaa;
+    --link-border-radius: 0.5em;
+    --bg-secondary-color: #08f;
+    --link-bg-hovered-color: #06f;
     --link-text-color: #999;
     --container-shadow: 2px 5px 1.3em #000;
-    --container-border-radius: .8em;
-    --input-border-radius: .4em;
-    --input-text-color: #AAA;
-    --error-color: #D20;
+    --container-border-radius: 0.8em;
+    --input-border-radius: 0.4em;
+    --input-text-color: #aaa;
+    --error-color: #d20;
     --dialog-bg-color: #25262c;
 }
 
 body {
     background-color: var(--bg-primary-color);
     color: var(--text-primary-color);
-    font-family: "Ubuntu-Regular",sans-serif;
+    font-family: "Ubuntu-Regular", sans-serif;
     font-style: normal;
 }
 @media screen and (max-width: 640px) {
     body {
-        font-size: .80em;
+        font-size: 0.8em;
     }
 }
 svg {
@@ -52,7 +52,7 @@ a {
 }
 a.link {
     border: 2px solid var(--border-primary-color);
-    padding: .8em;
+    padding: 0.8em;
     border-radius: var(--link-border-radius);
     background-color: var(--bg-secondary-color);
     font-weight: bold;
@@ -64,7 +64,7 @@ a.link {
         outline: none;
     }
 }
-header {
+body > header {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -79,7 +79,7 @@ header {
         align-items: center;
         gap: 0.5em;
         user-select: none;
-        font-size: .9em;
+        font-size: 0.9em;
         div {
             border: 2px solid var(--border-primary-color);
             padding: 0.5em;
@@ -90,7 +90,7 @@ header {
         }
     }
 }
-footer {
+body > footer {
     height: 8vh;
     padding: 1em;
     box-shadow: var(--container-shadow);
@@ -103,11 +103,11 @@ footer {
     p:nth-child(2) {
         display: flex;
         align-items: center;
-        gap: .3em;
+        gap: 0.3em;
         a {
             display: flex;
             align-items: center;
-            gap: .5em;
+            gap: 0.5em;
         }
         img {
             width: 2em;
@@ -117,13 +117,13 @@ footer {
         }
     }
 }
-input[type=text],
-input[type=password] {
+input[type="text"],
+input[type="password"] {
     background-color: transparent;
     border: 2px solid var(--border-primary-color);
     border-radius: var(--input-border-radius);
     outline: none;
-    padding: .5em;
+    padding: 0.5em;
     color: var(--input-text-color);
     user-select: none;
     transition: border-color 200ms;
@@ -132,14 +132,14 @@ input[type=password] {
     }
 }
 @media screen and (max-width: 640px) {
-    input[type=text],
-    input[type=password] {
-        padding: .8em;
+    input[type="text"],
+    input[type="password"] {
+        padding: 0.8em;
         font-size: 1.2em;
     }
 }
-button[type=submit] {
-    padding: .8em;
+button[type="submit"] {
+    padding: 0.8em;
     background-color: var(--bg-secondary-color);
     border-radius: var(--link-border-radius);
     color: var(--text-primary-color);
@@ -155,7 +155,7 @@ button[type=submit] {
 @media screen and (max-width: 640px) {
     footer {
         flex-direction: column;
-        padding: .5em 0;
+        padding: 0.5em 0;
         p:nth-child(2) {
             order: -1;
         }
@@ -174,10 +174,59 @@ dialog {
     border-color: var(--border-primary-color);
     border-radius: var(--container-border-radius);
     background-color: var(--dialog-bg-color);
-    gap: .5em;
+    gap: 0.5em;
     user-select: none;
     p {
         font-weight: bold;
         font-size: 1.1em;
+    }
+}
+
+select {
+    background-color: transparent;
+    padding: 0.5em;
+    border-radius: var(--input-border-radius);
+    color: var(--text-primary-color);
+    cursor: pointer;
+    option {
+        color: var(--text-primary-color);
+        background-color: var(--bg-primary-color);
+    }
+    &:focus {
+        outline: none;
+    }
+}
+
+header:has(form) {
+    & > div {
+        width: 25%;
+    }
+    & #title {
+        display: flex;
+        justify-content: start;
+    }
+    & > div:last-child {
+        display: flex;
+        justify-content: end;
+    }
+    & > form {
+        display: flex;
+        justify-content: center;
+        gap: 0.5em;
+        flex-grow: 1;
+    }
+    a img {
+        border-radius: 50%;
+        object-fit: cover;
+        width: 3em;
+    }
+}
+
+main > form {
+    display: flex;
+    align-items: center;
+    gap: 2em;
+    a:last-child {
+        margin-left: auto;
     }
 }
