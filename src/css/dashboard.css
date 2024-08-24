@@ -11,13 +11,15 @@ main > section {
     gap: 3em;
     flex-wrap: wrap;
     justify-content: center;
+    align-content: start;
     user-select: none;
     & > article {
         border: 2px solid var(--border-primary-color);
         border-radius: var(--container-border-radius);
         background-color: var(--dialog-bg-color);
         padding: 1em;
-        width: 25%;
+        width: 25em;
+        height: 12em;
         display: flex;
         flex-direction: column;
         gap: .5em;
@@ -33,6 +35,10 @@ main > section {
             h2 {
                 color: var(--bg-secondary-color);
             }
+            span {
+                font-size: .9em;
+                color: var(--input-text-color);
+            }
         }
         main p {
             color: var(--input-text-color);
@@ -41,6 +47,7 @@ main > section {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            margin-top: auto;
             section:nth-child(1) {
                 display: flex;
                 align-items: center;
@@ -57,7 +64,6 @@ main > section {
                 display: flex;
                 gap: .3em;
                 flex-wrap: wrap;
-                gap: 1.5em;
                 li {
                     list-style: none;
                     display: flex;
