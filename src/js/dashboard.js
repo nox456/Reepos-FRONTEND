@@ -3,17 +3,10 @@ import user from "./is_authenticated.js";
 import fetchServer from "./lib/fetch.js";
 import renderRepos from "./lib/renderRepos.js";
 import filterRepos from "./lib/filterRepos.js";
+import userImage from "./lib/userImage.js";
 
 headerSearch();
-
-const $user_link = document.querySelector("header > div:last-child > a");
-const $user_image = $user_link.querySelector("img");
-
-$user_link.href = `../pages/profile?username=${user.username}`;
-
-$user_image.src =
-    user.img == "" ? "../resources/images/default_user_image.png" : user.img;
-$user_link.classList.remove("loading")
+userImage()
 
 const res = await fetchServer(`/repositories?username=${user.username}`, {
     method: "GET",

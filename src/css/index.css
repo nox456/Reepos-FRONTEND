@@ -27,6 +27,7 @@
     --input-text-color: #aaa;
     --error-color: #d20;
     --dialog-bg-color: #25262c;
+    --main-padding: 2em;
 }
 
 body {
@@ -138,7 +139,8 @@ input[type="password"] {
         font-size: 1.2em;
     }
 }
-button[type="submit"] {
+button[type="submit"],
+input[type=file]::-webkit-file-upload-button {
     padding: 0.8em;
     background-color: var(--bg-secondary-color);
     border-radius: var(--link-border-radius);

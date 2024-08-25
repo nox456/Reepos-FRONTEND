@@ -1,0 +1,63 @@
+main {
+    display: flex;
+    height: 84vh;
+    flex-direction: column;
+    padding: var(--main-padding);
+    align-items: start;
+    gap: 1em;
+    hr {
+        width: 45%;
+        border: 2px solid var(--border-primary-color);
+        outline: none;
+        background-color: var(--border-primary-color);
+    }
+    form {
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+        gap: 1em;
+        width: 100%;
+        height: 100%;
+        input[type=text] {
+            width: 20%;
+        }
+        textarea {
+            padding: .5em;
+            border: 2px solid var(--border-primary-color);
+            border-radius: var(--container-border-radius);
+            background-color: transparent;
+            resize: none;
+            height: 8em;
+            width: 30%;
+            transition: border-color 200ms;
+            color: var(--input-text-color);
+            outline: none;
+        }
+        ul {
+            display: flex;
+            gap: .5em;
+            align-items: center;
+            width: 20%;
+            flex-wrap: wrap;
+            align-content: start;
+            input[type=checkbox] {
+                appearance: none;
+                background-color: transparent;
+                border: 1px solid var(--border-primary-color);
+                border-radius: .2em;
+                padding: .5em;
+                cursor: pointer;
+                transition: border-color 100ms;
+                &:hover {
+                    border-color: var(--text-primary-color);
+                }
+            }
+            label {
+                cursor: pointer;
+            }
+        }
+        button[type=submit] {
+            margin-top: auto;
+        }
+    }
+}
