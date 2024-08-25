@@ -6,13 +6,14 @@ import filterRepos from "./lib/filterRepos.js";
 
 headerSearch();
 
-const $user_link = document.querySelector("header > div > a");
+const $user_link = document.querySelector("header > div:last-child > a");
 const $user_image = $user_link.querySelector("img");
 
 $user_link.href = `../pages/profile?username=${user.username}`;
 
 $user_image.src =
     user.img == "" ? "../resources/images/default_user_image.png" : user.img;
+$user_link.classList.remove("loading")
 
 const res = await fetchServer(`/repositories?username=${user.username}`, {
     method: "GET",
@@ -21,6 +22,7 @@ const res = await fetchServer(`/repositories?username=${user.username}`, {
 
 const $section = document.body.querySelector("main > section")
 if (res.code != 200) {
+    $section.innerHTML = ""
     const $message = document.createElement("h1")
     $message.innerText = res.result.message
 
@@ -30,6 +32,7 @@ if (res.code != 200) {
         r.username = user.username
         return r
     })
+    $section.innerHTML = ""
     const lang_list = await renderRepos(repos)
 
     filterRepos(repos,$section,lang_list)

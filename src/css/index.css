@@ -80,7 +80,7 @@ body > header {
         gap: 0.5em;
         user-select: none;
         font-size: 0.9em;
-        div {
+        & > a {
             border: 2px solid var(--border-primary-color);
             padding: 0.5em;
             border-radius: 50%;
@@ -153,7 +153,7 @@ button[type="submit"] {
     }
 }
 @media screen and (max-width: 640px) {
-    footer {
+    body > footer {
         flex-direction: column;
         padding: 0.5em 0;
         p:nth-child(2) {
@@ -215,10 +215,20 @@ header:has(form) {
         gap: 0.5em;
         flex-grow: 1;
     }
-    a img {
+    & > div:last-child > a > img {
+        width: 3em;
         border-radius: 50%;
         object-fit: cover;
+    }
+    & > div:last-child > a.loading {
         width: 3em;
+        height: 3em;
+        border-radius: 50%;
+        border: 2px solid var(--border-primary-color);
+        background-color: var(--dialog-bg-color);
+        img {
+            display: none;
+        }
     }
 }
 
@@ -228,5 +238,32 @@ main > form {
     gap: 2em;
     a:last-child {
         margin-left: auto;
+    }
+}
+
+@media screen and (max-width: 640px) {
+    main > form {
+        flex-wrap: wrap;
+        justify-content: start;
+        gap: .5em;
+        input[type=text] {
+            padding: .3em;
+        }
+    }
+    header:has(form) {
+        #title h1 {
+            display: none;
+        }
+        & > form {
+            input[type=text] {
+                padding: .2em;
+                width: 95%;
+                font-size: .95em;
+                border-width: 1px;
+            }
+            select {
+                padding: .2em;
+            }
+        }
     }
 }

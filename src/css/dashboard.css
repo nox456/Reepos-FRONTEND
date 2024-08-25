@@ -77,7 +77,27 @@ main > section {
             }
         }
     }
-    & > article:hover {
+    & > article:not(.loading):hover {
         background-color: transparent;
+    }
+    & > article.loading {
+        header {
+            width: 50%;
+            height: 10%;
+            border-radius: var(--container-border-radius);
+            background-color: var(--bg-primary-color);
+        }
+        main {
+            width: 70%;
+            height: 10%;
+            border-radius: var(--container-border-radius);
+            background-color: var(--bg-primary-color);
+        }
+    }
+}
+
+@media screen and (max-width: 640px) {
+    main > section {
+        gap: .7em;
     }
 }

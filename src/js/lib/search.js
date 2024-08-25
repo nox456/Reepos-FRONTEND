@@ -7,7 +7,7 @@ export default function headerSearch() {
 
     $select.addEventListener("change", () => {
         const value = $select.value
-        $input.placeholder = `Explora ${value.toLowerCase()}...`
+        $input.placeholder = `Explora ${value == "repositories" ? "repositorios" : "usuarios"}...`
     })
 
     $form.addEventListener("submit", async (e) => {
