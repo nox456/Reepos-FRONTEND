@@ -56,8 +56,19 @@ main {
                 cursor: pointer;
             }
         }
+        p {
+            color: var(--error-color);
+            font-weight: bolder;
+            user-select: none;
+        }
         button[type=submit] {
             margin-top: auto;
+            &[disabled] {
+                opacity: 40%;
+                user-select: none;
+                cursor: default;
+                background-color: var(--link-bg-hovered-color);
+            }
         }
     }
 }

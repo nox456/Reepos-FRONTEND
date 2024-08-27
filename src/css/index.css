@@ -51,13 +51,16 @@ a {
     color: inherit;
     text-decoration: none;
 }
-a.link {
+a.link,
+button.link {
     border: 2px solid var(--border-primary-color);
     padding: 0.8em;
     border-radius: var(--link-border-radius);
     background-color: var(--bg-secondary-color);
     font-weight: bold;
     transition: background-color 100ms;
+    color: var(--text-primary-color);
+    cursor: pointer;
     &:hover {
         background-color: var(--link-bg-hovered-color);
     }
@@ -181,6 +184,10 @@ dialog {
     p {
         font-weight: bold;
         font-size: 1.1em;
+    }
+    &.error {
+        font-weight: bold;
+        color: var(--error-color);
     }
 }
 
