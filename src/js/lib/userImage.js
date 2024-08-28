@@ -1,5 +1,8 @@
 import user from "../is_authenticated.js";
 
+/**
+ * Render the user image with a loader
+ * */
 export default function userImage() {
     const $user_link = document.querySelector("header > div:last-child > a");
     const $user_image = $user_link.querySelector("img");

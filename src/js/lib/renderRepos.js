@@ -1,5 +1,16 @@
 import langColors from "./langColors.js";
 
+/**
+ * @typedef {Object} Repository
+ * @property {string} name - Repository name
+ * @property {string} description- Repository description
+ * @property {int} likes - Repository likes
+ * @property {string[]} languages - Repository languages
+ * */
+/**
+ * Show the repos in the view
+ * @param {Repository[]} repos - Repositories array
+ * */
 export default async function renderRepos(repos) {
     return new Promise((resolve) => {
         const $section = document.body.querySelector("main > section")

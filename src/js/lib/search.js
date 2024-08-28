@@ -1,3 +1,6 @@
+/**
+ * Change the placeholder and href of the header search input
+ * */
 export default function headerSearch() {
     const $form = document.querySelector("header form")
 
