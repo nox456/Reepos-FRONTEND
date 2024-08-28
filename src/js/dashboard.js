@@ -1,4 +1,4 @@
-import headerSearch from "./lib/search.js";
+import headerSearch from "./lib/headerSearch.js";
 import user from "./is_authenticated.js";
 import fetchServer from "./lib/fetch.js";
 import renderRepos from "./lib/renderRepos.js";
