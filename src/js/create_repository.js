@@ -71,7 +71,7 @@ $form.addEventListener("submit", async (e) => {
     );
 
     const $dialog = document.createElement("dialog");
-    $dialog.innerText = "Subiendo Archivos...";
+    $dialog.innerText = "Creando Repositorio...";
 
     document.body.insertAdjacentElement("afterbegin", $dialog);
     $dialog.showModal();
@@ -88,38 +88,94 @@ $form.addEventListener("submit", async (e) => {
 
         formData.append("file", file);
 
-        await fetchServer("/files/upload", {
+        const res = await fetchServer("/files/upload", {
             body: formData,
             method: "POST",
         });
+        if (res.code != 200) {
+            await fetchServer("/repositories/temp", {
+                body: { repoName: name },
+                method: "DELETE",
+            });
+            $dialog.innerText = res.result.message;
+
+            $dialog.classList.add("error");
+            const $button = document.createElement("button");
+            $button.classList.add("link");
+            $button.innerText = "Aceptar";
+
+            $button.addEventListener("click", () => {
+                location.reload();
+            });
+
+            $dialog.appendChild($button);
+            return;
+        }
     }
-    $dialog.innerText = "Creando Repositorio..."
-    const res = await fetchServer("/repositories/create", {
+    const res1 = await fetchServer("/repositories/create", {
         body: { repoData: { name, description, languages } },
         method: "POST",
-        cookies: true
+        cookies: true,
     });
-    if (res.code != 200) {
-        $dialog.innerText = res.result.message
+    if (res1.code != 200) {
+        await fetchServer("/repositories/temp", {
+            body: { repoName: name },
+            method: "DELETE",
+        });
+        $dialog.innerText = res1.result.message;
 
-        $dialog.classList.add("error")
-        const $button = document.createElement("button")
-        $button.classList.add("link")
-        $button.innerText = "Aceptar"
+        $dialog.classList.add("error");
+        const $button = document.createElement("button");
+        $button.classList.add("link");
+        $button.innerText = "Aceptar";
 
         $button.addEventListener("click", () => {
-            location.reload()
-        })
+            location.reload();
+        });
 
-        $dialog.appendChild($button)
-
-    } else {
-        $dialog.innerText = "Repositorio Creado!"
-        const $link = document.createElement("a")
-        $link.classList.add("link")
-
-        $link.href = "../pages/dashboard.html"
-        $link.innerText = "Dashboard"
-        $dialog.appendChild($link)
+        $dialog.appendChild($button);
+        return;
     }
+    $dialog.innerText = "Subiendo Archivos...";
+    const res2 = await fetchServer("/repositories/upload-cloud", {
+        method: "POST",
+        body: { repoName: name },
+        cookies: true,
+    });
+    if (res2.code != 200) {
+        await fetchServer("/repositories/temp", {
+            body: { repoName: name },
+            method: "DELETE",
+        });
+        await fetchServer("/repositories/db", {
+            method: "DELETE",
+            body: { repoName: name },
+            cookies: true,
+        });
+        $dialog.innerText = res2.result.message;
+
+        $dialog.classList.add("error");
+        const $button = document.createElement("button");
+        $button.classList.add("link");
+        $button.innerText = "Aceptar";
+
+        $button.addEventListener("click", () => {
+            location.reload();
+        });
+
+        $dialog.appendChild($button);
+        return;
+    }
+
+    await fetchServer("/repositories/temp", {
+        body: { repoName: name },
+        method: "DELETE",
+    });
+    $dialog.innerText = "Repositorio Creado!";
+    const $link = document.createElement("a");
+    $link.classList.add("link");
+
+    $link.href = "../pages/dashboard.html";
+    $link.innerText = "Dashboard";
+    $dialog.appendChild($link);
 });
