@@ -32,7 +32,6 @@ body > main {
             min-height: 4em;
             width: 100%;
             &.loading {
-                justify-content: space-between;
                 align-items: center;
                 & > div {
                     flex-grow: 0;
@@ -42,7 +41,7 @@ body > main {
                     background-color: var(--bg-primary-color);
                 }
             }
-            div:first-child {
+            &:not(.loading) div:first-child {
                 width: 25%;
                 display: flex;
                 align-items: center;
@@ -56,7 +55,7 @@ body > main {
                     color: var(--bg-secondary-color);
                 }
             }
-            div:nth-child(2) {
+            &:not(.loading) div:nth-child(2) {
                 display: flex;
                 align-items: center;
                 gap: .3em;
@@ -66,7 +65,7 @@ body > main {
                     font-weight: bold;
                 }
             }
-            div:last-child {
+            &:not(.loading) div:last-child {
                 display: flex;
                 align-items: center;
                 gap: .3em;
@@ -74,6 +73,37 @@ body > main {
                 justify-content: end;
                 p {
                     font-weight: bold;
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 640px) {
+    body > main {
+        flex-direction: column;
+        aside {
+            width: 100%;
+            border: none;
+            border-bottom: 2px solid var(--border-primary-color);
+            form {
+                display: flex;
+                justify-content: center;
+            }
+            hr {
+                width: 60%;
+            }
+        }
+        section {
+            width: 100%;
+            padding: 1em 0;
+            article {
+                &.loading div {
+                    height: 1em;
+                    width: 25%;
+                }
+                &:not(.loading) div:first-child img {
+                    width: 35%;
                 }
             }
         }

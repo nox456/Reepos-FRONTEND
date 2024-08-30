@@ -72,3 +72,22 @@ main {
         }
     }
 }
+
+@media screen and (max-width: 640px) {
+    main {
+        hr {
+            width: 60%;
+        }
+        form {
+            input[type=text] {
+                width: 45%;
+            }
+            textarea {
+                width: 65%;
+            }
+            ul {
+                width: 85%;
+            }
+        }
+    }
+}
