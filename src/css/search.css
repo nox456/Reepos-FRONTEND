@@ -23,6 +23,7 @@ body > main {
         padding: 1.5em;
         article {
             display: flex;
+            justify-content: space-between;
             border: 2px solid var(--border-primary-color);
             background-color: var(--dialog-bg-color);
             border-radius: var(--container-border-radius);
@@ -41,27 +42,35 @@ body > main {
                     background-color: var(--bg-primary-color);
                 }
             }
-            & > * {
-                flex-grow: 1;
+            div:first-child {
+                width: 25%;
                 display: flex;
                 align-items: center;
                 gap: .3em;
-            }
-            a { 
-                color: var(--bg-secondary-color);
                 img {
-                    width: 8%;
+                    width: 15%;
                     border-radius: 50%;
                     object-fit: cover;
                 }
+                a { 
+                    color: var(--bg-secondary-color);
+                }
             }
             div:nth-child(2) {
+                display: flex;
+                align-items: center;
+                gap: .3em;
+                flex-grow: 1;
                 justify-content: center;
                 p {
                     font-weight: bold;
                 }
             }
-            div:nth-child(3) {
+            div:last-child {
+                display: flex;
+                align-items: center;
+                gap: .3em;
+                width: 25%;
                 justify-content: end;
                 p {
                     font-weight: bold;

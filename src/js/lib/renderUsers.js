@@ -14,10 +14,10 @@ export default function renderUsers(users, $container) {
     for (const user of users) {
         const $article = document.createElement("article");
         $article.innerHTML = `
-            <a href="../../pages/profile?username=${user.username}">
+            <div>
                 <img src="${user.img == "" ? "../../resources/images/default_user_image.png" : user.img}" alt="Imagen de usuario"/>
-                <p>${user.username}</p>
-            </a>
+                <a href="../../pages/profile?username=${user.username}">${user.username}</a>
+            </div>
             <div>
                 <svg
                     viewBox="0 0 24 24"
