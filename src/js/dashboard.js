@@ -14,6 +14,7 @@ const res = await fetchServer(`/repositories?username=${user.username}`, {
 });
 
 const $section = document.body.querySelector("main > section")
+const $filtersContainer = document.querySelector("main > form")
 if (res.code != 200) {
     $section.innerHTML = ""
     const $message = document.createElement("h1")
@@ -26,7 +27,7 @@ if (res.code != 200) {
         return r
     })
     $section.innerHTML = ""
-    const lang_list = await renderRepos(repos)
+    const lang_list = await renderRepos(repos,$section)
 
-    filterRepos(repos,$section,lang_list)
+    filterRepos(repos,$section,lang_list,$filtersContainer)
 }

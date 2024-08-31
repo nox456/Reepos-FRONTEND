@@ -14,6 +14,7 @@ export default function renderUsers(users, $container) {
     return new Promise((resolve,reject) => {
         for (const user of users) {
             const $article = document.createElement("article");
+            $article.classList.add("user")
             $article.innerHTML = `
                 <div>
                     <img src="${user.img == "" ? "../../resources/images/default_user_image.png" : user.img}" alt="Imagen de usuario"/>

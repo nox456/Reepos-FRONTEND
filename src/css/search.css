@@ -13,68 +13,21 @@ body > main {
             border: none;
             border: 2px solid var(--link-text-color);
         }
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: .5em;
+        }
     }
-    section {
+    & > section {
         width: 80%;
         display: flex;
         flex-direction: column;
         align-items: center;
         gap: 1em;
         padding: 1.5em;
-        article {
-            display: flex;
-            justify-content: space-between;
-            border: 2px solid var(--border-primary-color);
-            background-color: var(--dialog-bg-color);
-            border-radius: var(--container-border-radius);
-            padding: .5em .8em;
-            user-select: none;
-            min-height: 4em;
+        article.repository {
             width: 100%;
-            &.loading {
-                align-items: center;
-                & > div {
-                    flex-grow: 0;
-                    width: 15%;
-                    height: 45%;
-                    border-radius: var(--container-border-radius);
-                    background-color: var(--bg-primary-color);
-                }
-            }
-            &:not(.loading) div:first-child {
-                width: 25%;
-                display: flex;
-                align-items: center;
-                gap: .3em;
-                img {
-                    width: 15%;
-                    border-radius: 50%;
-                    object-fit: cover;
-                }
-                a { 
-                    color: var(--bg-secondary-color);
-                }
-            }
-            &:not(.loading) div:nth-child(2) {
-                display: flex;
-                align-items: center;
-                gap: .3em;
-                flex-grow: 1;
-                justify-content: center;
-                p {
-                    font-weight: bold;
-                }
-            }
-            &:not(.loading) div:last-child {
-                display: flex;
-                align-items: center;
-                gap: .3em;
-                width: 25%;
-                justify-content: end;
-                p {
-                    font-weight: bold;
-                }
-            }
         }
     }
 }

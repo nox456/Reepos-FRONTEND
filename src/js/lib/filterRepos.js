@@ -12,22 +12,23 @@ import renderRepos from "./renderRepos.js";
  * @param {Repository[]} repos - Repositories array
  * @param {HTMLElement} $reposContainer - The element container of repos
  * @param {string[]} lang_list - List of all languages present in repos
+ * @param {HTMLElement} $filtersContainer - The element container of filters
  * */
-export default function filterRepos(repos, $reposContainer, lang_list) {
-    const $input = document.querySelector("main form input");
-    const $date = document.querySelector("main form #date");
-    const $likes = document.querySelector("main form #likes");
-    const $languages = document.querySelector("main form #languages");
+export default function filterRepos(repos, $reposContainer, lang_list,$filtersContainer) {
+    const $input = $filtersContainer.querySelector("input");
+    const $date = $filtersContainer.querySelector("#date");
+    const $likes = $filtersContainer.querySelector("#likes");
+    const $languages = $filtersContainer.querySelector("#languages");
 
     let allRepos = repos;
 
     // Name filter
-    $input.addEventListener("input", async () => {
+    $input?.addEventListener("input", async () => {
         const value = $input.value;
         if (value == "") {
             $reposContainer.innerHTML = "";
             allRepos = repos;
-            const lang_list = await renderRepos(repos);
+            const lang_list = await renderRepos(repos,$reposContainer);
             $languages.innerHTML = `
                 <option selected hidden value="none">Lenguajes</option>
                 <option value="none">Todos</option>
@@ -51,7 +52,7 @@ export default function filterRepos(repos, $reposContainer, lang_list) {
                 );
             }
             $reposContainer.innerHTML = "";
-            const lang_list = await renderRepos(reposFiltered);
+            const lang_list = await renderRepos(reposFiltered,$reposContainer);
             allRepos = reposFiltered;
             $languages.innerHTML = `
                 <option selected hidden value="none">Lenguajes</option>
@@ -80,7 +81,7 @@ export default function filterRepos(repos, $reposContainer, lang_list) {
         $reposContainer.innerHTML = "";
 
         allRepos = reposSorted;
-        await renderRepos(reposSorted);
+        await renderRepos(reposSorted,$reposContainer);
     });
 
     // Likes sorter
@@ -93,7 +94,7 @@ export default function filterRepos(repos, $reposContainer, lang_list) {
         });
         $reposContainer.innerHTML = "";
         allRepos = reposSorted;
-        await renderRepos(reposSorted);
+        await renderRepos(reposSorted,$reposContainer);
     });
 
     // Languages filter
@@ -102,7 +103,7 @@ export default function filterRepos(repos, $reposContainer, lang_list) {
         if (value == "none") {
             $reposContainer.innerHTML = "";
             allRepos = repos;
-            const lang_list = await renderRepos(repos);
+            const lang_list = await renderRepos(repos,$reposContainer);
             $languages.innerHTML = `
                 <option selected hidden value="none">Lenguajes</option>
                 <option value="none">Todos</option>
@@ -120,7 +121,7 @@ export default function filterRepos(repos, $reposContainer, lang_list) {
             );
             $reposContainer.innerHTML = "";
             allRepos = reposFiltered;
-            await renderRepos(reposFiltered);
+            await renderRepos(reposFiltered,$reposContainer);
         }
     });
 

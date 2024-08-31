@@ -11,9 +11,10 @@ import renderUsers from "./renderUsers.js";
  * Filter users by followers
  * @param {User[]} users - Users array
  * @param {HTMLElement} $container - Users element container
+ * @param {HTMLElement} $filtersContainer - Filters element container
  * */
-export default function filterUsers(users, $container) {
-    const $followers = document.querySelector("main > aside > form > select");
+export default function filterUsers(users, $container,$filtersContainer) {
+    const $followers = $filtersContainer.querySelector("select");
 
     $followers.addEventListener("change", async () => {
         const value = $followers.value;

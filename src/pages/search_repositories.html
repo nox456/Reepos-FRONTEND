@@ -7,7 +7,7 @@
         <link rel="stylesheet" href="../css/index.css" />
         <link rel="stylesheet" href="../css/search.css" />
         <link rel="icon" href="../resources/favicon.ico" />
-        <title>Buscar Usuarios - Reepos</title>
+        <title>Buscar Repositorios - Reepos</title>
     </head>
     <body>
         <header>
@@ -41,33 +41,38 @@
                 <h2>Filtros</h2>
                 <hr />
                 <form>
-                    <select>
+                    <select id="date">
+                        <option selected hidden>Fecha de Creación</option>
+                        <option value="new">Más recientes</option>
+                        <option value="old">Más antiguos</option>
+                    </select>
+                    <select id="likes">
                         <option selected hidden>Popularidad</option>
-                        <option value="greater">Más seguidores</option>
-                        <option value="less">Menos seguidores</option>
+                        <option value="greater">Más me gusta</option>
+                        <option value="less">Menos me gusta</option>
+                    </select>
+                    <select id="languages">
+                        <option selected hidden value="none">Lenguajes</option>
+                        <option value="none">Todos</option>
                     </select>
                 </form>
             </aside>
             <section>
-                <article class="user loading">
-                    <div></div>
-                    <div></div>
-                    <div></div>
+                <article class="repository loading">
+                    <header></header>
+                    <main></main>
                 </article>
-                <article class="user loading">
-                    <div></div>
-                    <div></div>
-                    <div></div>
+                <article class="repository loading">
+                    <header></header>
+                    <main></main>
                 </article>
-                <article class="user loading">
-                    <div></div>
-                    <div></div>
-                    <div></div>
+                <article class="repository loading">
+                    <header></header>
+                    <main></main>
                 </article>
-                <article class="user loading">
-                    <div></div>
-                    <div></div>
-                    <div></div>
+                <article class="repository loading">
+                    <header></header>
+                    <main></main>
                 </article>
             </section>
         </main>
