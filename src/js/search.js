@@ -23,7 +23,7 @@ const res = await fetchServer(
 
 $section.innerHTML = "";
 if (res.code == 200) {
-    renderUsers(res.result.data, $section);
+    await renderUsers(res.result.data, $section);
     filterUsers(res.result.data, $section);
 } else if (res.code == 404) {
     const $message = document.createElement("p");

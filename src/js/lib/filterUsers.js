@@ -15,7 +15,7 @@ import renderUsers from "./renderUsers.js";
 export default function filterUsers(users, $container) {
     const $followers = document.querySelector("main > aside > form > select");
 
-    $followers.addEventListener("change", () => {
+    $followers.addEventListener("change", async () => {
         const value = $followers.value;
         const usersSorted = users.sort((userA, userB) => {
             return value == "greater"
@@ -23,6 +23,6 @@ export default function filterUsers(users, $container) {
                 : userA.followers_count - userB.followers_count;
         });
         $container.innerHTML = ""
-        renderUsers(usersSorted, $container)
+        await renderUsers(usersSorted, $container)
     });
 }
