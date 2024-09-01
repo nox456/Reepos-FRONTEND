@@ -181,6 +181,9 @@ dialog {
     background-color: var(--dialog-bg-color);
     gap: 0.5em;
     user-select: none;
+    &::backdrop {
+        background-color: #0008;
+    }
     p {
         font-weight: bold;
         font-size: 1.1em;
@@ -206,7 +209,11 @@ select {
     }
 }
 
-header:has(form) {
+header:has(form),
+header:has(button) {
+    & > button {
+        display: none;
+    }
     & > div {
         width: 25%;
     }
@@ -268,20 +275,36 @@ main > form {
             padding: .3em;
         }
     }
-    header:has(form) {
+    header:has(form),
+    header:has(button) {
+        & > button {
+            display: block;
+            background-color: transparent;
+            display: flex;
+            align-items: center;
+            padding: 0;
+            border: none;
+        }
         #title h1 {
             display: none;
         }
         & > form {
-            input[type=text] {
-                padding: .2em;
-                width: 95%;
-                font-size: .95em;
-                border-width: 1px;
+            display: none;
+        }
+    }
+    #dialog-search-form {
+        width: 90%;
+        margin-top: 25%;
+        form {
+            display: flex;
+            gap: .3em;
+            input {
+                padding: .3em;
+                width: 60%;
             }
-            select {
-                padding: .2em;
-            }
+        }
+        button {
+            width: 100%;
         }
     }
 }
@@ -367,6 +390,15 @@ article.repository {
             height: 10%;
             border-radius: var(--container-border-radius);
             background-color: var(--bg-primary-color);
+        }
+    }
+}
+
+@media screen and (max-width: 640px) {
+    article.repository:not(.loading) {
+        height: fit-content;
+        header h2 {
+            font-size: 1.1em;
         }
     }
 }
@@ -462,3 +494,12 @@ article.user {
         }
     }
 }
+
+@media screen and (max-width: 640px) {
+    article.user:not(.loading) {
+        div:first-child img {
+            width: 40%;
+        }
+    }
+}
+
