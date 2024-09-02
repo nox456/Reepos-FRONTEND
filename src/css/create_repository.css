@@ -21,18 +21,6 @@ main {
         input[type=text] {
             width: 20%;
         }
-        textarea {
-            padding: .5em;
-            border: 2px solid var(--border-primary-color);
-            border-radius: var(--container-border-radius);
-            background-color: transparent;
-            resize: none;
-            height: 8em;
-            width: 30%;
-            transition: border-color 200ms;
-            color: var(--input-text-color);
-            outline: none;
-        }
         ul {
             display: flex;
             gap: .5em;

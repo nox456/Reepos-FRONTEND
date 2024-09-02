@@ -1,5 +1,115 @@
 body > main {
     min-height: 84vh;
+    display: flex;
+    padding: 1.5em;
+    section:nth-child(1) {
+        width: 30%;
+        display: flex;
+        flex-direction: column;
+        gap: 1em;
+        padding: 0 .5em;
+        header {
+            position: relative;
+            align-self: center;
+            width: fit-content;
+            border-radius: 50%;
+            overflow: hidden;
+            &:hover > form {
+                opacity: 1;
+            }
+            img {
+                object-fit: cover;
+                border-radius: 50%;
+                width: 15em;
+                height: 15em;
+            }
+            form {
+                opacity: 0;
+                position: absolute;
+                top: calc(100% - 5.5em);
+                left: calc(100% - 5.5em);
+                background: #0004;
+                border-radius: 15%;
+                display: flex;
+                padding: .3em;
+                justify-content: start;
+                width: 6em;
+                height: 6em;
+                transition: opacity 50ms;
+                input {
+                    display: none;
+                }
+                svg {
+                    width: 3em;
+                    height: 3em;
+                }
+                label {
+                    cursor: pointer;
+                }
+            }
+        }
+        main {
+            display: flex;
+            flex-direction: column;
+            gap: 1em;
+            position: relative;
+            h1 {
+                font-size: 2.5em;
+            }
+            form {
+                display: flex;
+                flex-direction: column;
+                textarea {
+                    width: 100%;
+                    color: #FFF;
+                    font-weight: bold;
+                }
+                button {
+                    width: 100%;
+                    display: none;
+                }
+                &:hover + button {
+                    opacity: 1;
+                }
+            }
+            & > button {
+                position: absolute;
+                opacity: 0;
+                background-color: transparent;
+                border: none;
+                top: calc(100% - 2.5em);
+                left: calc(100% - 2.5em);
+                cursor: pointer;
+                transition: opacity 50ms;
+                svg {
+                    width: 2em;
+                    height: 2em;
+                }
+                &:hover {
+                    opacity: 1;
+                }
+            }
+        }
+        footer {
+            display: flex;
+            flex-direction: column;
+            gap: 1em;
+            article {
+                display: flex;
+                align-items: center;
+                gap: .5em;
+                svg {
+                    width: 2em;
+                    height: 2em;
+                }
+                font-weight: bold;
+                font-size: 1.2em;
+            }
+        }
+    }
+    section:nth-child(2) {
+        width: 100%;
+    }
 }
 
 #menu-profile {
