@@ -1,0 +1,9 @@
+body > main {
+    min-height: 84vh;
+}
+
+#menu-profile {
+    left: calc(100% - 12em);
+    height: fit-content;
+    max-width: 12em;
+}

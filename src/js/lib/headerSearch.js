@@ -27,7 +27,7 @@ export default function headerSearch() {
     const $dialog = document.createElement("dialog");
     $dialog.id = "dialog-search-form";
     $form.id = "search-form";
-    $dialog.appendChild($form);
+    $dialog.innerHTML = $form.outerHTML
 
     const $submit_button = document.createElement("button");
     $submit_button.setAttribute("form", "search-form");

@@ -8,16 +8,20 @@ export default function userImage() {
     const $user_button = document.querySelector("header > div:last-child > button");
     const $user_image = $user_button.querySelector("img");
 
-    $user_image.src =
-        user.img == "" ? "../resources/images/default_user_image.png" : user.img;
+    const urlParam = new URLSearchParams(
+        location.href.slice(location.href.indexOf("?")),
+    );
+
+    if (urlParam.get("username") == user.username) {
+        $user_image.src = "../../resources/images/user_profile_menu.png"
+    } else {
+        $user_image.src =
+            user.img == "" ? "../resources/images/default_user_image.png" : user.img;
+    }
     $user_button.classList.remove("loading")
 
     const $menu = document.createElement("div")
     $menu.id = "menu-profile"
-
-    const $profile_link = document.createElement("a")
-    $profile_link.href = `../../pages/profile?username=${user.username}`
-    $profile_link.innerText = "Ver perfil"
 
     const $logout_button = document.createElement("button")
     $logout_button.innerText = "Cerrar Sesión"
@@ -30,8 +34,35 @@ export default function userImage() {
         location.href = "../../index.html"
     })
 
-    $menu.appendChild($profile_link)
-    $menu.insertAdjacentHTML("beforeend","<hr>")
+    if (urlParam.get("username") == user.username) {
+        const $change_username = document.createElement("a")
+        $change_username.href = '../../pages/change_username'
+        $change_username.innerText = "Cambiar nombre de usuario"
+
+        const $change_password = document.createElement("a")
+        $change_password.href = '../../pages/change_password'
+        $change_password.innerText = "Cambiar contraseña"
+
+        const $delete_account = document.createElement("a")
+        $delete_account.href = '../../pages/delete_account'
+        $delete_account.innerText = "Eliminar cuenta"
+
+        $menu.appendChild($change_username)
+        $menu.insertAdjacentHTML("beforeend","<hr>")
+        $menu.appendChild($change_password)
+        $menu.insertAdjacentHTML("beforeend","<hr>")
+        $menu.appendChild($delete_account)
+        $menu.insertAdjacentHTML("beforeend","<hr>")
+    } else {
+        const $profile_link = document.createElement("a")
+        $profile_link.href = `../../pages/profile?username=${user.username}`
+        $profile_link.innerText = "Ver perfil"
+
+        $menu.appendChild($profile_link)
+        $menu.insertAdjacentHTML("beforeend","<hr>")
+    }
+
+
     $menu.appendChild($logout_button)
 
     $user_button.addEventListener("click",() => {

@@ -418,7 +418,7 @@ article.user {
         & > div {
             flex-grow: 0;
             width: 15%;
-            height: 45%;
+            height: 1.2em;
             border-radius: var(--container-border-radius);
             background-color: var(--bg-primary-color);
         }
