@@ -3,7 +3,7 @@ body > main {
     display: flex;
     gap: 1em;
     padding: 1.5em;
-    section:nth-child(1) {
+    & > section:nth-child(1) {
         width: 30%;
         display: flex;
         flex-direction: column;
@@ -128,7 +128,7 @@ body > main {
             }
         }
     }
-    section:nth-child(2) {
+    & > section:nth-child(2) {
         width: 100%;
         display: flex;
         flex-direction: column;
@@ -137,7 +137,7 @@ body > main {
             display: flex;
             flex-direction: column;
             gap: 1em;
-            div {
+            & > div {
                 display: flex;
                 flex-wrap: wrap;
                 gap: 1em;
@@ -147,13 +147,18 @@ body > main {
             display: flex;
             flex-direction: column;
             gap: 1em;
+            & > div {
+                display: flex;
+                flex-direction: column;
+                gap: 1em;
+            }
         }
         hr {
             width: 40%;
             border: none;
             border: 2px solid var(--link-text-color);
         }
-        a {
+        & > a {
             align-self: flex-end;
             color: var(--bg-secondary-color);
             font-weight: bold;

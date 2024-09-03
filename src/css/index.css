@@ -242,6 +242,7 @@ header:has(button) {
     }
     & > div:last-child > button > img {
         width: 3em;
+        height: 3em;
         border-radius: 50%;
         object-fit: cover;
     }
@@ -429,7 +430,8 @@ article.user {
         align-items: center;
         gap: .3em;
         img {
-            width: 15%;
+            width: 3em;
+            height: 3em;
             border-radius: 50%;
             object-fit: cover;
         }

@@ -3,6 +3,8 @@ import fetchServer from "./lib/fetch.js";
 import headerSearch from "./lib/headerSearch.js";
 import userImage from "./lib/userImage.js";
 import user from "./is_authenticated.js";
+import renderRepos from "./lib/renderRepos.js"
+import renderUsers from "./lib/renderUsers.js"
 
 headerSearch();
 userImage();
@@ -20,6 +22,7 @@ const res1 = await fetchServer(
 
 const $section1 = document.querySelector("main > section:nth-child(1)");
 const $section2 = document.querySelector("main > section:nth-child(2)");
+
 if (res1.code != 200) {
     showErrorModal(res1.result.message, {
         message: "Dashboard",
@@ -30,7 +33,7 @@ if (res1.code != 200) {
 
     const $header = $section1.querySelector("header");
     $header.classList.remove("loading");
-    console.log(res1.result.data);
+
     $header.querySelector("img").src =
         data.user_img == ""
             ? "../resources/images/default_user_image_big.png"
@@ -58,6 +61,9 @@ if (res1.code != 200) {
 
     const $edit_description_button = $main.querySelector("& > button");
     const $change_image_form = $header.querySelector("form");
+
+    const $follow_button = $section1.querySelector("footer > button")
+
     if (urlParams.get("username") == user.username) {
         const $description_form = $main.querySelector("form");
 
@@ -123,8 +129,71 @@ if (res1.code != 200) {
                 location.reload()
             }
         });
+
+        $follow_button.remove()
+
     } else {
         $edit_description_button.style.display = "none";
         $change_image_form.style.display = "none";
+
+        const res = await fetchServer(`/users/followers?username=${urlParams.get("username")}`, {
+            method: "GET"
+        })
+
+        if (res.result.data.some(u => u.username == user.username)) {
+            $follow_button.innerText = "Seguido"
+        } else {
+            $follow_button.innerText = "Seguir"
+        }
+
+        $follow_button.addEventListener("click", async () => {
+            if ($follow_button.innerText == "Seguir") {
+                await fetchServer("/users/follow-user", {
+                    cookies: true,
+                    method: "POST",
+                    body: {
+                        username: urlParams.get("username")
+                    }
+                })
+
+                location.reload()
+            } else {
+                console.log("Dejado de seguir")
+            }
+        })
+    }
+
+    const res = await fetchServer(`/repositories?username=${urlParams.get("username")}`, {
+        method: "GET"
+    })
+
+    const $repos_container = $section2.querySelector("div:nth-child(1) > div")
+
+    $repos_container.innerHTML = ""
+
+    if (res.code == 404) {
+        $repos_container.insertAdjacentHTML("afterbegin","<h2>No hay repositorios...</h2>")
+        $section2.querySelector("div:nth-child(1) > a").remove()
+    } else {
+        await renderRepos(res.result.data.slice(0,3),$section2.querySelector("div:nth-child(1) > div"))
+        if (res.result.data.length < 4) {
+            $section2.querySelector("div:nth-child(1) > a").remove()
+        }
+    }
+
+    const $followers_container = $section2.querySelector("div:nth-child(2) > div")
+
+    const res2 = await fetchServer(`/users/followers?username=${urlParams.get("username")}`,{method: "GET"})
+
+    $followers_container.innerHTML = ""
+
+    if (res2.result.data.length == 0) {
+        $followers_container.insertAdjacentHTML("afterbegin","<h2>No hay seguidores...</h2>")                
+        $section2.querySelector("div:nth-child(2) > a").remove()
+    } else {
+        await renderUsers(res2.result.data.slice(0,3),$followers_container)
+        if (res2.result.data.length < 4) {
+            $section2.querySelector("div:nth-child(2) > a").remove()
+        }
     }
 }
