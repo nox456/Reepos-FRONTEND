@@ -16,12 +16,22 @@ body > main {
             width: fit-content;
             border-radius: 50%;
             overflow: hidden;
+            display: flex;
+            align-items: center;
+            &.loading {
+                background-color: var(--dialog-bg-color);
+                border: 2px solid var(--border-primary-color);
+                width: 15em;
+                height: 15em;
+                img {
+                    display: none;
+                }
+            }
             &:hover > form {
                 opacity: 1;
             }
             img {
                 object-fit: cover;
-                border-radius: 50%;
                 width: 15em;
                 height: 15em;
             }
@@ -69,6 +79,12 @@ body > main {
                 button {
                     width: 100%;
                     display: none;
+                    &[disabled] {
+                        opacity: 40%;
+                        user-select: none;
+                        cursor: default;
+                        background-color: var(--link-bg-hovered-color);
+                    }
                 }
                 &:hover + button {
                     opacity: 1;
@@ -106,6 +122,9 @@ body > main {
                 }
                 font-weight: bold;
                 font-size: 1.2em;
+                span {
+                    font-size: .8em;
+                }
             }
         }
     }
