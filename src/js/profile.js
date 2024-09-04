@@ -141,7 +141,7 @@ if (res1.code != 200) {
         })
 
         if (res.result.data.some(u => u.username == user.username)) {
-            $follow_button.innerText = "Seguido"
+            $follow_button.innerText = "Dejar de seguir"
         } else {
             $follow_button.innerText = "Seguir"
         }
@@ -158,7 +158,15 @@ if (res1.code != 200) {
 
                 location.reload()
             } else {
-                console.log("Dejado de seguir")
+                await fetchServer("/users/unfollow", {
+                    cookies: true,
+                    method: "PUT",
+                    body: {
+                        username: urlParams.get("username")
+                    }
+                })
+
+                location.reload()
             }
         })
     }
