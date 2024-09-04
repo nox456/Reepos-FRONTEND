@@ -12,7 +12,7 @@ export default function userImage() {
         location.href.slice(location.href.indexOf("?")),
     );
 
-    if (urlParam.get("username") == user.username) {
+    if (urlParam.get("username") == user.username || location.href.includes("change") || location.href.includes("delete")) {
         $user_image.src = "../../resources/images/user_profile_menu.png"
     } else {
         $user_image.src =
@@ -34,7 +34,7 @@ export default function userImage() {
         location.href = "../../index.html"
     })
 
-    if (urlParam.get("username") == user.username) {
+    if (urlParam.get("username") == user.username || location.href.includes("change") || location.href.includes("delete")) {
         const $change_username = document.createElement("a")
         $change_username.href = '../../pages/change_username'
         $change_username.innerText = "Cambiar nombre de usuario"

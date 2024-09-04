@@ -31,6 +31,7 @@ if (res1.code != 200) {
 } else {
     const { data } = res1.result;
 
+    document.title = `${data.user_name} - Reepos`
     const $header = $section1.querySelector("header");
     $header.classList.remove("loading");
 
