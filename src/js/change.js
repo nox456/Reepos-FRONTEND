@@ -9,7 +9,12 @@ userImage();
 
 const $form = document.querySelector("main > section > form");
 
-const $password = $form.querySelector("input[type=password]:nth-child(2)");
+let $password
+if (location.href.includes("delete")) {
+    $password = $form.querySelector("input[type=password]");
+} else {
+    $password = $form.querySelector("input[type=password]:nth-child(2)");
+}
 
 $form.addEventListener("submit", async (e) => {
     e.preventDefault();
@@ -31,7 +36,7 @@ $form.addEventListener("submit", async (e) => {
                 newUsername,
             },
         });
-    } else {
+    } else if (location.href.includes("password")) {
         const $newPassword = document.querySelector(
             "input[type=password]:nth-child(1)",
         );
@@ -45,18 +50,44 @@ $form.addEventListener("submit", async (e) => {
                 newPassword,
             },
         });
+    } else {
+        res = await fetchServer("/users/delete", {
+            body: {
+                password
+            },
+            method: "DELETE",
+            cookies: true
+        })
+        await fetchServer("/auth/logout", {
+            cookies: true,
+            method: "GET"
+        })
     }
 
     if (res.code == 200) {
         const $dialog = document.createElement("dialog");
         const $message = document.createElement("p");
-        $message.innerText = location.href.includes("username")
-            ? "Nombre de usuario cambiado!"
-            : "Contraseña Cambiada!";
+        if (location.href.includes("username")) {
+            $message.innerText = "Nombre de usuario cambiado!"
+        } else if (location.href.includes("password")) {
+            $message.innerText = "Contraseña Cambiada!"
+        } else {
+            $message.innerText = "Cuenta eliminada"
+        }
 
         const $link = document.createElement("a");
-        $link.href = `../pages/profile?username=${location.href.includes("username") ? newUsername : user.username}`;
-        $link.innerText = "Perfil";
+        if (location.href.includes("username")) {
+            $link.href = `../pages/profile?username=${newUsername}`;
+        } else if (location.href.includes("password")) {
+            $link.href = `../pages/profile?username=${user.username}`;
+        } else {
+            $link.href = `../index.html`;
+        }
+        if (location.href.includes("delete")) {
+            $link.innerText = "Página Principal";
+        } else {
+            $link.innerText = "Perfil";
+        }
         $link.classList.add("link");
 
         $dialog.appendChild($message);
