@@ -187,6 +187,8 @@ if (res1.code != 200) {
         await renderRepos(res.result.data.slice(0,3),$section2.querySelector("div:nth-child(1) > div"))
         if (res.result.data.length < 4) {
             $section2.querySelector("div:nth-child(1) > a").remove()
+        } else {
+            $section2.querySelector("div:nth-child(1) >  a").href = `../pages/repositories?username=${urlParams.get("username")}`
         }
     }
 

@@ -1,13 +1,15 @@
-main {
+body > main {
     min-height: 84vh;
-    padding: 1em;
     display: flex;
+    padding: 1em;
     flex-direction: column;
     gap: 1em;
     & > section {
         display: flex;
-        flex-direction: column;
+        flex-wrap: wrap;
         gap: 1em;
+        justify-content: center;
+        align-content: start;
     }
     & > h1 > a {
         color: var(--bg-secondary-color);

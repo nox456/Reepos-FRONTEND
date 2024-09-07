@@ -17,6 +17,7 @@ const res = await fetchServer(`/users/followers?username=${urlParams.get("userna
 if (res.code != 200) {
     showErrorModal(res.result.message, {href: `../pages/profile?username=${urlParams.get("username")}`, message: "Perfil"})
 } else {
+    document.title = `Seguidores de ${urlParams.get("username")} - Reepos`
     document.querySelector("main > h1").innerHTML = `
         Seguidores de 
         <a href="../pages/profile?username=${urlParams.get("username")}">${urlParams.get("username")}</span>`
