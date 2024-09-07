@@ -203,6 +203,8 @@ if (res1.code != 200) {
         await renderUsers(res2.result.data.slice(0,3),$followers_container)
         if (res2.result.data.length < 4) {
             $section2.querySelector("div:nth-child(2) > a").remove()
+        } else {
+            $section2.querySelector("div:nth-child(2) > a").href = `../pages/followers?username=${urlParams.get("username")}`
         }
     }
 }

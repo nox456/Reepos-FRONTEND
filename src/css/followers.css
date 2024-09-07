@@ -1,0 +1,15 @@
+main {
+    min-height: 84vh;
+    padding: 1em;
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    & > section {
+        display: flex;
+        flex-direction: column;
+        gap: 1em;
+    }
+    & > h1 > a {
+        color: var(--bg-secondary-color);
+    }
+}

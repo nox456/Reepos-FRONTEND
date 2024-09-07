@@ -26,4 +26,15 @@ export default function filterUsers(users, $container,$filtersContainer) {
         $container.innerHTML = ""
         await renderUsers(usersSorted, $container)
     });
+    const $input = $filtersContainer.querySelector("input")
+    if ($input) {
+        $input.addEventListener("input",async () => {
+            const name = $input.value
+            const usersFiltered = users.filter(u => {
+                return u.username.toLowerCase().includes(name.toLowerCase())
+            })
+            $container.innerHTML = ""
+            await renderUsers(usersFiltered,$container)
+        }) 
+    }
 }

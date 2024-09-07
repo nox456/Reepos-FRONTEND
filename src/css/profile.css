@@ -158,7 +158,7 @@ body > main {
             border: none;
             border: 2px solid var(--link-text-color);
         }
-        & > a {
+        & > div > a {
             align-self: flex-end;
             color: var(--bg-secondary-color);
             font-weight: bold;
