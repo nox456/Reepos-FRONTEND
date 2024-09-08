@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="author" content="Gabriel Vieira" />
+        <link rel="stylesheet" href="../css/index.css" />
+        <link rel="stylesheet" href="../css/repository.css" />
+        <link rel="icon" href="../resources/favicon.ico" />
+        <title>Reepos</title>
+    </head>
+    <body>
+        <header>
+            <div id="title">
+                <a href="./dashboard.html">
+                    <svg viewBox="0 0 24 24">
+                        <path
+                            d="m21.706 5.291-2.999-2.998A.996.996 0 0 0 18 2H6a.996.996 0 0 0-.707.293L2.294 5.291A.994.994 0 0 0 2 5.999V19c0 1.103.897 2 2 2h16c1.103 0 2-.897 2-2V5.999a.994.994 0 0 0-.294-.708zM6.414 4h11.172l.999.999H5.415L6.414 4zM4 19V6.999h16L20.002 19H4z"
+                        ></path>
+                        <path d="M15 12H9v-2H7v4h10v-4h-2z"></path>
+                    </svg>
+                </a>
+                <h1><a href="./dashboard.html">Dashboard</a></h1>
+            </div>
+            <button>
+                <svg viewBox="0 0 24 24">
+                    <path
+                        d="M10 18a7.952 7.952 0 0 0 4.897-1.688l4.396 4.396 1.414-1.414-4.396-4.396A7.952 7.952 0 0 0 18 10c0-4.411-3.589-8-8-8s-8 3.589-8 8 3.589 8 8 8zm0-14c3.309 0 6 2.691 6 6s-2.691 6-6 6-6-2.691-6-6 2.691-6 6-6z"
+                    ></path>
+                </svg>
+            </button>
+            <form>
+                <input type="text" placeholder="Explora repositorios..." />
+                <select>
+                    <option value="repositories" selected>Repositorios</option>
+                    <option value="users">Usuarios</option>
+                </select>
+            </form>
+            <div>
+                <button class="loading">
+                    <img src="" alt="Imagen de ususario" />
+                </button>
+            </div>
+        </header>
+        <main>
+            <section>
+                <div>
+                    <img
+                        src="../resources/images/dev.jpg"
+                        alt="Imagen de usuario"
+                    />
+                    <a href="../pages/profile?username=Gabriel">Gabriel</a>
+                    /
+                    <span>Reepos-FRONTEND</span>
+                </div>
+                <div>
+                    <svg viewBox="0 0 24 24">
+                        <path
+                            d="M12 16c2.206 0 4-1.794 4-4s-1.794-4-4-4-4 1.794-4 4 1.794 4 4 4zm0-6c1.084 0 2 .916 2 2s-.916 2-2 2-2-.916-2-2 .916-2 2-2z"
+                        ></path>
+                        <path
+                            d="m2.845 16.136 1 1.73c.531.917 1.809 1.261 2.73.73l.529-.306A8.1 8.1 0 0 0 9 19.402V20c0 1.103.897 2 2 2h2c1.103 0 2-.897 2-2v-.598a8.132 8.132 0 0 0 1.896-1.111l.529.306c.923.53 2.198.188 2.731-.731l.999-1.729a2.001 2.001 0 0 0-.731-2.732l-.505-.292a7.718 7.718 0 0 0 0-2.224l.505-.292a2.002 2.002 0 0 0 .731-2.732l-.999-1.729c-.531-.92-1.808-1.265-2.731-.732l-.529.306A8.1 8.1 0 0 0 15 4.598V4c0-1.103-.897-2-2-2h-2c-1.103 0-2 .897-2 2v.598a8.132 8.132 0 0 0-1.896 1.111l-.529-.306c-.924-.531-2.2-.187-2.731.732l-.999 1.729a2.001 2.001 0 0 0 .731 2.732l.505.292a7.683 7.683 0 0 0 0 2.223l-.505.292a2.003 2.003 0 0 0-.731 2.733zm3.326-2.758A5.703 5.703 0 0 1 6 12c0-.462.058-.926.17-1.378a.999.999 0 0 0-.47-1.108l-1.123-.65.998-1.729 1.145.662a.997.997 0 0 0 1.188-.142 6.071 6.071 0 0 1 2.384-1.399A1 1 0 0 0 11 5.3V4h2v1.3a1 1 0 0 0 .708.956 6.083 6.083 0 0 1 2.384 1.399.999.999 0 0 0 1.188.142l1.144-.661 1 1.729-1.124.649a1 1 0 0 0-.47 1.108c.112.452.17.916.17 1.378 0 .461-.058.925-.171 1.378a1 1 0 0 0 .471 1.108l1.123.649-.998 1.729-1.145-.661a.996.996 0 0 0-1.188.142 6.071 6.071 0 0 1-2.384 1.399A1 1 0 0 0 13 18.7l.002 1.3H11v-1.3a1 1 0 0 0-.708-.956 6.083 6.083 0 0 1-2.384-1.399.992.992 0 0 0-1.188-.141l-1.144.662-1-1.729 1.124-.651a1 1 0 0 0 .471-1.108z"
+                        ></path>
+                    </svg>
+                    <button class="link">
+                        <svg viewBox="0 0 24 24">
+                            <path
+                                d="M4 21h1V8H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2zM20 8h-7l1.122-3.368A2 2 0 0 0 12.225 2H12L7 7.438V21h11l3.912-8.596L22 12v-2a2 2 0 0 0-2-2z"
+                            ></path>
+                        </svg>
+                        13
+                    </button>
+                </div>
+            </section>
+            <hr />
+            <section>
+                <ul>
+                    <li>
+                        <svg viewBox="0 0 24 24">
+                            <path
+                                d="M17.5 4C15.57 4 14 5.57 14 7.5c0 1.554 1.025 2.859 2.43 3.315-.146.932-.547 1.7-1.23 2.323-1.946 1.773-5.527 1.935-7.2 1.907V8.837c1.44-.434 2.5-1.757 2.5-3.337C10.5 3.57 8.93 2 7 2S3.5 3.57 3.5 5.5c0 1.58 1.06 2.903 2.5 3.337v6.326c-1.44.434-2.5 1.757-2.5 3.337C3.5 20.43 5.07 22 7 22s3.5-1.57 3.5-3.5c0-.551-.14-1.065-.367-1.529 2.06-.186 4.657-.757 6.409-2.35 1.097-.997 1.731-2.264 1.904-3.768C19.915 10.438 21 9.1 21 7.5 21 5.57 19.43 4 17.5 4zm-12 1.5C5.5 4.673 6.173 4 7 4s1.5.673 1.5 1.5S7.827 7 7 7s-1.5-.673-1.5-1.5zM7 20c-.827 0-1.5-.673-1.5-1.5a1.5 1.5 0 0 1 1.482-1.498l.13.01A1.495 1.495 0 0 1 7 20zM17.5 9c-.827 0-1.5-.673-1.5-1.5S16.673 6 17.5 6s1.5.673 1.5 1.5S18.327 9 17.5 9z"
+                            ></path>
+                        </svg>
+                        <span>2 Ramas</span>
+                    </li>
+                    <li>master</li>
+                    <li>develop</li>
+                </ul>
+                <p>
+                    <svg viewBox="0 0 24 24">
+                        <path
+                            d="M12 6c-2.967 0-5.431 2.167-5.909 5H2v2h4.092c.479 2.832 2.942 4.998 5.909 4.998s5.43-2.166 5.909-4.998H22v-2h-4.09c-.478-2.833-2.942-5-5.91-5zm0 9.998c-2.205 0-3.999-1.794-3.999-3.999S9.795 8 12 8c2.206 0 4 1.794 4 3.999s-1.794 3.999-4 3.999z"
+                        ></path>
+                    </svg>
+                    <a href="">80 Commits</a>
+                </p>
+                <p>
+                    <svg viewBox="0 0 24 24">
+                        <path
+                            d="M12 2a5 5 0 1 0 5 5 5 5 0 0 0-5-5zm0 8a3 3 0 1 1 3-3 3 3 0 0 1-3 3zm9 11v-1a7 7 0 0 0-7-7h-4a7 7 0 0 0-7 7v1h2v-1a5 5 0 0 1 5-5h4a5 5 0 0 1 5 5v1z"
+                        ></path>
+                    </svg>
+                    <a href="">4 Contribuidores</a>
+                </p>
+                <button class="link">Descargar</button>
+            </section>
+            <section>
+                <main>
+                    <section>
+                        <span>Pepe</span>
+                        <p>
+                            <svg viewBox="0 0 24 24">
+                                <path
+                                    d="M12 6c-2.967 0-5.431 2.167-5.909 5H2v2h4.092c.479 2.832 2.942 4.998 5.909 4.998s5.43-2.166 5.909-4.998H22v-2h-4.09c-.478-2.833-2.942-5-5.91-5zm0 9.998c-2.205 0-3.999-1.794-3.999-3.999S9.795 8 12 8c2.206 0 4 1.794 4 3.999s-1.794 3.999-4 3.999z"
+                                ></path>
+                            </svg>
+                            <span>added last feature</span>
+                        </p>
+                        <p>
+                            <svg viewBox="0 0 24 24">
+                                <path
+                                    d="M21 20V6c0-1.103-.897-2-2-2h-2V2h-2v2H9V2H7v2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2zM9 18H7v-2h2v2zm0-4H7v-2h2v2zm4 4h-2v-2h2v2zm0-4h-2v-2h2v2zm4 4h-2v-2h2v2zm0-4h-2v-2h2v2zm2-5H5V7h14v2z"
+                                ></path>
+                            </svg>
+                            <span>ayer</span>
+                        </p>
+                    </section>
+                    <ul>
+                        <li>
+                            <div>
+                                <svg
+                                    viewBox="0 0 24 24"
+                                >
+                                    <path
+                                        d="M20 5h-9.586L8.707 3.293A.997.997 0 0 0 8 3H4c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h16c1.103 0 2-.897 2-2V7c0-1.103-.897-2-2-2z"
+                                    ></path>
+                                </svg>
+                                <span>src</span>
+                            </div>
+                            <span>
+                                fixed big error
+                            </span>
+                            <div>
+                                <span>hoy</span>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <svg viewBox="0 0 24 24">
+                                    <path
+                                        d="M6 2a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6H6zm8 7h-1V4l5 5h-4z"
+                                    ></path>
+                                </svg>
+                                <span>index.js</span>
+                            </div>
+                            <span>refactorized</span>
+                            <div>
+                                <span>13 KB</span>
+                                <span>hace 3 días</span>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <svg viewBox="0 0 24 24">
+                                    <path
+                                        d="M6 2a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6H6zm8 7h-1V4l5 5h-4z"
+                                    ></path>
+                                </svg>
+                                <span>.gitignore</span>
+                            </div>
+                            <span>added .gitignore</span>
+                            <div>
+                                <span>120 B</span>
+                                <span>hace 2 meses</span>
+                            </div>
+                        </li>
+                    </ul>
+                </main>
+                <aside>
+                    <h3>Descripción</h3>
+                    <hr />
+                    <p>este es un increible repositorio jajajaj</p>
+                    <h3>Lenguajes</h3>
+                    <hr />
+                    <ul>
+                        <li>
+                            <div style="background-color: blue;"></div>
+                            css
+                        </li>
+                        <li>
+                            <div style="background-color: yellow;"></div>
+                            javascript
+                        </li>
+                    </ul>
+                </aside>
+            </section>
+            <section></section>
+        </main>
+        <footer>
+            <p>
+                Basado en
+                <a href="https://github.com" target="_blank">Github</a>
+            </p>
+            <p>
+                Desarrollado por
+                <a href="https://github.com/nox456" target="_blank">
+                    <img src="../resources/images/dev.jpg" alt="" />
+                    Nox
+                </a>
+            </p>
+        </footer>
+        <script src="../js/is_authenticated.js" type="module"></script>
+    </body>
+</html>
