@@ -1,3 +1,94 @@
 body > main {
     min-height: 84vh;
+    padding: 1em;
+    display: flex;
+    flex-direction: column;
+    gap: .5em;
+    & > section:nth-of-type(1) {
+        display: flex;
+        justify-content: space-between;
+        & > div:nth-child(1) {
+            display: flex;
+            align-items: center;
+            gap: 1em;
+            & > img {
+                border-radius: 50%;
+                width: 5em;
+                height: 5em;
+                object-fit: cover;
+            }
+            & > a {
+                color: var(--bg-secondary-color);
+                font-size: 1.2em;
+                font-weight: bold;
+            }
+            & > span {
+                font-weight: bold;
+            }
+        }
+        & > div:nth-child(2) {
+            display: flex;
+            align-items: center;
+            gap: 1em;
+            & > a {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            & > button {
+                display: flex;
+                align-items: center;
+                gap: 1em;
+                padding-inline: 1.5em;
+                &.liked {
+                    background-color: transparent;
+                    border-color: var(--bg-secondary-color);
+                    & > svg {
+                        fill: currentColor;
+                        color: var(--bg-secondary-color);
+                    }
+                }
+                & > span {
+                    font-weight: bold;
+                    font-size: 1.2em;
+                }
+            }
+        }
+    }
+    hr {
+        border: 2px solid var(--border-primary-color);
+    }
+    & > section:nth-of-type(2) {
+        display: flex;
+        gap: 2em;
+        align-items: center;
+        ul {
+            display: flex;
+            flex-direction: column;
+            border: 2px solid var(--border-primary-color);
+            background-color: var(--dialog-bg-color);
+            border-radius: var(--container-border-radius);
+            li {
+                list-style: none;
+                padding: .5em;
+                text-align: center;
+                &:nth-child(1) {
+                    display: flex;
+                    align-items: center;
+                    gap: .5em;
+                    font-weight: bold;
+                    svg {
+                        width: 1.5em;
+                        height: 1.5em;
+                        &:last-child {
+                            cursor: pointer;
+                        }
+                    }
+                }
+                &:not(:last-child) {
+                    border-bottom: 2px solid var(--border-primary-color);
+                }
+            }
+        }
+    }
 }
