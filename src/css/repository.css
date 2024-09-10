@@ -62,32 +62,69 @@ body > main {
         display: flex;
         gap: 2em;
         align-items: center;
-        ul {
+        & > article {
             display: flex;
-            flex-direction: column;
-            border: 2px solid var(--border-primary-color);
+            align-items: center;
+            gap: .5em;
             background-color: var(--dialog-bg-color);
+            padding: .5em;
+            border: 2px solid var(--border-primary-color);
             border-radius: var(--container-border-radius);
-            li {
-                list-style: none;
-                padding: .5em;
-                text-align: center;
-                &:nth-child(1) {
-                    display: flex;
-                    align-items: center;
-                    gap: .5em;
-                    font-weight: bold;
-                    svg {
-                        width: 1.5em;
-                        height: 1.5em;
-                        &:last-child {
-                            cursor: pointer;
-                        }
-                    }
+            &:first-child {
+                cursor: pointer;
+            }
+            & > span {
+                font-weight: bold;
+                & > a {
+                    color: var(--bg-secondary-color);
+                    font-weight: normal;
                 }
-                &:not(:last-child) {
-                    border-bottom: 2px solid var(--border-primary-color);
+                &:not(:has(a)) {
+                    color: var(--bg-secondary-color);
                 }
+            }
+        }
+        & > button {
+            margin-left: auto;
+        }
+    }
+}
+
+dialog#branches {
+    padding: 0;
+    display: none;
+    header {
+        display: flex;
+        align-items: center;
+        gap: .5em;
+        justify-content: center;
+        padding: .5em 1em;
+        font-weight: bold;
+        svg:last-child {
+            fill: currentColor;
+            color: var(--bg-secondary-color);
+            cursor: pointer;
+        }
+    }
+    ul {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        align-items: center;
+        li {
+            list-style: none;
+            width: 100%;
+            text-align: center;
+            font-weight: bold;
+            padding: .5em 2em;
+            &:first-child {
+                border-top: 2px solid var(--border-primary-color);
+            }
+            &:not(:last-child) {
+                border-bottom: 2px solid var(--border-primary-color);
+            }
+            &.primary {
+                color: var(--bg-secondary-color);
             }
         }
     }
