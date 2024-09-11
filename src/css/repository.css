@@ -93,6 +93,123 @@ body > main {
             margin-left: auto;
         }
     }
+    & > section:nth-of-type(3) {
+        display: flex;
+        gap: 1em;
+        & > main {
+            width: 70%;
+            background-color: var(--dialog-bg-color);
+            border: 2px solid var(--border-primary-color);
+            border-radius: var(--container-border-radius);
+            display: flex;
+            height: fit-content;
+            flex-direction: column;
+            & > section {
+                display: flex;
+                border-bottom: 2px solid var(--border-primary-color);
+                align-items: center;
+                gap: 1em;
+                padding: .5em 1em;
+                color: var(--input-text-color);
+                & > p {
+                    display: flex;
+                    gap: .5em;
+                    align-items: center;
+                    padding: 0 .5em;
+                    & > svg {
+                        width: 1.2em;
+                        height: 1.2em;
+                    }
+                }
+                & > p:first-of-type {
+                    border-left: 2px solid var(--border-primary-color);
+                    color: var(--bg-secondary-color);
+                }
+                & > p:last-child {
+                    margin-left: auto;
+                }
+            }
+            & > ul {
+                display: flex;
+                flex-direction: column;
+                gap: .5em;
+                padding: .5em 1em;
+                font-size: .9em;
+                & > li {
+                    display: flex;
+                    align-items: center;
+                    & > a {
+                        color: var(--bg-secondary-color);
+                    }
+                    &:not(:last-child) {
+                        border-bottom: 2px solid var(--border-primary-color);
+                    }
+                    & > div {
+                        display: flex;
+                        align-items: center;
+                        gap: .5em;
+                        &:first-child {
+                            width: 40%;
+                        }
+                        &:last-child {
+                            margin-left: auto;
+                            &:has(span:nth-child(2)) {
+                                display: flex;
+                                gap: .3em;
+                                width: 10em;
+                                & > span:first-child {
+                                    border-right: 2px solid var(--border-primary-color);
+                                    padding: 0 .5em;
+                                    font-weight: bold;
+                                }
+                                & > span:last-child {
+                                    margin-left: auto;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        & > aside {
+            width: 30%;
+            background-color: var(--dialog-bg-color);
+            display: flex;
+            flex-direction: column;
+            height: fit-content;
+            gap: .5em;
+            padding: 1em;
+            border-radius: var(--container-border-radius);
+            border: 2px solid var(--border-primary-color);
+            & > p {
+                color: var(--input-text-color);
+                width: 100%;
+            }
+            & > ul {
+                display: flex;
+                gap: .3em;
+                flex-wrap: wrap;
+                li {
+                    list-style: none;
+                    display: flex;
+                    align-items: center;
+                    gap: .4em;
+                    div {
+                        padding: .4em;
+                        border-radius: 50%;
+                    }
+                }
+            }
+        }
+    }
+    & > md-block {
+        background-color: var(--dialog-bg-color);
+        border: 2px solid var(--border-primary-color);
+        border-radius: var(--container-border-radius);
+        width: 70%;
+        padding: 2em;
+        flex-grow: 1;
+    }
 }
 
 dialog#branches {
