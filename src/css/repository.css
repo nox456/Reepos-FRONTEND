@@ -79,7 +79,12 @@ body > main {
                     color: var(--bg-secondary-color);
                     font-weight: normal;
                 }
-                &:not(:has(a)) {
+            }
+            & > p > span {
+                &:first-child {
+                    font-weight: bold;
+                }
+                &:last-child {
                     color: var(--bg-secondary-color);
                 }
             }
