@@ -168,6 +168,18 @@ body > main {
     }
 }
 
+@media screen and (max-width: 640px) {
+    body > main {
+        flex-direction: column;
+        & > section:nth-child(1) {
+            width: 100%;
+            border-right: none;
+            border-bottom: 2px solid var(--border-primary-color);
+            padding: .5em 0;
+        }
+    }
+}
+
 #menu-profile {
     left: calc(100% - 12em);
     height: fit-content;
