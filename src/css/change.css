@@ -21,6 +21,7 @@ body > main {
             font-weight: bold;
             font-size: 1.1em;
             height: 2.2em;
+            text-align: center;
         }
         & > form {
             display: flex;
@@ -29,6 +30,16 @@ body > main {
         }
     }
 }
+
+@media screen and (max-width: 640px) {
+    body > main {
+        & > section {
+            width: 80%;
+        }
+    }
+    
+}
+
 #menu-profile {
     left: calc(100% - 12em);
     height: fit-content;
