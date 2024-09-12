@@ -13,6 +13,7 @@ export default function headerSearch() {
         $input.placeholder = `Explora ${value == "repositories" ? "repositorios" : "usuarios"}...`;
     });
 
+
     $form.addEventListener("submit", async (e) => {
         e.preventDefault();
         const value = $select.value;
@@ -49,6 +50,22 @@ export default function headerSearch() {
         ) {
             $dialog.close();
             $dialog.remove()
+        }
+    });
+    const $mobile_input = $dialog.querySelector("input")
+    const $mobile_select = $dialog.querySelector("select")
+
+    $mobile_select.addEventListener("change", () => {
+        const value = $mobile_select.value
+        $mobile_input.placeholder = `Explora ${value == "repositories" ? "repositorios" : "usuarios"}...`;
+    })
+    $dialog.querySelector("form").addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const value = $mobile_select.value;
+        if (value == "repositories") {
+            location.href = `../../pages/search_${value}?repoName=${$mobile_input.value}`;
+        } else {
+            location.href = `../../pages/search_${value}?username=${$mobile_input.value}`;
         }
     });
 }
