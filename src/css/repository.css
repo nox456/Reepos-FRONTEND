@@ -206,9 +206,12 @@ body > main {
         background-color: var(--dialog-bg-color);
         border: 2px solid var(--border-primary-color);
         border-radius: var(--container-border-radius);
-        width: 70%;
+        width: 100%;
         padding: 2em;
         flex-grow: 1;
+        img {
+            max-width: 50%;
+        }
     }
 }
 
