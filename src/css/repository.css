@@ -254,3 +254,7 @@ dialog#branches {
         }
     }
 }
+
+#menu-profile {
+    height: fit-content;
+}
