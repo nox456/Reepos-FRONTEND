@@ -21,7 +21,6 @@ export default async function renderRepos(repos,$container) {
             const $article = document.createElement("article")
             const date = new Date(repo.created_at)
             const date_formatted = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}, ${date.getHours()}:${date.getMinutes()}`
-            console.log(repo)
             $article.classList.add("repository")
             $article.innerHTML = `
                 <header>
