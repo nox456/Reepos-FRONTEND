@@ -78,3 +78,38 @@ $likes.addEventListener("click", async () => {
         location.reload();
     }
 });
+
+const $section2 = $main.querySelector("section:nth-of-type(2)");
+
+const $branches = $section2.querySelector("article:nth-of-type(1) p")
+
+$branches.querySelector("span:nth-child(1)").innerText = repo_response.result.data.branches.length
+
+$branches.querySelector("span:nth-child(2)").innerText = repo_response.result.data.branches.length > 1 ? "Ramas" : "Rama"
+
+const $branches_dialog = document.querySelector("dialog#branches")
+
+$branches_dialog.querySelector("header > p > span:first-child").innerText = repo_response.result.data.branches.length
+$branches_dialog.querySelector("header > p > span:last-child").innerText = repo_response.result.data.branches.length > 1 ? "Ramas" : "Rama"
+
+repo_response.result.data.branches.forEach(branch => {
+    const $branch = document.createElement("li")
+    if (branch.type == "primary") {
+        $branch.classList.add("primary")
+    }
+    $branch.innerText = branch.name
+    $branches_dialog.querySelector("ul").appendChild($branch)
+})
+
+const $commits = $section2.querySelector("article:nth-of-type(2)")
+
+$commits.querySelector("span").insertAdjacentText("afterbegin",repo_response.result.data.commits_count)
+
+$commits.querySelector("a").href = `../pages/commits?repoName=${urlParams.get("repoName")}`
+$commits.querySelector("a").innerText = repo_response.result.data.commits_count > 1 ? "Commits" : "Commit"
+
+const $contributors = $section2.querySelector("article:nth-of-type(3)")
+
+$contributors.querySelector("span").insertAdjacentText("afterbegin",repo_response.result.data.contributors_count)
+$contributors.querySelector("a").href = `../pages/contributors?repoName=${urlParams.get("repoName")}`
+$contributors.querySelector("a").innerText = repo_response.result.data.contributors_count > 1 ? "Contribuidores" : "Contribuidor"
