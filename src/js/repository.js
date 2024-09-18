@@ -3,6 +3,7 @@ import headerSearch from "./lib/headerSearch.js";
 import userImage from "./lib/userImage.js";
 import user from "./is_authenticated.js";
 import showErrorModal from "./lib/errorModal.js";
+import { SERVER_HOST } from "./config.js";
 
 headerSearch();
 userImage();
@@ -113,3 +114,44 @@ const $contributors = $section2.querySelector("article:nth-of-type(3)")
 $contributors.querySelector("span").insertAdjacentText("afterbegin",repo_response.result.data.contributors_count)
 $contributors.querySelector("a").href = `../pages/contributors?repoName=${urlParams.get("repoName")}`
 $contributors.querySelector("a").innerText = repo_response.result.data.contributors_count > 1 ? "Contribuidores" : "Contribuidor"
+
+const $download = $section2.querySelector("& > button")
+
+$download.addEventListener("click", async () => {
+    const $dialog = document.createElement("dialog")
+
+    const $message = document.createElement("p")
+
+    $message.innerText = "Procesando..."
+
+    $dialog.appendChild($message)
+
+    document.body.insertAdjacentElement("afterbegin",$dialog)
+
+    $dialog.showModal()
+    const res = await fetchServer(`/repositories/download?repoName=${urlParams.get("repoName")}&username=${urlParams.get("username")}` ,{
+        method: "GET"
+    })
+
+    const $button = document.createElement("button")
+    $button.classList.add("link")
+    if (res.code != 200) {
+        $button.innerText = "Recargar"
+        $message.innerText = res.result.message
+        $button.addEventListener("click", () => {
+            location.reload()
+        })
+    } else {
+        $button.innerText = "Aceptar"
+        $message.innerText = "Repositorio descargado!"
+        location.href = `${SERVER_HOST}/${res.result.data}`
+        $button.addEventListener("click", async () => {
+            await fetchServer("/repositories/zip", {
+                method: "DELETE",
+                body: { fileName: res.result.data }
+            })
+            location.reload()
+        })
+    }
+    $dialog.appendChild($button)
+})
