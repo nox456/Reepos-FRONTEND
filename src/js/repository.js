@@ -4,6 +4,7 @@ import userImage from "./lib/userImage.js";
 import user from "./is_authenticated.js";
 import showErrorModal from "./lib/errorModal.js";
 import { SERVER_HOST } from "./config.js";
+import langColors from "./lib/langColors.js"
 
 headerSearch();
 userImage();
@@ -155,3 +156,37 @@ $download.addEventListener("click", async () => {
     }
     $dialog.appendChild($button)
 })
+
+const $section3 = $main.querySelector("section:nth-of-type(3)")
+
+const $aside = $section3.querySelector("& > aside")
+
+const $description = $aside.querySelector("& > p")
+
+$description.innerText = repo_response.result.data.description
+
+const $languages = $aside.querySelector("& > ul")
+
+repo_response.result.data.languages.forEach(lang => {
+    const $li = document.createElement("li")
+    const $color = document.createElement("div")
+    $color.style.backgroundColor = langColors[lang]
+    $li.appendChild($color)
+    $li.insertAdjacentText("beforeend", lang)
+
+    $languages.appendChild($li)
+})
+
+const $section3_main = $section3.querySelector("& > main")
+
+const $last_commit_section = $section3_main.querySelector("& > section:first-child")
+
+const $last_commit_author = $last_commit_section.querySelector("span:first-child")
+$last_commit_author.innerText = repo_response.result.data.last_commit.author
+
+const $last_commit_title = $last_commit_section.querySelector("& > p:nth-of-type(1) > a")
+$last_commit_title.innerText = repo_response.result.data.last_commit.title
+
+const $last_commit_created_at = $last_commit_section.querySelector("& > p:nth-of-type(2) > span")
+
+$last_commit_created_at.innerText = repo_response.result.data.last_commit.created_at
