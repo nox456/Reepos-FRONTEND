@@ -174,6 +174,7 @@ const $aside = $section3.querySelector("& > aside")
 
 const $description = $aside.querySelector("& > p")
 
+$aside.classList.remove("loading")
 $description.innerText = repo_response.result.data.description
 
 const $languages = $aside.querySelector("& > ul")
@@ -193,6 +194,7 @@ const $section3_main = $section3.querySelector("& > main")
 const $last_commit_section = $section3_main.querySelector("& > section:first-child")
 
 const $last_commit_author = $last_commit_section.querySelector("span:first-child")
+$section3_main.classList.remove("loading")
 $last_commit_author.innerText = repo_response.result.data.last_commit.author
 
 const $last_commit_title = $last_commit_section.querySelector("& > p:nth-of-type(1) > a")
