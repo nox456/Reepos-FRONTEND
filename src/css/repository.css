@@ -97,6 +97,15 @@ body > main {
         display: flex;
         gap: 2em;
         align-items: center;
+        &.loading {
+            & > article > p,
+            & > article > span {
+                background-color: var(--bg-primary-color);
+                border-radius: 1em;
+                width: 4em;
+                height: 1em;
+            }
+        }
         & > article {
             display: flex;
             align-items: center;

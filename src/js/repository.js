@@ -20,10 +20,6 @@ const repo_response = await fetchServer(
     },
 );
 
-const $main = document.querySelector("body > main");
-
-const $section1 = $main.querySelector("section:nth-child(1)");
-
 if (repo_response.code != 200) {
     showErrorModal(repo_response.result.message,{message: "Dashboard", href: "../pages/dashboard.html"})
 }
@@ -41,6 +37,10 @@ const user_liked_response = await fetchServer(`/repositories/like?repoName=${url
     method: "GET",
     cookies: true
 })
+
+const $main = document.querySelector("body > main");
+
+const $section1 = $main.querySelector("section:nth-child(1)");
 
 const $image = $section1.querySelector("div:nth-of-type(1) img");
 const $username = $section1.querySelector("div:nth-of-type(1) a");
@@ -95,6 +95,7 @@ const $section2 = $main.querySelector("section:nth-of-type(2)");
 
 const $branches = $section2.querySelector("article:nth-of-type(1) p")
 
+$section2.classList.remove("loading")
 $branches.querySelector("span:nth-child(1)").innerText = repo_response.result.data.branches.length
 
 $branches.querySelector("span:nth-child(2)").innerText = repo_response.result.data.branches.length > 1 ? "Ramas" : "Rama"
