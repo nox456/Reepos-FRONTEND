@@ -209,8 +209,23 @@ body > main {
         width: 100%;
         padding: 2em;
         flex-grow: 1;
+        code {
+            background-color: #444;
+            border-radius: .5em;
+            padding: .2em;
+        }
+        pre {
+            font-size: .8em;
+        }
+        a {
+            color: var(--bg-secondary-color);
+            text-decoration: underline;
+        }
         img {
             max-width: 50%;
+        }
+        * {
+            margin-bottom: .5em;
         }
     }
 }

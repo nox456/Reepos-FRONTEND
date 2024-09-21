@@ -5,6 +5,7 @@ import user from "./is_authenticated.js";
 import showErrorModal from "./lib/errorModal.js";
 import { SERVER_HOST } from "./config.js";
 import langColors from "./lib/langColors.js"
+import { MarkdownBlock, URLs } from "../js/lib/renderMd.js";
 
 headerSearch();
 userImage();
@@ -190,3 +191,9 @@ $last_commit_title.innerText = repo_response.result.data.last_commit.title
 const $last_commit_created_at = $last_commit_section.querySelector("& > p:nth-of-type(2) > span")
 
 $last_commit_created_at.innerText = repo_response.result.data.last_commit.created_at
+
+const $readme = new MarkdownBlock()
+
+$readme.mdContent = repo_response.result.data.readme
+
+$main.appendChild($readme)

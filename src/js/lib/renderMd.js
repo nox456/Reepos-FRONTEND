@@ -9,7 +9,9 @@ let Prism = window.Prism;
 
 export const URLs = {
 	marked: "https://cdn.jsdelivr.net/npm/marked/src/marked.min.js",
-	DOMPurify: "https://cdn.jsdelivr.net/npm/dompurify@2.3.3/dist/purify.es.min.js"
+	DOMPurify: "https://cdn.jsdelivr.net/npm/dompurify@2.3.3/dist/purify.es.min.js",
+    Prism: "../lib/prism.js",
+    PrismCSS: "../../css/prism.css"
 }
 
 // Fix indentation
