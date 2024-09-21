@@ -19,21 +19,28 @@ const repo_response = await fetchServer(
         method: "GET",
     },
 );
+
+const $main = document.querySelector("body > main");
+
+const $section1 = $main.querySelector("section:nth-child(1)");
+
+if (repo_response.code != 200) {
+    showErrorModal(repo_response.result.message,{message: "Dashboard", href: "../pages/dashboard.html"})
+}
 const user_response = await fetchServer(
     `/users/profile?username=${urlParams.get("username")}`,
     {
         method: "GET",
     },
 );
+if (user_response.code != 200) {
+    showErrorModal(user_response.result.message,{message: "Dashboard", href: "../pages/dashboard.html"})
+}
 
 const user_liked_response = await fetchServer(`/repositories/like?repoName=${urlParams.get("repoName")}&userOwnerName=${urlParams.get("username")}`, {
     method: "GET",
     cookies: true
 })
-
-const $main = document.querySelector("body > main");
-
-const $section1 = $main.querySelector("section:nth-child(1)");
 
 const $image = $section1.querySelector("div:nth-of-type(1) img");
 const $username = $section1.querySelector("div:nth-of-type(1) a");
@@ -42,7 +49,9 @@ const $config = $section1.querySelector("div:nth-of-type(2) a");
 const $likes = $section1.querySelector("div:nth-of-type(2) button");
 
 $image.src = user_response.result.data.user_img;
-$username.innerText = urlParams.get("username");
+$section1.classList.remove("loading")
+$username.querySelector("div:last-child").remove()
+$username.insertAdjacentText("beforeend", urlParams.get("username"))
 $username.href = `../pages/profile?username=${urlParams.get("username")}`;
 $repoName.innerText = urlParams.get("repoName");
 $config.href = `../pages/config?repoName=${urlParams.get("repoName")}`;
@@ -194,6 +203,8 @@ $last_commit_created_at.innerText = repo_response.result.data.last_commit.create
 
 const $readme = new MarkdownBlock()
 
+const $section4 = $main.querySelector("section:nth-of-type(4)")
+
 $readme.mdContent = repo_response.result.data.readme
 
-$main.appendChild($readme)
+$section4.appendChild($readme)

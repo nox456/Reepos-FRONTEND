@@ -7,20 +7,55 @@ body > main {
     & > section:nth-of-type(1) {
         display: flex;
         justify-content: space-between;
+        &.loading {
+            & > div:nth-of-type(1) {
+                a {
+                    button {
+                        background-color: var(--dialog-bg-color);
+                        border: 2px solid var(--border-primary-color);
+                        img {
+                            display: none;
+                        }
+                    }
+                    div {
+                        width: 3.5em;
+                        height: 1em;
+                        background-color: var(--dialog-bg-color);
+                        border-radius: 1em;
+                    }
+                }
+                span {
+                    width: 5em;
+                    height: 1.2em;
+                    background-color: var(--dialog-bg-color);
+                    border-radius: 1em;
+                }
+            }
+        }
         & > div:nth-child(1) {
             display: flex;
             align-items: center;
             gap: 1em;
-            & > img {
-                border-radius: 50%;
-                width: 5em;
-                height: 5em;
-                object-fit: cover;
-            }
             & > a {
                 color: var(--bg-secondary-color);
                 font-size: 1.2em;
                 font-weight: bold;
+                display: flex;
+                align-items: center;
+                gap: .5em;
+                & > button {
+                    border-radius: 50%;
+                    width: 4em;
+                    height: 4em;
+                    background-color: transparent;
+                    border: none;
+                    img {
+                        object-fit: cover;
+                        border-radius: 50%;
+                        width: 4em;
+                        height: 4em;
+                    }
+                }
             }
             & > span {
                 font-weight: bold;
@@ -202,30 +237,32 @@ body > main {
             }
         }
     }
-    & > md-block {
+    & > section:nth-of-type(4) {
         background-color: var(--dialog-bg-color);
         border: 2px solid var(--border-primary-color);
         border-radius: var(--container-border-radius);
         width: 100%;
         padding: 2em;
         flex-grow: 1;
-        code {
-            background-color: #444;
-            border-radius: .5em;
-            padding: .2em;
-        }
-        pre {
-            font-size: .8em;
-        }
-        a {
-            color: var(--bg-secondary-color);
-            text-decoration: underline;
-        }
-        img {
-            max-width: 50%;
-        }
-        * {
-            margin-bottom: .5em;
+        & > md-block {
+            code {
+                background-color: #444;
+                border-radius: .5em;
+                padding: .2em;
+            }
+            pre {
+                font-size: .8em;
+            }
+            a {
+                color: var(--bg-secondary-color);
+                text-decoration: underline;
+            }
+            img {
+                max-width: 50%;
+            }
+            * {
+                margin-bottom: .5em;
+            }
         }
     }
 }
