@@ -199,7 +199,7 @@ body > main {
                 & > li {
                     display: flex;
                     align-items: center;
-                    & > a {
+                    a {
                         color: var(--bg-secondary-color);
                     }
                     &:not(:last-child) {
@@ -209,6 +209,9 @@ body > main {
                         display: flex;
                         align-items: center;
                         gap: .5em;
+                        & > span {
+                            cursor: pointer;
+                        }
                         &:first-child {
                             width: 40%;
                         }

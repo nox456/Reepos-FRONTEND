@@ -5,7 +5,9 @@ import user from "./is_authenticated.js";
 import showErrorModal from "./lib/errorModal.js";
 import { SERVER_HOST } from "./config.js";
 import langColors from "./lib/langColors.js"
-import { MarkdownBlock, URLs } from "../js/lib/renderMd.js";
+import { MarkdownBlock } from "../js/lib/renderMd.js";
+import foldersTree from "./lib/foldersTree.js";
+import renderFiles from "./lib/renderFiles.js";
 
 headerSearch();
 userImage();
@@ -204,10 +206,57 @@ const $last_commit_created_at = $last_commit_section.querySelector("& > p:nth-of
 
 $last_commit_created_at.innerText = repo_response.result.data.last_commit.created_at
 
-const $readme = new MarkdownBlock()
+// const $readme = new MarkdownBlock()
+//
+// const $section4 = $main.querySelector("section:nth-of-type(4)")
+//
+// $readme.mdContent = repo_response.result.data.readme
+//
+// $section4.appendChild($readme)
 
-const $section4 = $main.querySelector("section:nth-of-type(4)")
+const files = repo_response.result.data.files
 
-$readme.mdContent = repo_response.result.data.readme
+let tree = {}
 
-$section4.appendChild($readme)
+let allFolders = []
+
+files.forEach(file => {
+    const folders = file.path.split("/", file.path.split("/").length - 1)
+    folders.forEach((folder) => {
+        if (!allFolders.some(f => f.name == folder)) {
+            const prevFolders = folders.slice(0,folders.indexOf(folder))
+            allFolders.push({
+                name: folder,
+                prevFolder: prevFolders[prevFolders.length - 1] || "/",
+                insideFolders: [],
+                files: []
+            })
+        }
+    })
+})
+
+allFolders.forEach((folder,index) => {
+    allFolders.forEach(f => {
+        if (f.prevFolder == folder.name) {
+            allFolders[index].insideFolders.push(f.name)
+        }
+    })
+})
+
+files.forEach(file => {
+    const folderName = file.path.split("/", file.path.split("/").length - 1).at(-1) || "/"
+    if (folderName == "/") {
+        tree[file.name] = file
+    }
+    allFolders.forEach(folder => {
+        if (folder.name == folderName) {
+            allFolders[allFolders.indexOf(folder)].files.push(file)
+        }
+    })
+})
+
+for (const folder of allFolders.filter(f => f.prevFolder == "/")) {
+    tree = {...foldersTree(folder,tree,allFolders), ...tree}
+}
+
+renderFiles(tree)
