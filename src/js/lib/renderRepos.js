@@ -1,4 +1,5 @@
 import langColors from "./langColors.js";
+import timeago from "./timeago.js";
 
 /**
  * @typedef {Object} Repository
@@ -21,7 +22,12 @@ export default async function renderRepos(repos,$container) {
         repos.forEach(repo => {
             const $article = document.createElement("article")
             const date = new Date(repo.created_at)
-            const date_formatted = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}, ${date.getHours()}:${date.getMinutes()}`
+            const date_relative = timeago({
+                year: date.getFullYear(),
+                month: date.getMonth() + 1,
+                day: date.getDate()
+            })
+
             repo.username ??= urlParams.get("username")
             $article.classList.add("repository")
             $article.innerHTML = `
@@ -30,7 +36,7 @@ export default async function renderRepos(repos,$container) {
                     <h2>
                         <a href="../pages/repository?repoName=${repo.name}&username=${repo.username}" >${repo.name}</a>
                     </h2>
-                    <span>${date_formatted}</span>
+                    <span>${date_relative}</span>
                 </header>
                 <main>
                     <p>${repo.description}</p>

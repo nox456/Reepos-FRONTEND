@@ -8,6 +8,7 @@ import langColors from "./lib/langColors.js"
 import { MarkdownBlock } from "../js/lib/renderMd.js";
 import foldersTree from "./lib/foldersTree.js";
 import renderFiles from "./lib/renderFiles.js";
+import timeago from "./lib/timeago.js";
 
 headerSearch();
 userImage();
@@ -204,7 +205,14 @@ $last_commit_title.innerText = repo_response.result.data.last_commit.title
 
 const $last_commit_created_at = $last_commit_section.querySelector("& > p:nth-of-type(2) > span")
 
-$last_commit_created_at.innerText = repo_response.result.data.last_commit.created_at
+const created_at = new Date(repo_response.result.data.last_commit.created_at)
+const created_at_relative = timeago({
+    year: created_at.getFullYear(),
+    month: created_at.getMonth() + 1,
+    day: created_at.getDate()
+})
+
+$last_commit_created_at.innerText = created_at_relative
 
 
 const $section4 = $main.querySelector("section:nth-of-type(4)")
@@ -267,3 +275,5 @@ for (const folder of allFolders.filter(f => f.prevFolder == "/")) {
 }
 
 renderFiles(tree)
+
+console.log(repo_response.result.data)
