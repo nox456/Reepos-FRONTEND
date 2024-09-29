@@ -206,13 +206,20 @@ const $last_commit_created_at = $last_commit_section.querySelector("& > p:nth-of
 
 $last_commit_created_at.innerText = repo_response.result.data.last_commit.created_at
 
-// const $readme = new MarkdownBlock()
-//
-// const $section4 = $main.querySelector("section:nth-of-type(4)")
-//
-// $readme.mdContent = repo_response.result.data.readme
-//
-// $section4.appendChild($readme)
+
+const $section4 = $main.querySelector("section:nth-of-type(4)")
+if (repo_response.result.data.readme) {
+    const $readme = new MarkdownBlock()
+
+    $readme.mdContent = repo_response.result.data.readme
+
+    $section4.appendChild($readme)
+} else {
+    const $no_readme_message = document.createElement("h1")    
+    $no_readme_message.innerText = "Este repositorio no posee un README.md"
+    $section4.appendChild($no_readme_message)
+}
+
 
 const files = repo_response.result.data.files
 

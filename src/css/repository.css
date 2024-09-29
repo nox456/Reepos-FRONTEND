@@ -308,6 +308,9 @@ body > main {
                 margin-bottom: .5em;
             }
         }
+        & > h1 {
+            text-align: center;
+        }
     }
 }
 
