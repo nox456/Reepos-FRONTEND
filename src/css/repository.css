@@ -213,6 +213,12 @@ body > main {
                 & > li {
                     display: flex;
                     align-items: center;
+                    transition: background-color 100ms;
+                    border-top-left-radius: var(--container-border-radius);
+                    border-top-right-radius: var(--container-border-radius);
+                    &:hover {
+                        background-color: var(--bg-primary-color);
+                    }
                     a {
                         color: var(--bg-secondary-color);
                     }
@@ -228,6 +234,12 @@ body > main {
                         }
                         &:first-child {
                             width: 40%;
+                            & > span {
+                                transition: color 100ms;
+                                &:hover {
+                                    color: var(--input-text-color);
+                                }
+                            }
                         }
                         &:last-child {
                             margin-left: auto;
@@ -244,6 +256,19 @@ body > main {
                                     margin-left: auto;
                                 }
                             }
+                        }
+                    }
+                }
+                &.loading {
+                    & > li {
+                        border: none;
+                        justify-content: space-between;
+                        & > div {
+                            background-color: var(--bg-primary-color);
+                            border-radius: var(--container-border-radius);
+                            width: 25%;
+                            height: 2em;
+                            margin: 0;
                         }
                     }
                 }

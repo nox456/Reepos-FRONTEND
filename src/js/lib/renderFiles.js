@@ -3,6 +3,8 @@ import timeago from "./timeago.js";
 
 export default function renderFiles(fileTree, allTree, folder) {
     const $section = document.querySelector("main > ul");
+    $section.classList.remove("loading")
+    $section.innerHTML = ""
     if (allTree) {
         const $go_back_button = document.createElement("button");
         $go_back_button.innerHTML = `
