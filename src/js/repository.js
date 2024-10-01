@@ -274,6 +274,5 @@ for (const folder of allFolders.filter(f => f.prevFolder == "/")) {
     tree = {...foldersTree(folder,tree,allFolders), ...tree}
 }
 
-renderFiles(tree)
+renderFiles(tree, null, "/")
 
-console.log(repo_response.result.data)

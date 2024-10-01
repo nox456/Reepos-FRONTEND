@@ -1,7 +1,22 @@
+import beforeLevel from "./beforeLevel.js";
 import timeago from "./timeago.js";
 
-export default function renderFiles(fileTree) {
+export default function renderFiles(fileTree, allTree, folder) {
     const $section = document.querySelector("main > ul");
+    if (allTree) {
+        const $go_back_button = document.createElement("button");
+        $go_back_button.innerHTML = `
+            <svg viewBox="0 0 24 24"><path d="M12.707 17.293 8.414 13H18v-2H8.414l4.293-4.293-1.414-1.414L4.586 12l6.707 6.707z"></path></svg>
+        `;
+        const level = beforeLevel(allTree,folder,"/")
+        $go_back_button.addEventListener("click", () => {
+            $section.innerHTML = "";
+            renderFiles(level.content, allTree, level.name);
+        })
+        if (folder != "/") {
+            $section.appendChild($go_back_button)
+        }
+    }
     Object.keys(fileTree)
         .sort((a) => {
             if (a.includes(".")) {
@@ -21,7 +36,7 @@ export default function renderFiles(fileTree) {
                 $name.innerText = key;
                 $name.addEventListener("click", () => {
                     $section.innerHTML = "";
-                    renderFiles(fileTree[key]);
+                    renderFiles(fileTree[key], allTree || fileTree, key);
                 });
                 $div1.insertAdjacentHTML(
                     "afterbegin",
@@ -48,13 +63,11 @@ export default function renderFiles(fileTree) {
                 const created_at = new Date(
                     fileTree[key].last_commit_created_at,
                 );
-                const created_at_relative = timeago(
-                    {
-                        year: created_at.getFullYear(),
-                        month: created_at.getMonth() + 1,
-                        day: created_at.getDate()
-                    } 
-                );
+                const created_at_relative = timeago({
+                    year: created_at.getFullYear(),
+                    month: created_at.getMonth() + 1,
+                    day: created_at.getDate(),
+                });
                 $last_commit_created_at.innerText = created_at_relative;
                 $div1.insertAdjacentHTML(
                     "afterbegin",

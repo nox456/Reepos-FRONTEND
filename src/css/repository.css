@@ -196,6 +196,20 @@ body > main {
                 gap: .5em;
                 padding: .5em 1em;
                 font-size: .9em;
+                & > button {
+                    width: 3em;
+                    background-color: transparent;
+                    border: 2px solid var(--border-primary-color);
+                    border-radius: var(--container-border-radius);
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    cursor: pointer;
+                    transition: background-color 100ms;
+                    &:hover {
+                        background-color: var(--bg-primary-color);
+                    }
+                }
                 & > li {
                     display: flex;
                     align-items: center;
