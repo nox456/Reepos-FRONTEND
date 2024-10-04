@@ -16,6 +16,7 @@ userImage();
 const urlParams = new URLSearchParams(
     location.href.slice(location.href.indexOf("?") + 1),
 );
+document.title = `${urlParams.get("username")} / ${urlParams.get("repoName")} - Reepos`
 const repo_response = await fetchServer(
     `/repositories/info?username=${urlParams.get("username")}&repoName=${urlParams.get("repoName")}`,
     {
@@ -121,7 +122,7 @@ const $commits = $section2.querySelector("article:nth-of-type(2)")
 
 $commits.querySelector("span").insertAdjacentText("afterbegin",repo_response.result.data.commits_count)
 
-$commits.querySelector("a").href = `../pages/commits?repoName=${urlParams.get("repoName")}`
+$commits.querySelector("a").href = `../pages/commits?repoName=${urlParams.get("repoName")}&username=${urlParams.get("username")}`
 $commits.querySelector("a").innerText = repo_response.result.data.commits_count > 1 ? "Commits" : "Commit"
 
 const $contributors = $section2.querySelector("article:nth-of-type(3)")
