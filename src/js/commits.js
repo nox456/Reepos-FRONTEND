@@ -3,6 +3,7 @@ import headerSearch from "./lib/headerSearch.js";
 import fetchServer from "./lib/fetch.js";
 import showErrorModal from "./lib/errorModal.js";
 import user from "./is_authenticated.js";
+import timeago from "./lib/timeago.js"
 
 userImage();
 headerSearch();
@@ -36,5 +37,30 @@ const res = await fetchServer(
 if (res.code != 200) {
     showErrorModal(res.result.message,{href: "../pages/dashboard", message: "Dashboard"}) 
 } else {
-    const $ul = document.querySelector("")
+    const commits = res.result.data
+    const $ul = document.querySelector("main > ul")
+
+    commits.forEach(commit => {
+        const $element = document.createElement("li")
+        
+        const date = new Date(commit.created_at)
+        const relativeDate = timeago({
+            year: date.getFullYear(),
+            month: date.getMonth() + 1,
+            day: date.getTime()
+        })
+        $element.innerHTML = `
+            <section>
+                <a href="../pages/commit?hash=${commit.hash}">${commit.title}</a>
+                <p>
+                    <span>${commit.author}</span>
+                    -
+                    <span>${relativeDate}</span>
+                </p>
+            </section>
+            <span>${commit.hash.slice(0,7)}</span>
+        `
+
+        $ul.appendChild($element)
+    })
 }

@@ -93,6 +93,7 @@ body > main {
             padding: 1em;
             align-items: center;
             border: 2px solid var(--border-primary-color);
+            color: var(--input-text-color);
             & > section {
                 & > a {
                     color: var(--bg-secondary-color);
