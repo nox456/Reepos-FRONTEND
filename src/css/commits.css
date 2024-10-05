@@ -71,4 +71,35 @@ body > main {
             align-items: center;
         }
     }
+    & > section:nth-of-type(2) {
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        & > form {
+            display: flex;
+            gap: 1em;
+        }
+    }
+    & > ul {
+        display: flex;
+        flex-direction: column;
+        gap: 1em;
+        margin-top: 5%;
+        & > li {
+            display: flex;
+            justify-content: space-between;
+            background-color: var(--dialog-bg-color);
+            border-radius: var(--container-border-radius);
+            padding: 1em;
+            align-items: center;
+            border: 2px solid var(--border-primary-color);
+            & > section {
+                & > a {
+                    color: var(--bg-secondary-color);
+                    font-size: 1.5em;
+                    font-weight: bold;
+                }
+            }
+        }
+    }
 }
