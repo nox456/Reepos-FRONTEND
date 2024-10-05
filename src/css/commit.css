@@ -1,0 +1,155 @@
+body > main {
+     min-height: 84vh;
+    padding: 1em;
+    display: flex;
+    flex-direction: column;
+    gap: .5em;
+    & > section:nth-of-type(1) {
+        display: flex;
+        align-items: center;
+        gap: .5em;
+        &.loading {
+            & > a:first-of-type {
+                & > button {
+                    background-color: var(--dialog-bg-color);
+                    border: 2px solid var(--border-primary-color);
+                    img {
+                        display: none;
+                    }
+                }
+                & > div {
+                    width: 3.5em;
+                    height: 1em;
+                    background-color: var(--dialog-bg-color);
+                    border-radius: 1em;
+                }
+            }
+            & > a:nth-of-type(2) {
+                width: 5em;
+                height: 1.2em;
+                background-color: var(--dialog-bg-color);
+                border-radius: 1em;
+            }
+            & > span:first-of-type {
+                display: none;
+            }
+            & > span:last-child {
+                width: 5em;
+                height: 1.2em;
+                background-color: var(--dialog-bg-color);
+                border-radius: 1em;
+            }
+        }
+        & > a:first-child {
+            display: flex;
+            align-items: center;
+            gap: .5em;
+            font-weight: bold;
+            color: var(--bg-secondary-color);
+            font-size: 1.2em;
+            & > button {
+                border-radius: 50%;
+                width: 4em;
+                height: 4em;
+                background-color: transparent;
+                border: none;
+                cursor: pointer;
+                img {
+                    object-fit: cover;
+                    width: 4em;
+                    height: 4em;
+                    border-radius: 50%;
+                }
+            }
+        }
+        & > a:nth-of-type(2) {
+            font-weight: bold;
+            color: var(--bg-secondary-color);
+        }
+    }
+    & > section:nth-of-type(2) {
+        padding: 1em;
+        display: flex;
+        flex-direction: column;
+        gap: .5em;
+        & > header {
+            display: flex;
+            flex-direction: column;
+            gap: .5em;
+            & > p {
+                display: flex;
+                align-items: center;
+                gap: .5em;
+                & > hr {
+                    width: .1em;
+                    display: inline;
+                }
+                & > span {
+                    display: flex;
+                    color: var(--input-text-color);
+                    align-items: center;
+                    gap: .5em;
+                    border: 2px solid var(--border-primary-color);
+                    border-radius: var(--container-border-radius);
+                    background-color: var(--dialog-bg-color);
+                    padding: .5em;
+                }
+            }
+        }
+        & > main {
+            display: flex;
+            min-height: 10em;
+            gap: 1em;
+            & > * {
+                flex-grow: 1;
+                border: 2px solid var(--border-primary-color);
+                border-radius: var(--container-border-radius);
+                background-color: var(--dialog-bg-color);
+            }
+            & > aside {
+                color: var(--input-text-color);
+                padding: 1em;
+            }
+            & > ul {
+                display: flex;
+                flex-direction: column;
+                & > li {
+                    padding: .5em 1em;
+                    display: flex;
+                    &:first-child {
+                        color: var(--input-text-color);
+                    }
+                    & > * {
+                        width: 33%;
+                        text-align: center;
+                        display: flex;
+                        justify-content: center;
+                    }
+                    &:not(:last-child) {
+                        border-bottom: 2px solid var(--border-primary-color);
+                    }
+                    & > span:last-child {
+                        & > div {
+                            width: 1.5em;
+                            height: 1.5em;
+                            border: 2px solid;
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            svg {
+                                width: 1em;
+                                height: 1em;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        & > footer {
+            display: flex;
+            margin-top: auto;
+            justify-content: space-between;
+        }
+    }
+}
+

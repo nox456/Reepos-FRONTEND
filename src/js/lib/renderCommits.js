@@ -1,6 +1,6 @@
 import timeago from "./timeago.js"
 
-export default function renderCommits(commits,$container) {
+export default function renderCommits(commits,$container,info) {
     commits.forEach(commit => {
         const $element = document.createElement("li")
         
@@ -12,7 +12,7 @@ export default function renderCommits(commits,$container) {
         })
         $element.innerHTML = `
             <section>
-                <a href="../pages/commit?hash=${commit.hash}">${commit.title}</a>
+                <a href="../pages/commit?hash=${commit.hash}&username=${info.username}&repoName=${info.repoName}">${commit.title}</a>
                 <p>
                     <span>${commit.author}</span>
                     -

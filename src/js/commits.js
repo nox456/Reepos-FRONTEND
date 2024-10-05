@@ -2,7 +2,6 @@ import userImage from "./lib/userImage.js";
 import headerSearch from "./lib/headerSearch.js";
 import fetchServer from "./lib/fetch.js";
 import showErrorModal from "./lib/errorModal.js";
-import user from "./is_authenticated.js";
 import filterCommits from "./lib/filterCommits.js";
 import renderCommits from "./lib/renderCommits.js"
 
@@ -47,7 +46,7 @@ if (res.code != 200) {
     const commits = res.result.data
     const $ul = document.querySelector("main > ul")
 
-    renderCommits(commits,$ul)
+    renderCommits(commits,$ul,{username: urlParams.get("username"),repoName: urlParams.get("repoName")})
 
     filterCommits(commits,$ul)
 }
