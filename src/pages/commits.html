@@ -73,17 +73,18 @@
             <hr />
             <section>
                 <form>
-                    <input type="text">
+                    <input type="text" placeholder="Título...">
                     <select id="filter">
-                        <option selected hidden>Filtro</option>
+                        <option selected hidden value="title" >Filtro</option>
                         <option value="title">Título</option>
                         <option value="hash">Hash</option>
                     </select>
-                    <button type="submit">Buscar</button>
+                    <button type="submit">Filtrar</button>
                 </form>
                 <form>
                     <select id="authors">
                         <option selected hidden>Autor</option>
+                        <option value="none">Todos</option>
                     </select>
                 </form>
             </section>
