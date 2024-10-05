@@ -50,6 +50,13 @@ const $image = $section1.querySelector("div:nth-of-type(1) img");
 const $username = $section1.querySelector("div:nth-of-type(1) a");
 const $repoName = $section1.querySelector("div:nth-of-type(1) span");
 const $config = $section1.querySelector("div:nth-of-type(2) a");
+
+if (user.username != urlParams.get("username")) {
+    $config.remove()
+} else {
+    $config.href = `../pages/config?repoName=${urlParams.get("repoName")}`;
+}
+
 const $likes = $section1.querySelector("div:nth-of-type(2) button");
 
 $image.src = user_response.result.data.user_img;
@@ -58,7 +65,6 @@ $username.querySelector("div:last-child").remove()
 $username.insertAdjacentText("beforeend", urlParams.get("username"))
 $username.href = `../pages/profile?username=${urlParams.get("username")}`;
 $repoName.innerText = urlParams.get("repoName");
-$config.href = `../pages/config?repoName=${urlParams.get("repoName")}`;
 $likes.querySelector("span").innerText = repo_response.result.data.likes;
 
 if (user_liked_response.result.data) {
