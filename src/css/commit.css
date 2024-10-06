@@ -62,7 +62,8 @@ body > main {
                 }
             }
         }
-        & > a:nth-of-type(2) {
+        & > a:nth-of-type(2),
+        & > a:nth-of-type(3) {
             font-weight: bold;
             color: var(--bg-secondary-color);
         }
@@ -149,6 +150,12 @@ body > main {
             display: flex;
             margin-top: auto;
             justify-content: space-between;
+            & > a[disabled] {
+                user-select: none;
+                cursor: default;
+                pointer-events: none;
+                opacity: .5;
+            }
         }
     }
 }

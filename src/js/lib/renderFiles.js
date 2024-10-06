@@ -2,6 +2,9 @@ import beforeLevel from "./beforeLevel.js";
 import timeago from "./timeago.js";
 
 export default function renderFiles(fileTree, allTree, folder) {
+    const urlParams = new URLSearchParams(
+        location.href.slice(location.href.indexOf("?")),
+    );
     const $section = document.querySelector("main > ul");
     $section.classList.remove("loading")
     $section.innerHTML = ""
@@ -57,7 +60,7 @@ export default function renderFiles(fileTree, allTree, folder) {
                 $name.href = "../../pages/file";
                 $name.innerText = key;
                 const $last_commit_title = document.createElement("a");
-                $last_commit_title.href = `../../pages/commit`;
+                $last_commit_title.href = `../../pages/commit?hash=${fileTree[key].last_commit_hash}&repoName=${urlParams.get("repoName")}&username=${urlParams.get("username")}`;
                 $last_commit_title.innerText = fileTree[key].last_commit_title;
                 const $size = document.createElement("span");
                 $size.innerText = fileTree[key].size;

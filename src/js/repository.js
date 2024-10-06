@@ -208,6 +208,7 @@ $section3_main.classList.remove("loading")
 $last_commit_author.innerText = repo_response.result.data.last_commit.author
 
 const $last_commit_title = $last_commit_section.querySelector("& > p:nth-of-type(1) > a")
+$last_commit_title.href = `../pages/commit?hash=${repo_response.result.data.last_commit.hash}&repoName=${urlParams.get("repoName")}&username=${urlParams.get("username")}`
 $last_commit_title.innerText = repo_response.result.data.last_commit.title
 
 const $last_commit_created_at = $last_commit_section.querySelector("& > p:nth-of-type(2) > span")
