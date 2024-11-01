@@ -48,5 +48,5 @@ if (res.code != 200) {
 
     renderCommits(commits,$ul,{username: urlParams.get("username"),repoName: urlParams.get("repoName")})
 
-    filterCommits(commits,$ul)
+    filterCommits(commits,$ul, {username: urlParams.get("username"),repoName: urlParams.get("repoName")})
 }

@@ -1,6 +1,6 @@
 import renderCommits from "./renderCommits.js"
 
-export default function filterCommits(commits,$container) {
+export default function filterCommits(commits,$container, info) {
     const $filter_form = document.querySelector("main > section:nth-of-type(2) > form:first-child")
 
     const $filter_input = $filter_form.querySelector("input")
@@ -56,6 +56,6 @@ export default function filterCommits(commits,$container) {
         }
 
         $container.innerHTML = ""
-        renderCommits(commitsFiltered,$container)
+        renderCommits(commitsFiltered,$container, info)
     })
 }
