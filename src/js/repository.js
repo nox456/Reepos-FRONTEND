@@ -134,7 +134,7 @@ $commits.querySelector("a").innerText = repo_response.result.data.commits_count 
 const $contributors = $section2.querySelector("article:nth-of-type(3)")
 
 $contributors.querySelector("span").insertAdjacentText("afterbegin",repo_response.result.data.contributors_count)
-$contributors.querySelector("a").href = `../pages/contributors?repoName=${urlParams.get("repoName")}`
+$contributors.querySelector("a").href = `../pages/contributors?repoName=${urlParams.get("repoName")}&username=${urlParams.get("username")}`
 $contributors.querySelector("a").innerText = repo_response.result.data.contributors_count > 1 ? "Contribuidores" : "Contribuidor"
 
 const $download = $section2.querySelector("& > button")

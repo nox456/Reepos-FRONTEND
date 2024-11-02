@@ -42,7 +42,36 @@
                 </button>
             </div>
         </header>
-        <main></main>
+        <main>
+            <section class="loading">
+                <div>
+                    <a href="">
+                        <button>
+                            <img
+                                src=""
+                                alt="Imagen de usuario"
+                            />
+                        </button>
+                        <div></div>
+                    </a>
+                    /
+                    <a href=""></a>
+                    /
+                    <span>Contribuidores</span>
+                </div>
+            </section>
+            <hr/>
+            <section>
+                <form>
+                    <select>
+                        <option selected hidden>Cantidad de Commits</option>
+                        <option value="more">Más commits</option>
+                        <option value="less">Menos commits</option>
+                    </select>
+                </form>
+            </section>
+            <ul></ul>
+        </main>
         <footer>
             <p>
                 Basado en
@@ -57,5 +86,6 @@
             </p>
         </footer>
         <script src="../js/is_authenticated.js" type="module"></script>
+        <script src="../js/contributors.js" type="module"></script>
     </body>
 </html>
