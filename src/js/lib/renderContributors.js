@@ -1,4 +1,4 @@
-export default function renderContributors(contributors, $container) {
+export default function renderContributors(contributors, $container, info) {
     contributors.forEach((contributor) => {
         const $element = document.createElement("li");
         const $name = document.createElement("span");
@@ -6,8 +6,9 @@ export default function renderContributors(contributors, $container) {
         <svg viewBox="0 0 24 24"><path d="M12 2a5 5 0 1 0 5 5 5 5 0 0 0-5-5zm0 8a3 3 0 1 1 3-3 3 3 0 0 1-3 3zm9 11v-1a7 7 0 0 0-7-7h-4a7 7 0 0 0-7 7v1h2v-1a5 5 0 0 1 5-5h4a5 5 0 0 1 5 5v1z"></path></svg>
         ${contributor.name}
     `;
-        const $last_commit = document.createElement("span");
-        $last_commit.innerText = contributor.last_commit_title;
+        const $last_commit = document.createElement("a");
+        $last_commit.innerText = contributor.last_commit.title;
+        $last_commit.href = `../../pages/commit?hash=${contributor.last_commit.hash}&username=${info.username}&repoName=${info.repoName}`;
         const $commits = document.createElement("span");
         $commits.innerHTML = `
         ${contributor.commits_created}

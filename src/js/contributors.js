@@ -59,6 +59,6 @@ const $form = $section2.querySelector("form")
 
 const $list = document.querySelector("body > main > ul");
 
-renderContributors(contributors_response.result.data,$list)
+renderContributors(contributors_response.result.data,$list, {username,repoName})
 
-filterContributors(contributors_response.result.data,$list,$form)
+filterContributors(contributors_response.result.data,$list,$form,{username,repoName})
