@@ -1,7 +1,7 @@
 import beforeLevel from "./beforeLevel.js";
 import timeago from "./timeago.js";
 
-export default function renderFiles(fileTree, allTree, folder) {
+export default function renderFiles(fileTree, allTree, folder, info) {
     const urlParams = new URLSearchParams(
         location.href.slice(location.href.indexOf("?")),
     );
@@ -16,7 +16,7 @@ export default function renderFiles(fileTree, allTree, folder) {
         const level = beforeLevel(allTree,folder,"/")
         $go_back_button.addEventListener("click", () => {
             $section.innerHTML = "";
-            renderFiles(level.content, allTree, level.name);
+            renderFiles(level.content, allTree, level.name, info);
         })
         if (folder != "/") {
             $section.appendChild($go_back_button)
@@ -41,7 +41,7 @@ export default function renderFiles(fileTree, allTree, folder) {
                 $name.innerText = key;
                 $name.addEventListener("click", () => {
                     $section.innerHTML = "";
-                    renderFiles(fileTree[key], allTree || fileTree, key);
+                    renderFiles(fileTree[key], allTree || fileTree, key, info);
                 });
                 $div1.insertAdjacentHTML(
                     "afterbegin",
@@ -57,7 +57,7 @@ export default function renderFiles(fileTree, allTree, folder) {
                 $li.appendChild($div1);
             } else {
                 const $name = document.createElement("a");
-                $name.href = "../../pages/file";
+                $name.href = `../../pages/file?repoName=${info.repoName}&fileId=${fileTree[key].id}&username=${info.username}`;
                 $name.innerText = key;
                 const $last_commit_title = document.createElement("a");
                 $last_commit_title.href = `../../pages/commit?hash=${fileTree[key].last_commit_hash}&repoName=${urlParams.get("repoName")}&username=${urlParams.get("username")}`;

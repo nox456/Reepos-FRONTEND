@@ -1,0 +1,19 @@
+body > main {
+    height: 84vh;
+    display: flex;
+    justify-content: center;
+    gap: 1em;
+    padding: 2em;
+    & > pre[class*=language-].line-numbers {
+        flex-grow: 1;
+        width: 50%;
+        border: 2px solid var(--border-primary-color);
+        border-radius: var(--container-border-radius);
+        display: flex;
+        justify-content: start;
+        background-color: var(--dialog-bg-color);
+    }
+    & > section {
+        flex-grow: 1;
+    }
+}
