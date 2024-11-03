@@ -4,7 +4,7 @@ body > main {
     justify-content: center;
     gap: 1em;
     padding: 2em;
-    & > pre[class*=language-].line-numbers {
+    & > pre.line-numbers {
         flex-grow: 1;
         width: 50%;
         border: 2px solid var(--border-primary-color);
@@ -15,5 +15,28 @@ body > main {
     }
     & > section {
         flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        gap: .5em;
+        & > p {
+            display: flex;
+            align-items: center;
+            gap: .5em;
+            font-weight: bold;
+            & > span {
+                display: flex;
+                align-items: center;
+                gap: .5em;
+            }
+            & > a {
+                display: flex;
+                align-items: center;
+                gap: .5em;
+                color: var(--bg-secondary-color);
+            }
+        }
+        & > a {
+            align-self: start;
+        }
     }
 }
