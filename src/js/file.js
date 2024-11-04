@@ -44,7 +44,7 @@ const $name_size = document.querySelector("body > main > section > p:nth-of-type
 $name_size.insertAdjacentText("beforeend",`${file.name} - ${file.size}`)
 
 const $lines = document.querySelector("body > main > section > p:nth-of-type(2)")
-$lines.insertAdjacentText("beforeend",file.content.split("\n").length - 1)
+$lines.insertAdjacentText("beforeend",file.content ? file.content.split("\n").length - 1 : "null")
 
 const $commit_title = document.querySelector("main > section > p:nth-of-type(3) > a")
 $commit_title.href = `../pages/commit?hash=${file.last_commit.hash}&repoName=${repoName}&username=${username}`
