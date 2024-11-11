@@ -28,8 +28,13 @@ $pre.classList.add("line-numbers")
 const $code = document.createElement("code")
 
 if (extension == "html") {
-    $code.innerHTML = `<!--${file.content}-->`
-    $code.classList.add("language-markup")
+    const $script = document.createElement("script")
+    $script.type = "text/plain"
+    $script.classList.add("language-markup")
+    $script.classList.add("line-numbers")
+    $script.innerHTML = file.content
+    $pre.remove()
+    document.querySelector("body > main").insertAdjacentElement("afterbegin",$script)
 } else {
     $code.innerHTML = file.content
     $code.classList.add(`language-${extension}`)
