@@ -102,3 +102,6 @@ body > main {
         }
     }
 }
+#menu-profile {
+    height: fit-content;
+}
