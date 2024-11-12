@@ -6,6 +6,7 @@ import renderRepos from "./lib/renderRepos.js"
 import showErrorModal from "./lib/errorModal.js";
 import filterUsers from "./lib/filterUsers.js";
 import filterRepos from "./lib/filterRepos.js"
+import User from "./models/user.model.js";
 
 headerSearch();
 userImage();
@@ -19,20 +20,22 @@ const searchParameter = location.href.slice(
     location.href.indexOf("?"),
 );
 
-const searchField = {
-    "repositories": "repoName",
-    "users": "username"
-}
-
 const $section = document.querySelector("main > section");
 const $filtersContainer = document.querySelector("main > aside > form")
+let res
 
-const res = await fetchServer(
-    `/${searchParameter}/search?${searchField[searchParameter]}=${urlParam.get(searchField[searchParameter])}`,
-    {
-        method: "GET",
-    },
-);
+if (searchParameter == "users") {
+    const user = new User(urlParam.get("username"))
+    res = await user.search()
+} else {
+    res = await fetchServer(
+        `/repositories/search?repoName=${urlParam.get("repoName")}`,
+        {
+            method: "GET",
+        },
+    );
+}
+
 
 $section.innerHTML = "";
 if (res.code == 200) {

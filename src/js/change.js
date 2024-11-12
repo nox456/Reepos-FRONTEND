@@ -1,15 +1,15 @@
 import headerSearch from "../js/lib/headerSearch.js";
 import userImage from "../js/lib/userImage.js";
 import showErrorModal from "./lib/errorModal.js";
-import fetchServer from "./lib/fetch.js";
 import user from "./is_authenticated.js";
+import User from "./models/user.model.js";
 
 headerSearch();
 userImage();
 
 const $form = document.querySelector("main > section > form");
 
-let $password
+let $password;
 if (location.href.includes("delete")) {
     $password = $form.querySelector("input[type=password]");
 } else {
@@ -22,57 +22,34 @@ $form.addEventListener("submit", async (e) => {
     const password = $password.value;
 
     let res;
-    let newUsername
+    let newUsername;
 
     if (location.href.includes("username")) {
         const $new_username = $form.querySelector("input[type=text]");
         newUsername = $new_username.value;
 
-        res = await fetchServer("/users/change-username", {
-            method: "PUT",
-            cookies: true,
-            body: {
-                password,
-                newUsername,
-            },
-        });
+        res = await User.changeUsername(newUsername, password);
     } else if (location.href.includes("password")) {
         const $newPassword = document.querySelector(
             "input[type=password]:nth-child(1)",
         );
         const newPassword = $newPassword.value;
 
-        res = await fetchServer("/users/change-password", {
-            method: "PUT",
-            cookies: true,
-            body: {
-                password,
-                newPassword,
-            },
-        });
+        res = await User.changePassword(password, newPassword);
     } else {
-        res = await fetchServer("/users/delete", {
-            body: {
-                password
-            },
-            method: "DELETE",
-            cookies: true
-        })
-        await fetchServer("/auth/logout", {
-            cookies: true,
-            method: "GET"
-        })
+        res = await User.delete(password)
+        await User.logout()
     }
 
     if (res.code == 200) {
         const $dialog = document.createElement("dialog");
         const $message = document.createElement("p");
         if (location.href.includes("username")) {
-            $message.innerText = "Nombre de usuario cambiado!"
+            $message.innerText = "Nombre de usuario cambiado!";
         } else if (location.href.includes("password")) {
-            $message.innerText = "Contraseña Cambiada!"
+            $message.innerText = "Contraseña Cambiada!";
         } else {
-            $message.innerText = "Cuenta eliminada"
+            $message.innerText = "Cuenta eliminada";
         }
 
         const $link = document.createElement("a");

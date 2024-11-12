@@ -1,10 +1,7 @@
-import fetchServer from "./lib/fetch.js";
 import showErrorModal from "./lib/errorModal.js";
+import User from "./models/user.model.js";
 
-const res = await fetchServer("/auth/is-authenticated", {
-    method: "GET",
-    cookies: true,
-});
+const res = await User.isAuthenticated()
 
 if (res.code != 200) {
     showErrorModal("Usuario no autorizado!", {

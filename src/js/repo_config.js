@@ -2,6 +2,7 @@ import headerSearch from "./lib/headerSearch.js";
 import userImage from "./lib/userImage.js";
 import showErrorModal from "./lib/errorModal.js";
 import fetchServer from "./lib/fetch.js";
+import User from "./models/user.model.js";
 
 headerSearch();
 userImage();
@@ -10,12 +11,8 @@ const urlParams = new URLSearchParams(
     location.href.slice(location.href.indexOf("?")),
 );
 
-const user_response = await fetchServer(
-    `/users/profile?username=${urlParams.get("username")}`,
-    {
-        method: "GET",
-    },
-);
+const user = new User(urlParams.get("username"))
+const user_response = await user.profile()
 
 const repo_response = await fetchServer(
     `/repositories/info?repoName=${urlParams.get("repoName")}&username=${urlParams.get("username")}`,

@@ -4,6 +4,7 @@ import fetchServer from "./lib/fetch.js";
 import showErrorModal from "./lib/errorModal.js";
 import renderContributors from "./lib/renderContributors.js";
 import filterContributors from "./lib/filterContributors.js";
+import User from "./models/user.model.js";
 
 userImage();
 headerSearch();
@@ -14,10 +15,9 @@ const urlParams = new URLSearchParams(
 
 const repoName = urlParams.get("repoName");
 const username = urlParams.get("username");
+const user = new User(username)
 
-const user_response = await fetchServer(`/users/profile?username=${username}`, {
-    method: "GET",
-});
+const user_response = await user.profile()
 
 const contributors_response = await fetchServer(
     `/contributors?username=${username}&repoName=${repoName}`,

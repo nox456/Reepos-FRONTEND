@@ -1,5 +1,5 @@
 import user from "../is_authenticated.js";
-import fetchServer from "./fetch.js";
+import User from "../models/user.model.js";
 
 /**
  * Render the user image with a loader in the header
@@ -35,10 +35,7 @@ export default function userImage() {
     $logout_button.innerText = "Cerrar Sesión";
 
     $logout_button.addEventListener("click", async () => {
-        await fetchServer("/auth/logout", {
-            method: "GET",
-            cookies: true,
-        });
+        await User.logout()
         location.href = "../../index.html";
     });
 

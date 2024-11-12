@@ -4,6 +4,7 @@ import fetchServer from "./lib/fetch.js";
 import showErrorModal from "./lib/errorModal.js";
 import filterCommits from "./lib/filterCommits.js";
 import renderCommits from "./lib/renderCommits.js"
+import User from "./models/user.model.js";
 
 userImage();
 headerSearch();
@@ -12,7 +13,8 @@ const urlParams = new URLSearchParams(
     location.href.slice(location.href.indexOf("?")),
 );
 
-const user_response = await fetchServer(`/users/profile?username=${urlParams.get("username")}`, {method: "GET"})
+const user = new User(urlParams.get("username"))
+const user_response = await user.profile()
 
 if (user_response.code != 200) {
     showErrorModal(user_response.result.message, {href: "../pages/dashboard", message: "Dashboard"})

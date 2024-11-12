@@ -1,7 +1,7 @@
 import fetchServer from "./lib/fetch.js";
 import headerSearch from "./lib/headerSearch.js";
 import userImage from "./lib/userImage.js";
-import user from "./is_authenticated.js";
+import userAuthenticated from "./is_authenticated.js";
 import showErrorModal from "./lib/errorModal.js";
 import { SERVER_HOST } from "./config.js";
 import langColors from "./lib/langColors.js";
@@ -9,6 +9,7 @@ import { MarkdownBlock } from "../js/lib/renderMd.js";
 import foldersTree from "./lib/foldersTree.js";
 import renderFiles from "./lib/renderFiles.js";
 import timeago from "./lib/timeago.js";
+import User from "./models/user.model.js";
 
 headerSearch();
 userImage();
@@ -32,12 +33,10 @@ if (repo_response.code != 200) {
         href: "../pages/dashboard.html",
     });
 }
-const user_response = await fetchServer(
-    `/users/profile?username=${urlParams.get("username")}`,
-    {
-        method: "GET",
-    },
-);
+
+const user = new User(urlParams.get("username"))
+const user_response = await user.profile()
+
 if (user_response.code != 200) {
     showErrorModal(user_response.result.message, {
         message: "Dashboard",
@@ -56,7 +55,7 @@ const user_liked_response = await fetchServer(
 const $main = document.querySelector("body > main");
 
 const $section1 = $main.querySelector("section:nth-child(1)");
-if (user.username == urlParams.get("username")) {
+if (userAuthenticated.username == urlParams.get("username")) {
     const $config = document.createElement("a");
     $config.href = `../pages/config?repoName=${urlParams.get("repoName")}&username=${urlParams.get("username")}`;
     $config.innerHTML = `
@@ -91,7 +90,7 @@ if (user_liked_response.result.data) {
 }
 
 $likes.addEventListener("click", async () => {
-    const username = user.username;
+    const username = userAuthenticated.username;
     const userOwnerName = urlParams.get("username");
     const repoName = urlParams.get("repoName");
     let res;

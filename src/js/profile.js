@@ -2,9 +2,10 @@ import showErrorModal from "./lib/errorModal.js";
 import fetchServer from "./lib/fetch.js";
 import headerSearch from "./lib/headerSearch.js";
 import userImage from "./lib/userImage.js";
-import user from "./is_authenticated.js";
+import userAuthenticated from "./is_authenticated.js";
 import renderRepos from "./lib/renderRepos.js"
 import renderUsers from "./lib/renderUsers.js"
+import User from "./models/user.model.js";
 
 headerSearch();
 userImage();
@@ -13,12 +14,9 @@ const urlParams = new URLSearchParams(
     location.href.slice(location.href.indexOf("?")),
 );
 
-const res1 = await fetchServer(
-    `/users/profile?username=${urlParams.get("username")}`,
-    {
-        method: "GET",
-    },
-);
+const user = new User(urlParams.get("username"))
+
+const res1 = await user.profile()
 
 const $section1 = document.querySelector("main > section:nth-child(1)");
 const $section2 = document.querySelector("main > section:nth-child(2)");
@@ -65,7 +63,7 @@ if (res1.code != 200) {
 
     const $follow_button = $section1.querySelector("footer > button")
 
-    if (urlParams.get("username") == user.username) {
+    if (urlParams.get("username") == userAuthenticated.username) {
         const $description_form = $main.querySelector("form");
 
         $edit_description_button.addEventListener("click", () => {
@@ -124,7 +122,7 @@ if (res1.code != 200) {
             if (res.code != 200) {
                 showErrorModal(res.result.message, {
                     message: "Aceptar",
-                    href: `../pages/profile?username=${user.user_name}`,
+                    href: `../pages/profile?username=${userAuthenticated.user_name}`,
                 });
             } else {
                 location.reload()
@@ -141,7 +139,7 @@ if (res1.code != 200) {
             method: "GET"
         })
 
-        if (res.result.data.some(u => u.username == user.username)) {
+        if (res.result.data.some(u => u.username == userAuthenticated.username)) {
             $follow_button.innerText = "Dejar de seguir"
         } else {
             $follow_button.innerText = "Seguir"

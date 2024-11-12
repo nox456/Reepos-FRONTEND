@@ -1,14 +1,6 @@
 import { SERVER_HOST } from "../config.js";
+import Res from "../models/res.model.js";
 
-/**
- * @typedef {Object} ServerResult
- * @property {string} message - Server message
- * @property {*} data - Server data
- *
- * @typedef {Object} FetchResult
- * @property {int} code - Response status
- * @property {ServerResult} result - Server result object
- * */
 /**
  * Make a request to server
  * @param {string} endpoint - Endpoint url
@@ -16,12 +8,12 @@ import { SERVER_HOST } from "../config.js";
  * @param {string} options.method - Request method
  * @param {boolean} options.cookies - Send cookies?
  * @param {*} options.body - Request body
- * @return {Promise<FetchResult>} Fetch result object
+ * @return {Promise<Res>} Fetch result object
  * @async
  * */
 export default async function fetchServer(endpoint, options) {
     const { method, body, cookies } = options;
-    const reqBody = body instanceof FormData ? body : JSON.stringify(body)
+    const reqBody = body instanceof FormData ? body : JSON.stringify(body);
     const res = await fetch(`${SERVER_HOST}${endpoint}`, {
         method,
         headers:
@@ -32,8 +24,5 @@ export default async function fetchServer(endpoint, options) {
         body: method == "GET" ? undefined : reqBody,
     });
     const result = await res.json();
-    return {
-        code: res.status,
-        result,
-    };
+    return new Res({ code: res.status, result });
 }
