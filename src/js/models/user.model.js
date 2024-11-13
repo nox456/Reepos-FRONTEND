@@ -69,20 +69,20 @@ export default class User {
     /**
      * Change username
      * */
-    static async changeUsername(newUsername,password) {
-        return await fetchServer("/users/change-username",{
+    static async changeUsername(newUsername, password) {
+        return await fetchServer("/users/change-username", {
             method: "PUT",
             cookies: true,
             body: {
                 password,
-                newUsername
-            }
-        })
+                newUsername,
+            },
+        });
     }
     /**
      * Change password
      * */
-    static async changePassword(password,newPassword) {
+    static async changePassword(password, newPassword) {
         return await fetchServer("/users/change-password", {
             method: "PUT",
             cookies: true,
@@ -90,7 +90,7 @@ export default class User {
                 password,
                 newPassword,
             },
-        })
+        });
     }
     /**
      * Delete an user
@@ -102,6 +102,60 @@ export default class User {
             },
             method: "DELETE",
             cookies: true,
-        })
+        });
+    }
+    /**
+     * Change description
+     * */
+    static async changeDescription(newDescription) {
+        return await fetchServer("/users/change-description", {
+            method: "PUT",
+            cookies: true,
+            body: {
+                newDescription,
+            },
+        });
+    }
+    /**
+     * Change user image
+     * */
+    static async changeImage(image) {
+        return await fetchServer("/users/upload-image", {
+            body: image,
+            cookies: true,
+            method: "POST",
+        });
+    }
+    /**
+     * Get followers
+     * */
+    async getFollowers() {
+        return await fetchServer(`/users/followers?username=${this.username}`, {
+            method: "GET",
+        });
+    }
+    /**
+     * Unfollow an user
+     * */
+    async unfollow() {
+        return await fetchServer("/users/unfollow", {
+            cookies: true,
+            method: "PUT",
+            body: {
+                username: this.username,
+            },
+        });
+    }
+    /**
+     * Follow an user
+     * */
+    async follow() {
+        return await fetchServer("/users/follow-user", {
+            cookies: true,
+            method: "POST",
+            body: {
+                username: this.username
+            },
+        });
     }
 }

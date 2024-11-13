@@ -63,6 +63,7 @@ if (res1.code != 200) {
 
     const $follow_button = $section1.querySelector("footer > button")
 
+    const user =  new User(urlParams.get("username"))
     if (urlParams.get("username") == userAuthenticated.username) {
         const $description_form = $main.querySelector("form");
 
@@ -91,13 +92,7 @@ if (res1.code != 200) {
             const newDescription = $textarea.value;
             e.preventDefault();
 
-            const res = await fetchServer("/users/change-description", {
-                method: "PUT",
-                cookies: true,
-                body: {
-                    newDescription,
-                },
-            });
+            const res = await User.changeDescription(newDescription)
             if (res.code != 200) {
                 showErrorModal(res.result.message, {
                     message: "Aceptar",
@@ -113,11 +108,7 @@ if (res1.code != 200) {
             const formData = new FormData();
             formData.append("user_image", $change_image_input.files[0]);
 
-            const res = await fetchServer("/users/upload-image", {
-                body: formData,
-                cookies: true,
-                method: "POST",
-            });
+            const res = await User.changeImage(formData)
 
             if (res.code != 200) {
                 showErrorModal(res.result.message, {
@@ -135,9 +126,7 @@ if (res1.code != 200) {
         $edit_description_button.style.display = "none";
         $change_image_form.style.display = "none";
 
-        const res = await fetchServer(`/users/followers?username=${urlParams.get("username")}`, {
-            method: "GET"
-        })
+        const res = await user.getFollowers()
 
         if (res.result.data.some(u => u.username == userAuthenticated.username)) {
             $follow_button.innerText = "Dejar de seguir"
@@ -147,23 +136,11 @@ if (res1.code != 200) {
 
         $follow_button.addEventListener("click", async () => {
             if ($follow_button.innerText == "Seguir") {
-                await fetchServer("/users/follow-user", {
-                    cookies: true,
-                    method: "POST",
-                    body: {
-                        username: urlParams.get("username")
-                    }
-                })
+                await user.follow()
 
                 location.reload()
             } else {
-                await fetchServer("/users/unfollow", {
-                    cookies: true,
-                    method: "PUT",
-                    body: {
-                        username: urlParams.get("username")
-                    }
-                })
+                await user.unfollow()
 
                 location.reload()
             }
@@ -192,7 +169,7 @@ if (res1.code != 200) {
 
     const $followers_container = $section2.querySelector("div:nth-child(2) > div")
 
-    const res2 = await fetchServer(`/users/followers?username=${urlParams.get("username")}`,{method: "GET"})
+    const res2 = await user.getFollowers()
 
     $followers_container.innerHTML = ""
 
