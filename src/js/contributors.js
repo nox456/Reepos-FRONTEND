@@ -15,9 +15,8 @@ const urlParams = new URLSearchParams(
 
 const repoName = urlParams.get("repoName");
 const username = urlParams.get("username");
-const user = new User(username)
 
-const user_response = await user.profile()
+const user_response = await User.profile(username)
 
 const contributors_response = await fetchServer(
     `/contributors?username=${username}&repoName=${repoName}`,

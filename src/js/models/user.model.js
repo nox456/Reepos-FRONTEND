@@ -5,30 +5,22 @@ import fetchServer from "../lib/fetch.js";
  * */
 export default class User {
     /**
-     * @param {string} username
-     * @param {?string} password
-     * */
-    constructor(username, password) {
-        this.username = username;
-        this.password = password || null;
-    }
-    /**
      * Signup (register) a new user
      * */
-    async signUp() {
+    static async signUp(username,password) {
         return await fetchServer("/auth/signup", {
             cookies: true,
-            body: { username: this.username, password: this.password },
+            body: { username, password },
             method: "POST",
         });
     }
     /**
      * Signin (login) an existing user
      * */
-    async signIn() {
+    static async signIn(username,password) {
         return await fetchServer("/auth/signin", {
             cookies: true,
-            body: { username: this.username, password: this.password },
+            body: { username, password },
             method: "POST",
         });
     }
@@ -53,16 +45,16 @@ export default class User {
     /**
      * Search users by username
      * */
-    async search() {
-        return await fetchServer(`/users/search?username=${this.username}`, {
+    static async search(username) {
+        return await fetchServer(`/users/search?username=${username}`, {
             method: "GET",
         });
     }
     /**
      * Get profile info of an user
      * */
-    async profile() {
-        return await fetchServer(`/users/profile?username=${this.username}`, {
+    static async profile(username) {
+        return await fetchServer(`/users/profile?username=${username}`, {
             method: "GET",
         });
     }
@@ -129,32 +121,32 @@ export default class User {
     /**
      * Get followers
      * */
-    async getFollowers() {
-        return await fetchServer(`/users/followers?username=${this.username}`, {
+    static async getFollowers(username) {
+        return await fetchServer(`/users/followers?username=${username}`, {
             method: "GET",
         });
     }
     /**
      * Unfollow an user
      * */
-    async unfollow() {
+    static async unfollow(username) {
         return await fetchServer("/users/unfollow", {
             cookies: true,
             method: "PUT",
             body: {
-                username: this.username,
+                username,
             },
         });
     }
     /**
      * Follow an user
      * */
-    async follow() {
+    static async follow(username) {
         return await fetchServer("/users/follow-user", {
             cookies: true,
             method: "POST",
             body: {
-                username: this.username
+                username
             },
         });
     }

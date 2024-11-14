@@ -13,8 +13,7 @@ const urlParams = new URLSearchParams(
     location.href.slice(location.href.indexOf("?")),
 );
 
-const user = new User(urlParams.get("username"))
-const user_response = await user.profile()
+const user_response = await User.profile(urlParams.get("username"))
 
 if (user_response.code != 200) {
     showErrorModal(user_response.result.message, {

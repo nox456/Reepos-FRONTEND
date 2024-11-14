@@ -11,8 +11,7 @@ const pageName = location.pathname.slice(
 $form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    const user = new User($username.value, $password.value);
-    const res = pageName == "signup" ? await user.signUp() : await user.signIn();
+    const res = pageName == "signup" ? await User.signUp($username.value, $password.value) : await User.signIn($username.value, $password.value);
 
     if (res.code != 200) {
         const $error_message = document.querySelector("#error-message");

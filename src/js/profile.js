@@ -13,10 +13,7 @@ userImage();
 const urlParams = new URLSearchParams(
     location.href.slice(location.href.indexOf("?")),
 );
-
-const user = new User(urlParams.get("username"))
-
-const res1 = await user.profile()
+const res1 = await User.profile(urlParams.get("username"))
 
 const $section1 = document.querySelector("main > section:nth-child(1)");
 const $section2 = document.querySelector("main > section:nth-child(2)");
@@ -63,7 +60,6 @@ if (res1.code != 200) {
 
     const $follow_button = $section1.querySelector("footer > button")
 
-    const user =  new User(urlParams.get("username"))
     if (urlParams.get("username") == userAuthenticated.username) {
         const $description_form = $main.querySelector("form");
 
@@ -126,7 +122,7 @@ if (res1.code != 200) {
         $edit_description_button.style.display = "none";
         $change_image_form.style.display = "none";
 
-        const res = await user.getFollowers()
+        const res = await User.getFollowers(urlParams.get("username"))
 
         if (res.result.data.some(u => u.username == userAuthenticated.username)) {
             $follow_button.innerText = "Dejar de seguir"
@@ -136,11 +132,11 @@ if (res1.code != 200) {
 
         $follow_button.addEventListener("click", async () => {
             if ($follow_button.innerText == "Seguir") {
-                await user.follow()
+                await User.follow(urlParams.get("username"))
 
                 location.reload()
             } else {
-                await user.unfollow()
+                await User.unfollow(urlParams.get("username"))
 
                 location.reload()
             }
@@ -169,7 +165,7 @@ if (res1.code != 200) {
 
     const $followers_container = $section2.querySelector("div:nth-child(2) > div")
 
-    const res2 = await user.getFollowers()
+    const res2 = await User.getFollowers(urlParams.get("username"))
 
     $followers_container.innerHTML = ""
 

@@ -11,8 +11,7 @@ const urlParams = new URLSearchParams(
     location.href.slice(location.href.indexOf("?")),
 );
 
-const user = new User(urlParams.get("username"))
-const user_response = await user.profile()
+const user_response = await User.profile(urlParams.get("username"))
 
 const repo_response = await fetchServer(
     `/repositories/info?repoName=${urlParams.get("repoName")}&username=${urlParams.get("username")}`,

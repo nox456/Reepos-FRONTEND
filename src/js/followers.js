@@ -10,8 +10,7 @@ userImage()
 
 const urlParams = new URLSearchParams(location.href.slice(location.href.indexOf("?") + 1))
 
-const user = new User(urlParams.get("username"))
-const res = await user.getFollowers()
+const res = await User.getFollowers(urlParams.get("username"))
 
 if (res.code != 200) {
     showErrorModal(res.result.message, {href: `../pages/profile?username=${urlParams.get("username")}`, message: "Perfil"})

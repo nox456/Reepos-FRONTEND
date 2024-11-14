@@ -25,8 +25,7 @@ const $filtersContainer = document.querySelector("main > aside > form")
 let res
 
 if (searchParameter == "users") {
-    const user = new User(urlParam.get("username"))
-    res = await user.search()
+    res = await User.search(urlParam.get("username"))
 } else {
     res = await fetchServer(
         `/repositories/search?repoName=${urlParam.get("repoName")}`,
