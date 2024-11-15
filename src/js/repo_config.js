@@ -100,14 +100,7 @@ $button_security.addEventListener("click", () => {
     $delete_form.addEventListener("submit", async (e) => {
         e.preventDefault();
         const value = $delete_input.value;
-        const res = await fetchServer(`/repositories/`, {
-            method: "DELETE",
-            body: {
-                repoName: urlParams.get("repoName"),
-                password: value,
-            },
-            cookies: true,
-        });
+        const res = await Repository.delete(urlParams.get("repoName"), value)
 
         if (res.code != 200) {
             showErrorModal(res.result.message, {
@@ -146,11 +139,7 @@ $name_form.addEventListener("submit", async (e) => {
     e.preventDefault();
     const value = $name_input.value;
 
-    const res = await fetchServer(`/repositories/change-name`, {
-        method: "PUT",
-        body: { newRepoName: value, repoName: urlParams.get("repoName") },
-        cookies: true,
-    });
+    const res = await Repository.changeName(urlParams.get("repoName"), value)
 
     if (res.code != 200) {
         showErrorModal(res.result.message, {
@@ -168,11 +157,8 @@ $description_form.addEventListener("submit", async (e) => {
     e.preventDefault();
     const value = $description.value;
 
-    const res = await fetchServer(`/repositories/change-description`, {
-        method: "PUT",
-        body: { newDescription: value, repoName: urlParams.get("repoName") },
-        cookies: true,
-    });
+    const res = await Repository.changeDescription(urlParams.get("repoName"), value)
+    
 
     if (res.code != 200) {
         showErrorModal(res.result.message, {

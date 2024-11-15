@@ -123,4 +123,37 @@ export default class Repository {
             cookies: true,
         });
     }
+    /**
+     * Delete a repository
+     * */
+    static async delete(repoName, password) {
+        return await fetchServer(`/repositories/`, {
+            method: "DELETE",
+            body: {
+                repoName,
+                password,
+            },
+            cookies: true,
+        });
+    }
+    /**
+     * Change name of a repository
+     * */
+    static async changeName(repoName, newRepoName) {
+        return await fetchServer(`/repositories/change-name`, {
+            method: "PUT",
+            body: { newRepoName, repoName },
+            cookies: true,
+        });
+    }
+    /**
+     * Change description of a repository
+     * */
+    static async changeDescription(repoName, newDescription) {
+        return await fetchServer(`/repositories/change-description`, {
+            method: "PUT",
+            body: { newDescription, repoName },
+            cookies: true,
+        });
+    }
 }

@@ -2,6 +2,7 @@ import headerSearch from "./lib/headerSearch.js";
 import userImage from "./lib/userImage.js";
 import langColors from "./lib/langColors.js";
 import fetchServer from "./lib/fetch.js";
+import Repository from "./models/repository.model.js";
 
 headerSearch();
 userImage();
@@ -93,10 +94,7 @@ $form.addEventListener("submit", async (e) => {
             method: "POST",
         });
         if (res.code != 200) {
-            await fetchServer("/repositories/temp", {
-                body: { repoName: name },
-                method: "DELETE",
-            });
+            await Repository.temp(name)
             $dialog.innerText = res.result.message;
 
             $dialog.classList.add("error");
@@ -112,16 +110,11 @@ $form.addEventListener("submit", async (e) => {
             return;
         }
     }
-    const res1 = await fetchServer("/repositories/create", {
-        body: { repoData: { name, description, languages } },
-        method: "POST",
-        cookies: true,
+    const res1 = await Repository.create({
+        repoData: { name, description, languages },
     });
     if (res1.code != 200) {
-        await fetchServer("/repositories/temp", {
-            body: { repoName: name },
-            method: "DELETE",
-        });
+        await Repository.temp(name)
         $dialog.innerText = res1.result.message;
 
         $dialog.classList.add("error");
@@ -137,21 +130,10 @@ $form.addEventListener("submit", async (e) => {
         return;
     }
     $dialog.innerText = "Subiendo Archivos...";
-    const res2 = await fetchServer("/repositories/upload-cloud", {
-        method: "POST",
-        body: { repoName: name },
-        cookies: true,
-    });
+    const res2 = await Repository.upload(name)
     if (res2.code != 200) {
-        await fetchServer("/repositories/temp", {
-            body: { repoName: name },
-            method: "DELETE",
-        });
-        await fetchServer("/repositories/db", {
-            method: "DELETE",
-            body: { repoName: name },
-            cookies: true,
-        });
+        await Repository.temp(name)
+        await Repository.db(name)
         $dialog.innerText = res2.result.message;
 
         $dialog.classList.add("error");
@@ -166,11 +148,7 @@ $form.addEventListener("submit", async (e) => {
         $dialog.appendChild($button);
         return;
     }
-
-    await fetchServer("/repositories/temp", {
-        body: { repoName: name },
-        method: "DELETE",
-    });
+    await Repository.temp(name)
     $dialog.innerText = "Repositorio Creado!";
     const $link = document.createElement("a");
     $link.classList.add("link");
