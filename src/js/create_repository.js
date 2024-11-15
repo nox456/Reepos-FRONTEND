@@ -3,6 +3,7 @@ import userImage from "./lib/userImage.js";
 import langColors from "./lib/langColors.js";
 import fetchServer from "./lib/fetch.js";
 import Repository from "./models/repository.model.js";
+import File from "./models/file.model.js"
 
 headerSearch();
 userImage();
@@ -89,10 +90,8 @@ $form.addEventListener("submit", async (e) => {
 
         formData.append("file", file);
 
-        const res = await fetchServer("/files/upload", {
-            body: formData,
-            method: "POST",
-        });
+        const res = await File.upload(formData)
+        
         if (res.code != 200) {
             await Repository.temp(name)
             $dialog.innerText = res.result.message;
