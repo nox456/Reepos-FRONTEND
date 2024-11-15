@@ -5,6 +5,7 @@ import showErrorModal from "./lib/errorModal.js";
 import timeago from "./lib/timeago.js";
 import { MOD_ICONS, MOD_COLORS, MOD_DESCRIPT } from "./lib/modifications.js";
 import User from "./models/user.model.js";
+import Commit from "./models/commit.model.js";
 
 userImage();
 headerSearch();
@@ -13,7 +14,7 @@ const urlParams = new URLSearchParams(
     location.href.slice(location.href.indexOf("?")),
 );
 
-const user_response = await User.profile(urlParams.get("username"))
+const user_response = await User.profile(urlParams.get("username"));
 
 if (user_response.code != 200) {
     showErrorModal(user_response.result.message, {
@@ -43,9 +44,10 @@ const $commitHash = $section1.querySelector("span:last-child");
 
 $commitHash.innerText = urlParams.get("hash").slice(0, 7);
 
-const commit_response = await fetchServer(
-    `/commits/info?hash=${urlParams.get("hash")}&repoName=${urlParams.get("repoName")}&username=${urlParams.get("username")}`,
-    { method: "GET" },
+const commit_response = await Commit.info(
+    urlParams.get("hash"),
+    urlParams.get("repoName"),
+    urlParams.get("username"),
 );
 
 if (commit_response.code != 200) {
