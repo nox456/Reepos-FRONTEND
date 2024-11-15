@@ -1,12 +1,12 @@
 import headerSearch from "./lib/headerSearch.js";
 import userImage from "./lib/userImage.js";
-import fetchServer from "./lib/fetch.js";
 import renderUsers from "./lib/renderUsers.js";
 import renderRepos from "./lib/renderRepos.js"
 import showErrorModal from "./lib/errorModal.js";
 import filterUsers from "./lib/filterUsers.js";
 import filterRepos from "./lib/filterRepos.js"
 import User from "./models/user.model.js";
+import Repository from "./models/repository.model.js"
 
 headerSearch();
 userImage();
@@ -27,12 +27,7 @@ let res
 if (searchParameter == "users") {
     res = await User.search(urlParam.get("username"))
 } else {
-    res = await fetchServer(
-        `/repositories/search?repoName=${urlParam.get("repoName")}`,
-        {
-            method: "GET",
-        },
-    );
+    res = await Repository.search(urlParam.get("repoName"))
 }
 
 

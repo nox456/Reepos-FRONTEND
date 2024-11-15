@@ -3,6 +3,7 @@ import userImage from "./lib/userImage.js";
 import showErrorModal from "./lib/errorModal.js";
 import fetchServer from "./lib/fetch.js";
 import User from "./models/user.model.js";
+import Repository from "./models/repository.model.js";
 
 headerSearch();
 userImage();
@@ -11,11 +12,11 @@ const urlParams = new URLSearchParams(
     location.href.slice(location.href.indexOf("?")),
 );
 
-const user_response = await User.profile(urlParams.get("username"))
+const user_response = await User.profile(urlParams.get("username"));
 
-const repo_response = await fetchServer(
-    `/repositories/info?repoName=${urlParams.get("repoName")}&username=${urlParams.get("username")}`,
-    { method: "GET" },
+const repo_response = await Repository.info(
+    urlParams.get("repoName"),
+    urlParams.get("username"),
 );
 
 if (user_response.code != 200) {
@@ -97,7 +98,7 @@ $button_security.addEventListener("click", () => {
 
     const $delete_form = $main.querySelector("form");
     $delete_form.addEventListener("submit", async (e) => {
-        e.preventDefault()
+        e.preventDefault();
         const value = $delete_input.value;
         const res = await fetchServer(`/repositories/`, {
             method: "DELETE",
@@ -109,12 +110,12 @@ $button_security.addEventListener("click", () => {
         });
 
         if (res.code != 200) {
-            showErrorModal(res.result.message,{
+            showErrorModal(res.result.message, {
                 href: `../pages/config?repoName=${urlParams.get("repoName")}&username=${urlParams.get("username")}`,
-                message: "Recargar"
-            })
+                message: "Recargar",
+            });
         } else {
-            location.href = "../pages/dashboard"
+            location.href = "../pages/dashboard";
         }
     });
 });

@@ -1,17 +1,14 @@
 import headerSearch from "./lib/headerSearch.js";
 import user from "./is_authenticated.js";
-import fetchServer from "./lib/fetch.js";
 import renderRepos from "./lib/renderRepos.js";
 import filterRepos from "./lib/filterRepos.js";
 import userImage from "./lib/userImage.js";
+import Repository from "./models/repository.model.js"
 
 headerSearch();
 userImage()
 
-const res = await fetchServer(`/repositories?username=${user.username}`, {
-    method: "GET",
-    cookies: true,
-});
+const res = await Repository.getAll(user.username)
 
 const $section = document.body.querySelector("main > section")
 const $filtersContainer = document.querySelector("main > form")

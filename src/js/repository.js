@@ -10,6 +10,7 @@ import foldersTree from "./lib/foldersTree.js";
 import renderFiles from "./lib/renderFiles.js";
 import timeago from "./lib/timeago.js";
 import User from "./models/user.model.js";
+import Repository from "./models/repository.model.js";
 
 headerSearch();
 userImage();
@@ -19,12 +20,9 @@ const urlParams = new URLSearchParams(
 );
 document.title = `${urlParams.get("username")} / ${urlParams.get("repoName")} - Reepos`;
 
-
-const repo_response = await fetchServer(
-    `/repositories/info?username=${urlParams.get("username")}&repoName=${urlParams.get("repoName")}`,
-    {
-        method: "GET",
-    },
+const repo_response = await Repository.info(
+    urlParams.get("repoName"),
+    urlParams.get("username"),
 );
 
 if (repo_response.code != 200) {
@@ -34,7 +32,7 @@ if (repo_response.code != 200) {
     });
 }
 
-const user_response = await User.profile(urlParams.get("username"))
+const user_response = await User.profile(urlParams.get("username"));
 
 if (user_response.code != 200) {
     showErrorModal(user_response.result.message, {
@@ -43,12 +41,9 @@ if (user_response.code != 200) {
     });
 }
 
-const user_liked_response = await fetchServer(
-    `/repositories/like?repoName=${urlParams.get("repoName")}&userOwnerName=${urlParams.get("username")}`,
-    {
-        method: "GET",
-        cookies: true,
-    },
+const user_liked_response = await Repository.checkLike(
+    urlParams.get("repoName"),
+    urlParams.get("username"),
 );
 
 const $main = document.querySelector("body > main");
@@ -67,7 +62,9 @@ if (userAuthenticated.username == urlParams.get("username")) {
             ></path>
         </svg>
     `;
-    $section1.querySelector("div:nth-of-type(2)").insertAdjacentElement("afterbegin",$config)
+    $section1
+        .querySelector("div:nth-of-type(2)")
+        .insertAdjacentElement("afterbegin", $config);
 }
 
 const $image = $section1.querySelector("div:nth-of-type(1) img");
@@ -94,19 +91,13 @@ $likes.addEventListener("click", async () => {
     const repoName = urlParams.get("repoName");
     let res;
     if ($likes.classList.contains("liked")) {
-        res = await fetchServer("/repositories/remove-like", {
-            method: "PUT",
-            body: {
-                repoName,
-                userOwnerName,
-                username,
-            },
+        res = await Repository.removeLike({
+            repoName,
+            userOwnerName,
+            username,
         });
     } else {
-        res = await fetchServer("/repositories/like", {
-            method: "PUT",
-            body: { repoName, username, userOwnerName },
-        });
+        res = await Repository.like({ repoName, username, userOwnerName });
     }
     if (res.code != 200) {
         showErrorModal(res.result.message, {
@@ -185,11 +176,9 @@ $download.addEventListener("click", async () => {
     document.body.insertAdjacentElement("afterbegin", $dialog);
 
     $dialog.showModal();
-    const res = await fetchServer(
-        `/repositories/download?repoName=${urlParams.get("repoName")}&username=${urlParams.get("username")}`,
-        {
-            method: "GET",
-        },
+    const res = await Repository.download(
+        urlParams.get("repoName"),
+        urlParams.get("username"),
     );
 
     const $button = document.createElement("button");
@@ -205,10 +194,7 @@ $download.addEventListener("click", async () => {
         $message.innerText = "Repositorio descargado!";
         location.href = `${SERVER_HOST}/${res.result.data}`;
         $button.addEventListener("click", async () => {
-            await fetchServer("/repositories/zip", {
-                method: "DELETE",
-                body: { fileName: res.result.data },
-            });
+            await Repository.zip(res.result.data);
             location.reload();
         });
     }
