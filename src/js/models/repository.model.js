@@ -20,7 +20,6 @@ export default class Repository {
     static async getAll(username) {
         return await fetchServer(`/repositories?username=${username}`, {
             method: "GET",
-            cookies: true,
         });
     }
     /**

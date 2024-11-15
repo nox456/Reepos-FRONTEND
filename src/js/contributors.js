@@ -1,6 +1,5 @@
 import userImage from "./lib/userImage.js";
 import headerSearch from "./lib/headerSearch.js";
-import fetchServer from "./lib/fetch.js";
 import showErrorModal from "./lib/errorModal.js";
 import renderContributors from "./lib/renderContributors.js";
 import filterContributors from "./lib/filterContributors.js";

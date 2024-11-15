@@ -1,11 +1,11 @@
 import showErrorModal from "./lib/errorModal.js";
-import fetchServer from "./lib/fetch.js";
 import headerSearch from "./lib/headerSearch.js";
 import userImage from "./lib/userImage.js";
 import userAuthenticated from "./is_authenticated.js";
 import renderRepos from "./lib/renderRepos.js"
 import renderUsers from "./lib/renderUsers.js"
 import User from "./models/user.model.js";
+import Repository from "./models/repository.model.js";
 
 headerSearch();
 userImage();
@@ -143,9 +143,7 @@ if (res1.code != 200) {
         })
     }
 
-    const res = await fetchServer(`/repositories?username=${urlParams.get("username")}`, {
-        method: "GET"
-    })
+    const res = await Repository.getAll(urlParams.get("username"))
 
     const $repos_container = $section2.querySelector("div:nth-child(1) > div")
 

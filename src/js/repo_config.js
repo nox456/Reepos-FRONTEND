@@ -1,7 +1,6 @@
 import headerSearch from "./lib/headerSearch.js";
 import userImage from "./lib/userImage.js";
 import showErrorModal from "./lib/errorModal.js";
-import fetchServer from "./lib/fetch.js";
 import User from "./models/user.model.js";
 import Repository from "./models/repository.model.js";
 

@@ -1,7 +1,6 @@
 import headerSearch from "./lib/headerSearch.js";
 import userImage from "./lib/userImage.js";
 import langColors from "./lib/langColors.js";
-import fetchServer from "./lib/fetch.js";
 import Repository from "./models/repository.model.js";
 import File from "./models/file.model.js"
 

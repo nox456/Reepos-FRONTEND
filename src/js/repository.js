@@ -1,4 +1,3 @@
-import fetchServer from "./lib/fetch.js";
 import headerSearch from "./lib/headerSearch.js";
 import userImage from "./lib/userImage.js";
 import userAuthenticated from "./is_authenticated.js";

@@ -1,6 +1,5 @@
 import userImage from "./lib/userImage.js";
 import headerSearch from "./lib/headerSearch.js";
-import fetchServer from "./lib/fetch.js";
 import showErrorModal from "./lib/errorModal.js";
 import timeago from "./lib/timeago.js";
 import { MOD_ICONS, MOD_COLORS, MOD_DESCRIPT } from "./lib/modifications.js";
