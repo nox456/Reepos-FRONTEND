@@ -5,6 +5,7 @@ import showErrorModal from "./lib/errorModal.js";
 import renderContributors from "./lib/renderContributors.js";
 import filterContributors from "./lib/filterContributors.js";
 import User from "./models/user.model.js";
+import Contributor from "./models/contributor.model.js";
 
 userImage();
 headerSearch();
@@ -16,12 +17,9 @@ const urlParams = new URLSearchParams(
 const repoName = urlParams.get("repoName");
 const username = urlParams.get("username");
 
-const user_response = await User.profile(username)
+const user_response = await User.profile(username);
 
-const contributors_response = await fetchServer(
-    `/contributors?username=${username}&repoName=${repoName}`,
-    { method: "GET" },
-);
+const contributors_response = await Contributor.getAll(repoName, username);
 
 if (user_response.code != 200) {
     showErrorModal(user_response.result.message, {
@@ -54,10 +52,16 @@ const $section2 = document.querySelector(
     "body > main > section:nth-of-type(2)",
 );
 
-const $form = $section2.querySelector("form")
+const $form = $section2.querySelector("form");
 
 const $list = document.querySelector("body > main > ul");
 
-renderContributors(contributors_response.result.data,$list, {username,repoName})
+renderContributors(contributors_response.result.data, $list, {
+    username,
+    repoName,
+});
 
-filterContributors(contributors_response.result.data,$list,$form,{username,repoName})
+filterContributors(contributors_response.result.data, $list, $form, {
+    username,
+    repoName,
+});
