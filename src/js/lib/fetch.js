@@ -1,5 +1,5 @@
 import { SERVER_HOST } from "../config.js";
-import Res from "../models/res.model.js";
+import { Res } from "../lib/types.js";
 
 /**
  * Make a request to server
@@ -8,7 +8,6 @@ import Res from "../models/res.model.js";
  * @param {string} options.method - Request method
  * @param {boolean} options.cookies - Send cookies?
  * @param {*} options.body - Request body
- * @return {Promise<Res>} Fetch result object
  * @async
  * */
 export default async function fetchServer(endpoint, options) {
@@ -24,5 +23,5 @@ export default async function fetchServer(endpoint, options) {
         body: method == "GET" ? undefined : reqBody,
     });
     const result = await res.json();
-    return new Res({ code: res.status, result });
+    return new Res(res.status, result);
 }

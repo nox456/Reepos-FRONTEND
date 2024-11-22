@@ -4,9 +4,12 @@ import showErrorModal from "./lib/errorModal.js"
 import renderUsers from "./lib/renderUsers.js"
 import filterUsers from "./lib/filterUsers.js"
 import User from "./models/user.model.js"
+import UserService from "./services/user.service.js"
+
+const user = await UserService.isAuthenticated()
 
 headerSearch()
-userImage()
+userImage(user)
 
 const urlParams = new URLSearchParams(location.href.slice(location.href.indexOf("?") + 1))
 

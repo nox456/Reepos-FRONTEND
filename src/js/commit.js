@@ -5,22 +5,18 @@ import timeago from "./lib/timeago.js";
 import { MOD_ICONS, MOD_COLORS, MOD_DESCRIPT } from "./lib/modifications.js";
 import User from "./models/user.model.js";
 import Commit from "./models/commit.model.js";
+import UserService from "./services/user.service.js"
 
-userImage();
+const user = await UserService.isAuthenticated()
+
+userImage(user);
 headerSearch();
 
 const urlParams = new URLSearchParams(
     location.href.slice(location.href.indexOf("?")),
 );
 
-const user_response = await User.profile(urlParams.get("username"));
-
-if (user_response.code != 200) {
-    showErrorModal(user_response.result.message, {
-        href: "../pages/dashboard",
-        message: "Dashboard",
-    });
-}
+const user_profile = await UserService.getProfile(urlParams.get("username"));
 
 const $section1 = document.querySelector("main > section:first-of-type");
 
@@ -29,7 +25,7 @@ $section1.classList.remove("loading");
 const $title = $section1.querySelector("a:first-child");
 
 $title.href = `../pages/profile?username=${urlParams.get("username")}`;
-$title.querySelector("button > img").src = user_response.result.data.user_img;
+$title.querySelector("button > img").src = user_profile.user_img;
 $title.querySelector("div").innerText = urlParams.get("username");
 
 const $repoName = $section1.querySelector("a:nth-of-type(2)");

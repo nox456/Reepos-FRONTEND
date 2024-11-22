@@ -3,9 +3,12 @@ import userImage from "./lib/userImage.js";
 import langColors from "./lib/langColors.js";
 import Repository from "./models/repository.model.js";
 import File from "./models/file.model.js"
+import UserService from "./services/user.service.js"
+
+const user = await UserService.isAuthenticated()
 
 headerSearch();
-userImage();
+userImage(user);
 
 const $languages = document.querySelector("main > form > ul");
 

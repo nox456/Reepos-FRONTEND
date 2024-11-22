@@ -1,57 +1,51 @@
 import showErrorModal from "./lib/errorModal.js";
 import headerSearch from "./lib/headerSearch.js";
 import userImage from "./lib/userImage.js";
-import userAuthenticated from "./is_authenticated.js";
 import renderRepos from "./lib/renderRepos.js"
 import renderUsers from "./lib/renderUsers.js"
 import User from "./models/user.model.js";
 import Repository from "./models/repository.model.js";
+import UserService from "./services/user.service.js"
+
+const userAuthenticated = await UserService.isAuthenticated()
 
 headerSearch();
-userImage();
+userImage(userAuthenticated);
 
 const urlParams = new URLSearchParams(
     location.href.slice(location.href.indexOf("?")),
 );
-const res1 = await User.profile(urlParams.get("username"))
+const user_profile = await UserService.getProfile(urlParams.get("username"))
 
 const $section1 = document.querySelector("main > section:nth-child(1)");
 const $section2 = document.querySelector("main > section:nth-child(2)");
 
-if (res1.code != 200) {
-    showErrorModal(res1.result.message, {
-        message: "Dashboard",
-        href: "../pages/dashboard.html",
-    });
-} else {
-    const { data } = res1.result;
-
-    document.title = `${data.user_name} - Reepos`
+    document.title = `${user_profile.user_name} - Reepos`
     const $header = $section1.querySelector("header");
     $header.classList.remove("loading");
 
     $header.querySelector("img").src =
-        data.user_img == ""
+        user_profile.user_img == ""
             ? "../resources/images/default_user_image_big.png"
-            : data.user_img;
+            : user_profile.user_img;
 
     const $main = $section1.querySelector("main");
 
-    $main.querySelector("h1").innerText = data.user_name;
+    $main.querySelector("h1").innerText = user_profile.user_name;
 
     const $textarea = $main.querySelector("form textarea");
     $textarea.innerText =
-        data.user_description == ""
+        user_profile.user_description == ""
             ? "No hay biografía..."
-            : data.user_description;
+            : user_profile.user_description;
 
     const $repos_count = $section1.querySelector("footer article:nth-child(1)")
 
-    $repos_count.insertAdjacentText("beforeend",data.repos_count)
+    $repos_count.insertAdjacentText("beforeend",user_profile.repos_count)
 
     const $follwers_count = $section1.querySelector("footer article:nth-child(2)")
 
-    $follwers_count.insertAdjacentText("beforeend",`${data.followers_count}/${data.followed_count}`)
+    $follwers_count.insertAdjacentText("beforeend",`${user_profile.followers_count}/${user_profile.followed_count}`)
 
     $follwers_count.insertAdjacentHTML("beforeend","<span>(Seguidores/Seguidos)</span>")
 
@@ -67,9 +61,9 @@ if (res1.code != 200) {
             $textarea.innerText =
                 $textarea.innerText == "No hay biografía..."
                     ? ""
-                    : data.user_description;
+                    : user_profile.user_description;
             $textarea.removeAttribute("disabled");
-            const end = data.user_description.length;
+            const end = user_profile.user_description.length;
             $textarea.setSelectionRange(end, end);
             $textarea.focus();
             $edit_description_button.style.display = "none";
@@ -92,7 +86,7 @@ if (res1.code != 200) {
             if (res.code != 200) {
                 showErrorModal(res.result.message, {
                     message: "Aceptar",
-                    href: `../pages/profile?username=${data.user_name}`,
+                    href: `../pages/profile?username=${user_profile.user_name}`,
                 });
             } else {
                 location.reload();
@@ -178,4 +172,3 @@ if (res1.code != 200) {
             $section2.querySelector("div:nth-child(2) > a").href = `../pages/followers?username=${urlParams.get("username")}`
         }
     }
-}

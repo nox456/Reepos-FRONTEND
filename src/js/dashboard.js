@@ -1,12 +1,14 @@
 import headerSearch from "./lib/headerSearch.js";
-import user from "./is_authenticated.js";
 import renderRepos from "./lib/renderRepos.js";
 import filterRepos from "./lib/filterRepos.js";
 import userImage from "./lib/userImage.js";
 import Repository from "./models/repository.model.js"
+import UserService from "./services/user.service.js"
+
+const user = await UserService.isAuthenticated()
 
 headerSearch();
-userImage()
+userImage(user)
 
 const res = await Repository.getAll(user.username)
 

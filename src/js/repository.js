@@ -1,6 +1,5 @@
 import headerSearch from "./lib/headerSearch.js";
 import userImage from "./lib/userImage.js";
-import userAuthenticated from "./is_authenticated.js";
 import showErrorModal from "./lib/errorModal.js";
 import { SERVER_HOST } from "./config.js";
 import langColors from "./lib/langColors.js";
@@ -8,11 +7,13 @@ import { MarkdownBlock } from "../js/lib/renderMd.js";
 import foldersTree from "./lib/foldersTree.js";
 import renderFiles from "./lib/renderFiles.js";
 import timeago from "./lib/timeago.js";
-import User from "./models/user.model.js";
 import Repository from "./models/repository.model.js";
+import UserService from "./services/user.service.js"
+
+const userAuthenticated = await UserService.isAuthenticated()
 
 headerSearch();
-userImage();
+userImage(userAuthenticated);
 
 const urlParams = new URLSearchParams(
     location.href.slice(location.href.indexOf("?") + 1),
@@ -31,14 +32,7 @@ if (repo_response.code != 200) {
     });
 }
 
-const user_response = await User.profile(urlParams.get("username"));
-
-if (user_response.code != 200) {
-    showErrorModal(user_response.result.message, {
-        message: "Dashboard",
-        href: "../pages/dashboard.html",
-    });
-}
+const user_profile = await UserService.getProfile(urlParams.get("username"));
 
 const user_liked_response = await Repository.checkLike(
     urlParams.get("repoName"),
@@ -72,7 +66,7 @@ const $repoName = $section1.querySelector("div:nth-of-type(1) span");
 
 const $likes = $section1.querySelector("div:nth-of-type(2) button");
 
-$image.src = user_response.result.data.user_img;
+$image.src = user_profile.user_img;
 $section1.classList.remove("loading");
 $username.querySelector("div:last-child").remove();
 $username.insertAdjacentText("beforeend", urlParams.get("username"));

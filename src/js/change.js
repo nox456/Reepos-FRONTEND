@@ -1,11 +1,13 @@
 import headerSearch from "../js/lib/headerSearch.js";
 import userImage from "../js/lib/userImage.js";
 import showErrorModal from "./lib/errorModal.js";
-import user from "./is_authenticated.js";
 import User from "./models/user.model.js";
+import UserService from "./services/user.service.js"
+
+const user = await UserService.isAuthenticated()
 
 headerSearch();
-userImage();
+userImage(user);
 
 const $form = document.querySelector("main > section > form");
 

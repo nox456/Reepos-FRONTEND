@@ -2,9 +2,12 @@ import headerSearch from "./lib/headerSearch.js";
 import userImage from "./lib/userImage.js";
 import timeago from "./lib/timeago.js";
 import File from "./models/file.model.js";
+import UserService from "./services/user.service.js"
+
+const user = await UserService.isAuthenticated()
 
 headerSearch();
-userImage();
+userImage(user);
 
 const urlParams = new URLSearchParams(
     location.href.slice(location.href.indexOf("?")),

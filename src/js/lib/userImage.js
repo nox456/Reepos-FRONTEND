@@ -1,10 +1,9 @@
-import user from "../is_authenticated.js";
 import User from "../models/user.model.js";
 
 /**
  * Render the user image with a loader in the header
  * */
-export default function userImage() {
+export default function userImage(user) {
     const $user_button = document.querySelector(
         "header > div:last-child > button",
     );
