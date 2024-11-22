@@ -6,6 +6,7 @@ import renderUsers from "./lib/renderUsers.js"
 import User from "./models/user.model.js";
 import Repository from "./models/repository.model.js";
 import UserService from "./services/user.service.js"
+import RepositoryService from "./services/repository.service.js";
 
 const userAuthenticated = await UserService.isAuthenticated()
 
@@ -137,18 +138,18 @@ const $section2 = document.querySelector("main > section:nth-child(2)");
         })
     }
 
-    const res = await Repository.getAll(urlParams.get("username"))
+    const [repos,message] = await RepositoryService.getAll(urlParams.get("username"))
 
     const $repos_container = $section2.querySelector("div:nth-child(1) > div")
 
     $repos_container.innerHTML = ""
 
-    if (res.code == 404) {
-        $repos_container.insertAdjacentHTML("afterbegin","<h2>No hay repositorios...</h2>")
+    if (repos.length == 0) {
+        $repos_container.insertAdjacentHTML("afterbegin",`<h2>${message}</h2>`)
         $section2.querySelector("div:nth-child(1) > a").remove()
     } else {
-        await renderRepos(res.result.data.slice(0,3),$section2.querySelector("div:nth-child(1) > div"))
-        if (res.result.data.length < 4) {
+        await renderRepos(repos.slice(0,3),$section2.querySelector("div:nth-child(1) > div"))
+        if (repos.length < 4) {
             $section2.querySelector("div:nth-child(1) > a").remove()
         } else {
             $section2.querySelector("div:nth-child(1) >  a").href = `../pages/repositories?username=${urlParams.get("username")}`

@@ -2,7 +2,7 @@ import headerSearch from "./lib/headerSearch.js";
 import renderRepos from "./lib/renderRepos.js";
 import filterRepos from "./lib/filterRepos.js";
 import userImage from "./lib/userImage.js";
-import Repository from "./models/repository.model.js"
+import RepositoryService from "./services/repository.service.js"
 import UserService from "./services/user.service.js"
 
 const user = await UserService.isAuthenticated()
@@ -10,18 +10,18 @@ const user = await UserService.isAuthenticated()
 headerSearch();
 userImage(user)
 
-const res = await Repository.getAll(user.username)
+let [repos,message] = await RepositoryService.getAll(user.username)
 
 const $section = document.body.querySelector("main > section")
 const $filtersContainer = document.querySelector("main > form")
-if (res.code != 200) {
+if (repos.length == 0) {
     $section.innerHTML = ""
     const $message = document.createElement("h1")
-    $message.innerText = res.result.message
+    $message.innerText = message
 
     $section.appendChild($message)
 } else {
-    const repos = res.result.data.map(r => {
+    repos = repos.map(r => {
         r.username = user.username
         return r
     })

@@ -1,6 +1,6 @@
 export class Res {
     /**
-     * @param {int} code
+     * @param {number} code
      * @param {{message: string, data: *}}
      * */
     constructor(code, { message, data }) {
@@ -53,9 +53,9 @@ export class UserProfile {
      * @param {string} result.user_name
      * @param {string} result.user_description
      * @param {string} result.user_img
-     * @param {int} result.repos_count
-     * @param {int} result.followers_count
-     * @param {int} result.followed_count
+     * @param {number} result.repos_count
+     * @param {number} result.followers_count
+     * @param {number} result.followed_count
      * */
     constructor({
         user_name,
@@ -78,13 +78,31 @@ export class UserSearched {
      * @param {Object} result
      * @param {string} result.username
      * @param {string} result.img
-     * @param {int} result.followers_count
-     * @param {int} result.repos_count
+     * @param {number} result.followers_count
+     * @param {number} result.repos_count
      * */
     constructor({username,img,followers_count,repos_count}) {
         this.username = username
         this.img = img
         this.followers_count = followers_count
         this.repos_count = repos_count
+    }
+}
+export class RepositoryData {
+    /**
+     * @param {Object} p
+     * @param {string} p.description
+     * @param {string} p.username
+     * @param {number} p.likes
+     * @param {string} p.created_at
+     * @param {string[]} p.languages
+     * */
+    constructor({name,description,likes,created_at,languages}) {
+        this.name = name
+        this.description = description
+        this.username = null
+        this.likes = likes
+        this.created_at = created_at
+        this.languages = languages
     }
 }
