@@ -1,6 +1,6 @@
 import Repository from "../models/repository.model.js";
 import showErrorModal from "../lib/errorModal.js";
-import { RepositoryData } from "../lib/types.js";
+import { RepositoryData, RepositoryFounded } from "../lib/types.js";
 
 export default class RepositoryService {
     /**
@@ -22,4 +22,25 @@ export default class RepositoryService {
             location.reload();
         }
     }
+    /**
+     * @param {string} username
+     * @returns {Promise<RepositoryFounded[]>}
+     * */
+    static async search(username) {
+        const res = await Repository.search(username);
+
+        if (res.code == 500) {
+            showErrorModal(res.result.message, {
+                href: "../../pages/dashboard",
+                message: "Dashboard",
+            });
+        } else {
+            return res.code == 404
+                ? []
+                : res.result.data.map((r) => new RepositoryFounded(r));
+        }
+    }
+    /**
+     *
+     * */
 }

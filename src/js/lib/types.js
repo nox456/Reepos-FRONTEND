@@ -81,11 +81,11 @@ export class UserSearched {
      * @param {number} result.followers_count
      * @param {number} result.repos_count
      * */
-    constructor({username,img,followers_count,repos_count}) {
-        this.username = username
-        this.img = img
-        this.followers_count = followers_count
-        this.repos_count = repos_count
+    constructor({ username, img, followers_count, repos_count }) {
+        this.username = username;
+        this.img = img;
+        this.followers_count = followers_count;
+        this.repos_count = repos_count;
     }
 }
 export class RepositoryData {
@@ -97,12 +97,31 @@ export class RepositoryData {
      * @param {string} p.created_at
      * @param {string[]} p.languages
      * */
-    constructor({name,description,likes,created_at,languages}) {
+    constructor({ name, description, likes, created_at, languages }) {
+        this.name = name;
+        this.description = description;
+        this.username = null;
+        this.likes = likes;
+        this.created_at = created_at;
+        this.languages = languages;
+    }
+}
+export class RepositoryFounded {
+    /**
+     * @param {Object} p
+     * @param {string} p.username
+     * @param {string} p.name
+     * @param {string} p.description
+     * @param {int} p.likes
+     * @param {string[]} p.languages
+     * @param {string} p.created_at
+     * */
+    constructor({ username, name, description, likes, languages, created_at }) {
+        this.username = username
         this.name = name
         this.description = description
-        this.username = null
         this.likes = likes
-        this.created_at = created_at
         this.languages = languages
+        this.created_at = created_at
     }
 }
