@@ -1,9 +1,9 @@
 import headerSearch from "./lib/headerSearch.js";
 import userImage from "./lib/userImage.js";
 import langColors from "./lib/langColors.js";
-import Repository from "./models/repository.model.js";
 import File from "./models/file.model.js"
 import UserService from "./services/user.service.js"
+import RepositoryService from "./services/repository.service.js"
 
 const user = await UserService.isAuthenticated()
 
@@ -95,7 +95,7 @@ $form.addEventListener("submit", async (e) => {
         const res = await File.upload(formData)
         
         if (res.code != 200) {
-            await Repository.temp(name)
+            await RepositoryService.temp(name)
             $dialog.innerText = res.result.message;
 
             $dialog.classList.add("error");
@@ -111,12 +111,12 @@ $form.addEventListener("submit", async (e) => {
             return;
         }
     }
-    const res1 = await Repository.create({
+    const res1 = await RepositoryService.create({
         repoData: { name, description, languages },
     });
-    if (res1.code != 200) {
-        await Repository.temp(name)
-        $dialog.innerText = res1.result.message;
+    if (res1) {
+        await RepositoryService.temp(name)
+        $dialog.innerText = res1;
 
         $dialog.classList.add("error");
         const $button = document.createElement("button");
@@ -131,11 +131,11 @@ $form.addEventListener("submit", async (e) => {
         return;
     }
     $dialog.innerText = "Subiendo Archivos...";
-    const res2 = await Repository.upload(name)
-    if (res2.code != 200) {
-        await Repository.temp(name)
-        await Repository.db(name)
-        $dialog.innerText = res2.result.message;
+    const res2 = await RepositoryService.upload(name)
+    if (res2) {
+        await RepositoryService.temp(name)
+        await RepositoryService.db(name)
+        $dialog.innerText = res2
 
         $dialog.classList.add("error");
         const $button = document.createElement("button");
@@ -149,7 +149,7 @@ $form.addEventListener("submit", async (e) => {
         $dialog.appendChild($button);
         return;
     }
-    await Repository.temp(name)
+    await RepositoryService.temp(name)
     $dialog.innerText = "Repositorio Creado!";
     const $link = document.createElement("a");
     $link.classList.add("link");
