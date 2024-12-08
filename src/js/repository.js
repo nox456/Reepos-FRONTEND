@@ -1,13 +1,11 @@
 import headerSearch from "./lib/headerSearch.js";
 import userImage from "./lib/userImage.js";
-import showErrorModal from "./lib/errorModal.js";
-import { SERVER_HOST } from "./config.js";
 import langColors from "./lib/langColors.js";
 import { MarkdownBlock } from "../js/lib/renderMd.js";
 import foldersTree from "./lib/foldersTree.js";
 import renderFiles from "./lib/renderFiles.js";
 import timeago from "./lib/timeago.js";
-import Repository from "./models/repository.model.js";
+import RepositoryService from "./services/repository.service.js"
 import UserService from "./services/user.service.js"
 
 const userAuthenticated = await UserService.isAuthenticated()
@@ -20,21 +18,15 @@ const urlParams = new URLSearchParams(
 );
 document.title = `${urlParams.get("username")} / ${urlParams.get("repoName")} - Reepos`;
 
-const repo_response = await Repository.info(
+const repo_info = await RepositoryService.info(
     urlParams.get("repoName"),
     urlParams.get("username"),
 );
 
-if (repo_response.code != 200) {
-    showErrorModal(repo_response.result.message, {
-        message: "Dashboard",
-        href: "../pages/dashboard.html",
-    });
-}
 
 const user_profile = await UserService.getProfile(urlParams.get("username"));
 
-const user_liked_response = await Repository.checkLike(
+const isLiked = await RepositoryService.checkLike(
     urlParams.get("repoName"),
     urlParams.get("username"),
 );
@@ -72,9 +64,9 @@ $username.querySelector("div:last-child").remove();
 $username.insertAdjacentText("beforeend", urlParams.get("username"));
 $username.href = `../pages/profile?username=${urlParams.get("username")}`;
 $repoName.innerText = urlParams.get("repoName");
-$likes.querySelector("span").innerText = repo_response.result.data.likes;
+$likes.querySelector("span").innerText = repo_info.likes;
 
-if (user_liked_response.result.data) {
+if (isLiked) {
     $likes.classList.add("liked");
 }
 
@@ -82,23 +74,14 @@ $likes.addEventListener("click", async () => {
     const username = userAuthenticated.username;
     const userOwnerName = urlParams.get("username");
     const repoName = urlParams.get("repoName");
-    let res;
-    if ($likes.classList.contains("liked")) {
-        res = await Repository.removeLike({
+    if (isLiked) {
+        await RepositoryService.removeLike({
             repoName,
             userOwnerName,
             username,
         });
     } else {
-        res = await Repository.like({ repoName, username, userOwnerName });
-    }
-    if (res.code != 200) {
-        showErrorModal(res.result.message, {
-            message: "Dashboard",
-            href: "../pages/dashboard",
-        });
-    } else {
-        location.reload();
+        await RepositoryService.like(repoName, username, userOwnerName);
     }
 });
 
@@ -108,19 +91,19 @@ const $branches = $section2.querySelector("article:nth-of-type(1) p");
 
 $section2.classList.remove("loading");
 $branches.querySelector("span:nth-child(1)").innerText =
-    repo_response.result.data.branches.length;
+    repo_info.branches.length;
 
 $branches.querySelector("span:nth-child(2)").innerText =
-    repo_response.result.data.branches.length > 1 ? "Ramas" : "Rama";
+    repo_info.branches.length > 1 ? "Ramas" : "Rama";
 
 const $branches_dialog = document.querySelector("dialog#branches");
 
 $branches_dialog.querySelector("header > p > span:first-child").innerText =
-    repo_response.result.data.branches.length;
+    repo_info.branches.length;
 $branches_dialog.querySelector("header > p > span:last-child").innerText =
-    repo_response.result.data.branches.length > 1 ? "Ramas" : "Rama";
+    repo_info.branches.length > 1 ? "Ramas" : "Rama";
 
-repo_response.result.data.branches.forEach((branch) => {
+repo_info.branches.forEach((branch) => {
     const $branch = document.createElement("li");
     if (branch.type == "primary") {
         $branch.classList.add("primary");
@@ -133,12 +116,12 @@ const $commits = $section2.querySelector("article:nth-of-type(2)");
 
 $commits
     .querySelector("span")
-    .insertAdjacentText("afterbegin", repo_response.result.data.commits_count);
+    .insertAdjacentText("afterbegin", repo_info.commits_count);
 
 $commits.querySelector("a").href =
     `../pages/commits?repoName=${urlParams.get("repoName")}&username=${urlParams.get("username")}`;
 $commits.querySelector("a").innerText =
-    repo_response.result.data.commits_count > 1 ? "Commits" : "Commit";
+    repo_info.commits_count > 1 ? "Commits" : "Commit";
 
 const $contributors = $section2.querySelector("article:nth-of-type(3)");
 
@@ -146,52 +129,22 @@ $contributors
     .querySelector("span")
     .insertAdjacentText(
         "afterbegin",
-        repo_response.result.data.contributors_count,
+        repo_info.contributors_count,
     );
 $contributors.querySelector("a").href =
     `../pages/contributors?repoName=${urlParams.get("repoName")}&username=${urlParams.get("username")}`;
 $contributors.querySelector("a").innerText =
-    repo_response.result.data.contributors_count > 1
+    repo_info.contributors_count > 1
         ? "Contribuidores"
         : "Contribuidor";
 
 const $download = $section2.querySelector("& > button");
 
 $download.addEventListener("click", async () => {
-    const $dialog = document.createElement("dialog");
-
-    const $message = document.createElement("p");
-
-    $message.innerText = "Procesando...";
-
-    $dialog.appendChild($message);
-
-    document.body.insertAdjacentElement("afterbegin", $dialog);
-
-    $dialog.showModal();
-    const res = await Repository.download(
+    await RepositoryService.download(
         urlParams.get("repoName"),
         urlParams.get("username"),
     );
-
-    const $button = document.createElement("button");
-    $button.classList.add("link");
-    if (res.code != 200) {
-        $button.innerText = "Recargar";
-        $message.innerText = res.result.message;
-        $button.addEventListener("click", () => {
-            location.reload();
-        });
-    } else {
-        $button.innerText = "Aceptar";
-        $message.innerText = "Repositorio descargado!";
-        location.href = `${SERVER_HOST}/${res.result.data}`;
-        $button.addEventListener("click", async () => {
-            await Repository.zip(res.result.data);
-            location.reload();
-        });
-    }
-    $dialog.appendChild($button);
 });
 
 const $section3 = $main.querySelector("section:nth-of-type(3)");
@@ -201,11 +154,11 @@ const $aside = $section3.querySelector("& > aside");
 const $description = $aside.querySelector("& > p");
 
 $aside.classList.remove("loading");
-$description.innerText = repo_response.result.data.description;
+$description.innerText = repo_info.description;
 
 const $languages = $aside.querySelector("& > ul");
 
-repo_response.result.data.languages.forEach((lang) => {
+repo_info.languages.forEach((lang) => {
     const $li = document.createElement("li");
     const $color = document.createElement("div");
     $color.style.backgroundColor = langColors[lang];
@@ -224,19 +177,19 @@ const $last_commit_section = $section3_main.querySelector(
 const $last_commit_author =
     $last_commit_section.querySelector("span:first-child");
 $section3_main.classList.remove("loading");
-$last_commit_author.innerText = repo_response.result.data.last_commit.author;
+$last_commit_author.innerText = repo_info.last_commit.author;
 
 const $last_commit_title = $last_commit_section.querySelector(
     "& > p:nth-of-type(1) > a",
 );
-$last_commit_title.href = `../pages/commit?hash=${repo_response.result.data.last_commit.hash}&repoName=${urlParams.get("repoName")}&username=${urlParams.get("username")}`;
-$last_commit_title.innerText = repo_response.result.data.last_commit.title;
+$last_commit_title.href = `../pages/commit?hash=${repo_info.last_commit.hash}&repoName=${urlParams.get("repoName")}&username=${urlParams.get("username")}`;
+$last_commit_title.innerText = repo_info.last_commit.title;
 
 const $last_commit_created_at = $last_commit_section.querySelector(
     "& > p:nth-of-type(2) > span",
 );
 
-const created_at = new Date(repo_response.result.data.last_commit.created_at);
+const created_at = new Date(repo_info.last_commit.created_at);
 const created_at_relative = timeago({
     year: created_at.getFullYear(),
     month: created_at.getMonth() + 1,
@@ -246,10 +199,10 @@ const created_at_relative = timeago({
 $last_commit_created_at.innerText = created_at_relative;
 
 const $section4 = $main.querySelector("section:nth-of-type(4)");
-if (repo_response.result.data.readme) {
+if (repo_info.readme) {
     const $readme = new MarkdownBlock();
 
-    $readme.mdContent = repo_response.result.data.readme;
+    $readme.mdContent = repo_info.readme;
 
     $section4.appendChild($readme);
 } else {
@@ -258,7 +211,7 @@ if (repo_response.result.data.readme) {
     $section4.appendChild($no_readme_message);
 }
 
-const files = repo_response.result.data.files;
+const files = repo_info.files;
 
 let tree = {};
 

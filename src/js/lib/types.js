@@ -112,16 +112,54 @@ export class RepositoryFounded {
      * @param {string} p.username
      * @param {string} p.name
      * @param {string} p.description
-     * @param {int} p.likes
+     * @param {Number} p.likes
      * @param {string[]} p.languages
      * @param {string} p.created_at
      * */
     constructor({ username, name, description, likes, languages, created_at }) {
-        this.username = username
-        this.name = name
-        this.description = description
-        this.likes = likes
-        this.languages = languages
-        this.created_at = created_at
+        this.username = username;
+        this.name = name;
+        this.description = description;
+        this.likes = likes;
+        this.languages = languages;
+        this.created_at = created_at;
+    }
+}
+export class RepositoryInfo {
+    /**
+     * @param {Object} p
+     * @param {string} p.name
+     * @param {string} p.description
+     * @param {Number} p.likes
+     * @param {string[]} p.languages
+     * @param {Number} p.commits_count
+     * @param {Number} p.contributors_count
+     * @param {?string} p.readme
+     * @param {{ title: string, author: string, created_at: string, hash: string }} p.last_commit
+     * @param {{ name: string, type: string }[]} p.branches
+     * @param {{ id: string, last_commit_created_at: string, last_commit_hash: string, last_commit_title: string, name: string, path: string, size: string, url: string }[]} p.files
+     * */
+    constructor({
+        name,
+        description,
+        likes,
+        languages,
+        commits_count,
+        contributors_count,
+        readme,
+        last_commit,
+        branches,
+        files,
+    }) {
+        this.name = name;
+        this.description = description;
+        this.likes = likes;
+        this.languages = languages;
+        this.commits_count = commits_count;
+        this.contributors_count = contributors_count;
+        this.readme = readme;
+        this.last_commit = last_commit;
+        this.branches = branches;
+        this.files = files;
     }
 }

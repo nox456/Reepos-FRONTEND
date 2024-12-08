@@ -8,7 +8,7 @@ let DOMPurify = window.DOMPurify;
 let Prism = window.Prism;
 
 export const URLs = {
-	marked: "https://cdn.jsdelivr.net/npm/marked/src/marked.min.js",
+	marked: "https://cdn.jsdelivr.net/npm/marked@5.1.2/src/marked.min.js",
 	DOMPurify: "https://cdn.jsdelivr.net/npm/dompurify@2.3.3/dist/purify.es.min.js",
     Prism: "../lib/prism.js",
     PrismCSS: "../../css/prism.css"
@@ -115,11 +115,6 @@ export class MarkdownElement extends HTMLElement {
 				link.href = URLs.PrismCSS;
 				document.head.appendChild(link);
 			}
-		}
-
-		if (Prism) {
-			await Prism; // in case it's still loading
-			Prism.highlightAllUnder(this);
 		}
 
 		if (this.src) {
