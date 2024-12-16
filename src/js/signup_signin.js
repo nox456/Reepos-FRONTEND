@@ -10,5 +10,5 @@ const pageName = location.pathname.slice(
 
 $form.addEventListener("submit", async (e) => {
     e.preventDefault();
-    await UserService.sign($username.value, $password.value, pageName == "signup")
+    await UserService.sign($username.value, $password.value, pageName.includes("signup"))
 });
