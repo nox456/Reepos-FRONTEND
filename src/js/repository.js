@@ -58,7 +58,7 @@ const $repoName = $section1.querySelector("div:nth-of-type(1) span");
 
 const $likes = $section1.querySelector("div:nth-of-type(2) button");
 
-$image.src = user_profile.user_img;
+$image.src = user_profile.user_img == "" ?  "../resources/images/default_user_image.png" : user_profile.user_img;
 $section1.classList.remove("loading");
 $username.querySelector("div:last-child").remove();
 $username.insertAdjacentText("beforeend", urlParams.get("username"));

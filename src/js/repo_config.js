@@ -35,7 +35,7 @@ $section1.classList.remove("loading");
 const $title = $section1.querySelector("a:first-child");
 
 $title.href = `../pages/profile?username=${urlParams.get("username")}`;
-$title.querySelector("button > img").src = user_response.result.data.user_img;
+$title.querySelector("button > img").src = user_response.result.data.user_img == "" ?  "../resources/images/default_user_image.png" : user_response.result.data.user_img;
 $title.querySelector("div").innerText = urlParams.get("username");
 
 const $repoName = $section1.querySelector("a:nth-of-type(2)");

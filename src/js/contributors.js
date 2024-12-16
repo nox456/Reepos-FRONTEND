@@ -28,7 +28,7 @@ $section1.classList.remove("loading");
 const $image = $section1.querySelector("& > div > a:first-child");
 
 $image.href = `../pages/profile?username=${username}`;
-$image.querySelector("img").src = user_profile.user_img;
+$image.querySelector("img").src = user_profile.user_img == "" ?  "../resources/images/default_user_image.png" : user_profile.user_img;
 $image.querySelector("div").innerText = user_profile.user_name;
 
 $section1.querySelector("a:nth-child(2)").innerText = repoName;

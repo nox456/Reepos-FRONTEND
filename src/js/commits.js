@@ -23,7 +23,7 @@ const $img = $section1.querySelector(
 );
 
 $section1.classList.remove("loading");
-$img.src = user_profile.user_img;
+$img.src = user_profile.user_img == "" ?  "../resources/images/default_user_image.png" : user_profile.user_img;
 
 const $username = $section1.querySelector(
     "div:first-of-type > a:first-of-type",
