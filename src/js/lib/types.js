@@ -191,15 +191,38 @@ export class CommitFullData {
      * @param {string} p.created_at
      * @param {{name: string, size: string, type: string }[]} p.files
      * */
-    constructor({ title, hash, author, branch, content, next_commit_hash, prev_commit_hash, created_at, files }) {
-        this.title = title
-        this.hash = hash
-        this.author = author
-        this.branch = branch
-        this.content = content
-        this.next_commit_hash = next_commit_hash
-        this.prev_commit_hash = prev_commit_hash
-        this.created_at = created_at
-        this.files = files
+    constructor({
+        title,
+        hash,
+        author,
+        branch,
+        content,
+        next_commit_hash,
+        prev_commit_hash,
+        created_at,
+        files,
+    }) {
+        this.title = title;
+        this.hash = hash;
+        this.author = author;
+        this.branch = branch;
+        this.content = content;
+        this.next_commit_hash = next_commit_hash;
+        this.prev_commit_hash = prev_commit_hash;
+        this.created_at = created_at;
+        this.files = files;
+    }
+}
+export class ContributorData {
+    /**
+     * @param {Object} p
+     * @param {string} p.name
+     * @param {Number} p.commits_created
+     * @param {{ title: string, hash: string }} p.last_commit
+     * */
+    constructor({ name, commits_created, last_commit }) {
+        this.name = name;
+        this.commits_created = commits_created;
+        this.last_commit = last_commit;
     }
 }

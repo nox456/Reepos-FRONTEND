@@ -1,10 +1,9 @@
 import userImage from "./lib/userImage.js";
 import headerSearch from "./lib/headerSearch.js";
-import showErrorModal from "./lib/errorModal.js";
 import renderContributors from "./lib/renderContributors.js";
 import filterContributors from "./lib/filterContributors.js";
-import Contributor from "./models/contributor.model.js";
 import UserService from "./services/user.service.js"
+import ContributorService from "./services/contributor.service.js";
 
 const user = await UserService.isAuthenticated()
 
@@ -20,14 +19,7 @@ const username = urlParams.get("username");
 
 const user_profile = await UserService.getProfile(username);
 
-const contributors_response = await Contributor.getAll(repoName, username);
-
-if (contributors_response.code != 200) {
-    showErrorModal(contributors_response.result.message, {
-        href: "../pages/dashboard.html",
-        message: "Dashboard",
-    });
-}
+const contributors = await ContributorService.getAll(repoName, username);
 
 const $section1 = document.querySelector("body > main > section:first-child");
 
@@ -51,12 +43,12 @@ const $form = $section2.querySelector("form");
 
 const $list = document.querySelector("body > main > ul");
 
-renderContributors(contributors_response.result.data, $list, {
+renderContributors(contributors, $list, {
     username,
     repoName,
 });
 
-filterContributors(contributors_response.result.data, $list, $form, {
+filterContributors(contributors, $list, $form, {
     username,
     repoName,
 });
