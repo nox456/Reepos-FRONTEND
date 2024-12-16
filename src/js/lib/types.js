@@ -226,3 +226,24 @@ export class ContributorData {
         this.last_commit = last_commit;
     }
 }
+export class FileData {
+    /**
+     * @param {Object} p
+     * @param {string} p.name
+     * @param {string} p.size
+     * @param {string} p.path
+     * @param {string} p.url
+     * @param {string} p.language
+     * @param {string} p.content
+     * @param {{ title: string, hash: string, created_at: string }} p.last_commit
+     * */
+    constructor({ name, size, path, url, language, content, last_commit }) {
+        this.name = name;
+        this.size = size;
+        this.path = path;
+        this.url = url;
+        this.language = language;
+        this.content = content;
+        this.last_commit = last_commit;
+    }
+}

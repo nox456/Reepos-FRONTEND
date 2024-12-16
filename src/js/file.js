@@ -1,8 +1,8 @@
 import headerSearch from "./lib/headerSearch.js";
 import userImage from "./lib/userImage.js";
 import timeago from "./lib/timeago.js";
-import File from "./models/file.model.js";
 import UserService from "./services/user.service.js"
+import FileService from "./services/file.service.js";
 
 const user = await UserService.isAuthenticated()
 
@@ -17,10 +17,7 @@ const repoName = urlParams.get("repoName");
 const fileId = urlParams.get("fileId");
 const username = urlParams.get("username");
 
-const file_response = await File.info({ repoName, username, fileId });
-console.log(file_response)
-
-const file = file_response.result.data;
+const file = await FileService.info({ repoName, username, fileId });
 
 const extension = file.name.slice(file.name.lastIndexOf(".") + 1);
 

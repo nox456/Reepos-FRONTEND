@@ -1,9 +1,9 @@
 import headerSearch from "./lib/headerSearch.js";
 import userImage from "./lib/userImage.js";
 import langColors from "./lib/langColors.js";
-import File from "./models/file.model.js"
 import UserService from "./services/user.service.js"
 import RepositoryService from "./services/repository.service.js"
+import FileService from "./services/file.service.js";
 
 const user = await UserService.isAuthenticated()
 
@@ -92,11 +92,11 @@ $form.addEventListener("submit", async (e) => {
 
         formData.append("file", file);
 
-        const res = await File.upload(formData)
+        const message = await FileService.upload(formData)
         
-        if (res.code != 200) {
+        if (message) {
             await RepositoryService.temp(name)
-            $dialog.innerText = res.result.message;
+            $dialog.innerText = message;
 
             $dialog.classList.add("error");
             const $button = document.createElement("button");
