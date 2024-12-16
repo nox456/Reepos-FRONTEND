@@ -163,3 +163,43 @@ export class RepositoryInfo {
         this.files = files;
     }
 }
+export class CommitData {
+    /**
+     * @param {Object} p
+     * @param {string} p.title
+     * @param {string} p.hash
+     * @param {string} p.author
+     * @param {string} p.created_at
+     * */
+    constructor({ title, hash, author, created_at }) {
+        this.title = title;
+        this.hash = hash;
+        this.author = author;
+        this.created_at = created_at;
+    }
+}
+export class CommitFullData {
+    /**
+     * @param {Object} p
+     * @param {string} p.title
+     * @param {string} p.hash
+     * @param {string} p.author
+     * @param {string} p.branch
+     * @param {string} p.content
+     * @param {string} p.next_commit_hash
+     * @param {string} p.prev_commit_hash
+     * @param {string} p.created_at
+     * @param {{name: string, size: string, type: string }[]} p.files
+     * */
+    constructor({ title, hash, author, branch, content, next_commit_hash, prev_commit_hash, created_at, files }) {
+        this.title = title
+        this.hash = hash
+        this.author = author
+        this.branch = branch
+        this.content = content
+        this.next_commit_hash = next_commit_hash
+        this.prev_commit_hash = prev_commit_hash
+        this.created_at = created_at
+        this.files = files
+    }
+}

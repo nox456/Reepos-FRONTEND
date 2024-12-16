@@ -1,11 +1,9 @@
 import userImage from "./lib/userImage.js";
 import headerSearch from "./lib/headerSearch.js";
-import showErrorModal from "./lib/errorModal.js";
 import filterCommits from "./lib/filterCommits.js";
 import renderCommits from "./lib/renderCommits.js";
-import User from "./models/user.model.js";
-import Commit from "./models/commit.model.js";
 import UserService from "./services/user.service.js"
+import CommitService from "./services/commit.service.js";
 
 const user = await UserService.isAuthenticated()
 
@@ -41,27 +39,19 @@ const $repo_name = $section1.querySelector(
 $repo_name.innerText = urlParams.get("repoName");
 $repo_name.href = `../pages/repository?username=${user_profile.user_name}&repoName=${urlParams.get("repoName")}`;
 
-const res = await Commit.getAll(
+const commits = await CommitService.getAll(
     urlParams.get("repoName"),
     urlParams.get("username"),
 );
 
-if (res.code != 200) {
-    showErrorModal(res.result.message, {
-        href: "../pages/dashboard",
-        message: "Dashboard",
-    });
-} else {
-    const commits = res.result.data;
-    const $ul = document.querySelector("main > ul");
+const $ul = document.querySelector("main > ul");
 
-    renderCommits(commits, $ul, {
-        username: urlParams.get("username"),
-        repoName: urlParams.get("repoName"),
-    });
+renderCommits(commits, $ul, {
+    username: urlParams.get("username"),
+    repoName: urlParams.get("repoName"),
+});
 
-    filterCommits(commits, $ul, {
-        username: urlParams.get("username"),
-        repoName: urlParams.get("repoName"),
-    });
-}
+filterCommits(commits, $ul, {
+    username: urlParams.get("username"),
+    repoName: urlParams.get("repoName"),
+});

@@ -1,11 +1,9 @@
 import userImage from "./lib/userImage.js";
 import headerSearch from "./lib/headerSearch.js";
-import showErrorModal from "./lib/errorModal.js";
 import timeago from "./lib/timeago.js";
 import { MOD_ICONS, MOD_COLORS, MOD_DESCRIPT } from "./lib/modifications.js";
-import User from "./models/user.model.js";
-import Commit from "./models/commit.model.js";
 import UserService from "./services/user.service.js"
+import CommitService from "./services/commit.service.js";
 
 const user = await UserService.isAuthenticated()
 
@@ -39,24 +37,15 @@ const $commitHash = $section1.querySelector("span:last-child");
 
 $commitHash.innerText = urlParams.get("hash").slice(0, 7);
 
-const commit_response = await Commit.info(
+const commit= await CommitService.info(
     urlParams.get("hash"),
     urlParams.get("repoName"),
     urlParams.get("username"),
 );
 
-if (commit_response.code != 200) {
-    showErrorModal(commit_response.result.message, {
-        href: "../pages/dashboard",
-        message: "Dashboard",
-    });
-}
-
 const $section2 = document.querySelector(
     "body > main > section:nth-of-type(2)",
 );
-
-const commit = commit_response.result.data;
 
 const $section2_header = $section2.querySelector("header");
 
